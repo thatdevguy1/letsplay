@@ -38,7 +38,11 @@ async function updateUser(req, res) {
 }
 
 async function login(req, res) {
-  res.send({ message: "Successfully Authenticated", response: true });
+  res.send({
+    message: "Successfully Authenticated",
+    response: true,
+    user: req.user,
+  });
 }
 
 async function register(req, res) {

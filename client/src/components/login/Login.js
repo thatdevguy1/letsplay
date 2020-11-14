@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
-import axios from "axios";
+import React, { useRef, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import signIn from "../../store/actions";
+import { signIn } from "../../store/actions";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -11,7 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -37,11 +37,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login() {
+function Login(props) {
   const classes = useStyles();
   const form = useRef(null);
   const dispatch = useDispatch();
-  const isLogged = useSelector((state) => state.auth);
+  const history = useHistory();
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user.authenticated) history.push("/dashboard");
+  });
 
   const login = async (e) => {
     e.preventDefault();
@@ -56,7 +61,6 @@ function Login() {
 
   return (
     <Container component="main" maxWidth="xs">
-      {isLogged ? <h1>LOGGED IN</h1> : ""}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

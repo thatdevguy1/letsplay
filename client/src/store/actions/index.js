@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const singIn = (payload) => {
+export const signIn = (payload) => {
   return async (dispatch) => {
     var config = {
       method: "post",
@@ -13,15 +13,17 @@ const singIn = (payload) => {
 
     let response = await axios(config);
 
-    console.log(response);
-
     if (response && response.data.response == true) {
       dispatch({
         type: "SIGN_IN",
-        action: response,
+        payload: response,
       });
     }
   };
 };
 
-export default singIn;
+export const signOut = () => {
+  return {
+    type: "SIGN_OUT",
+  };
+};
