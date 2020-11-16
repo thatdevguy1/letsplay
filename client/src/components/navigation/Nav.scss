@@ -1,0 +1,21 @@
+.navbar {
+  border: solid 1px black;
+  display: flex;
+  justify-content: space-around;
+
+  .searchBar {
+    width: 50%;
+    height: 50px;
+    border: solid 1px red;
+    align-self: center;
+  }
+
+  .userNav {
+    display: flex;
+    flex-direction: column;
+
+    h4 {
+      margin-bottom: 2px;
+    }
+  }
+}

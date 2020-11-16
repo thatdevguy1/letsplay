@@ -4,7 +4,8 @@ const User = require("../models/user");
 async function findAllEvents(req, res) {
   try {
     const events = await Event.find({}).populate("creator");
-    res.send({ ...events, response: true });
+    console.log(events);
+    res.send({ events, response: true });
   } catch (err) {
     res.status(500).send({ message: err.message, response: false });
   }

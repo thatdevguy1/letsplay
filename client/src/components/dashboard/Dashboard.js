@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signOut } from "../../store/actions";
 import axios from "axios";
+import Events from "./events/Events";
 
 function Dashboard() {
   const user = useSelector((state) => state.user);
@@ -19,7 +20,9 @@ function Dashboard() {
   });
 
   const authenticateCurrentUser = async () => {
-    let currentUser = await axios.get("http://localhost:8080/api/currentUser");
+    let currentUser = await axios.get(
+      process.env.REACT_APP_BASE_API + "/currentUser"
+    );
 
     console.log(currentUser);
     if (
@@ -33,8 +36,7 @@ function Dashboard() {
 
   return (
     <div>
-      <h1>Welcome to the Dashboard {user ? user.username : ""}</h1>
-      <h2>Your ID is {user ? user.userId : ""}</h2>
+      <Events />
     </div>
   );
 }

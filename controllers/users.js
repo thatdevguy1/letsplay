@@ -45,6 +45,14 @@ async function login(req, res) {
   });
 }
 
+async function logout(req, res) {
+  req.logout();
+  res.send({
+    message: "Successfully logged out",
+    response: true,
+  });
+}
+
 async function register(req, res) {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
@@ -68,4 +76,5 @@ module.exports = {
   updateUser,
   login,
   register,
+  logout,
 };

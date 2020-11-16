@@ -11,6 +11,8 @@ function checkAuthenticated(req, res, next) {
 
 router.post("/login", passport.authenticate("local"), userCtrl.login);
 
+router.post("/logout", checkAuthenticated, userCtrl.logout);
+
 router.post("/register", userCtrl.register);
 
 router.get("/getUser", checkAuthenticated, userCtrl.findUser);
