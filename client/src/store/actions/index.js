@@ -70,3 +70,29 @@ export const getEvents = () => {
     }
   };
 };
+
+export const createEvent = () => {
+  return async (dispatch) => {
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_BASE_API + "/createEvent",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      let response = await axios(config);
+
+      if (response && response.data.response === true) {
+        console.log(response);
+        dispatch({
+          type: "createEvent",
+          payload: response,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
