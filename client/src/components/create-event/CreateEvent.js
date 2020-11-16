@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signOut } from "../../store/actions";
+import { signOut, setUser } from "../../store/actions";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -14,26 +14,19 @@ function CreateEvent() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user.authenticated === true) {
-      authenticateCurrentUser();
-    } else {
-      dispatch(signOut());
-      history.push("/");
-    }
-  });
+    authenticateCurrentUser();
+  }, []);
 
   const authenticateCurrentUser = async () => {
     let currentUser = await axios.get(
       process.env.REACT_APP_BASE_API + "/currentUser"
     );
 
-    console.log(currentUser);
-    if (
-      user.userId != currentUser.data._id ||
-      user.username != currentUser.data.username
-    ) {
+    if (currentUser.data.response === false) {
       dispatch(signOut());
       history.push("/");
+    } else {
+      dispatch(setUser(currentUser));
     }
   };
 

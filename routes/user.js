@@ -18,7 +18,7 @@ router.post("/register", userCtrl.register);
 router.get("/getUser", checkAuthenticated, userCtrl.findUser);
 
 router.get("/currentUser", checkAuthenticated, (req, res) => {
-  res.send(req.user);
+  res.send({ user: { ...req.user._doc, response: true } });
 });
 
 module.exports = router;

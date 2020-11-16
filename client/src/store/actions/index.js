@@ -22,6 +22,13 @@ export const signIn = (payload) => {
   };
 };
 
+export const setUser = (payload) => {
+  return {
+    type: "SIGN_IN",
+    payload: payload,
+  };
+};
+
 export const signOut = () => {
   return async (dispatch) => {
     var config = {
@@ -71,28 +78,29 @@ export const getEvents = () => {
   };
 };
 
-export const createEvent = () => {
-  return async (dispatch) => {
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_BASE_API + "/createEvent",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+//NOT NEEDED RIGHT NOW... CREATING AN EVENT DOESN'T NEED TO CHANGE STATE
+// export const createEvent = () => {
+//   return async (dispatch) => {
+//     var config = {
+//       method: "post",
+//       url: process.env.REACT_APP_BASE_API + "/createEvent",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     };
 
-    try {
-      let response = await axios(config);
+//     try {
+//       let response = await axios(config);
 
-      if (response && response.data.response === true) {
-        console.log(response);
-        dispatch({
-          type: "createEvent",
-          payload: response,
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-};
+//       if (response && response.data.response === true) {
+//         console.log(response);
+//         dispatch({
+//           type: "createEvent",
+//           payload: response,
+//         });
+//       }
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+// };

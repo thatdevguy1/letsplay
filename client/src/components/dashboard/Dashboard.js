@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signOut } from "../../store/actions";
+import { signOut, setUser } from "../../store/actions";
 import axios from "axios";
 import Events from "./events/Events";
 
@@ -11,26 +11,19 @@ function Dashboard() {
   const history = useHistory();
 
   useEffect(() => {
-    if (user.authenticated === true) {
-      authenticateCurrentUser();
-    } else {
-      dispatch(signOut());
-      history.push("/");
-    }
-  });
+    authenticateCurrentUser();
+  }, []);
 
   const authenticateCurrentUser = async () => {
     let currentUser = await axios.get(
       process.env.REACT_APP_BASE_API + "/currentUser"
     );
 
-    console.log(currentUser);
-    if (
-      user.userId != currentUser.data._id ||
-      user.username != currentUser.data.username
-    ) {
+    if (currentUser.data.response === false) {
       dispatch(signOut());
       history.push("/");
+    } else {
+      dispatch(setUser(currentUser));
     }
   };
 

@@ -11,6 +11,7 @@ function Nav() {
 
   const logout = () => {
     dispatch(signOut());
+    history.push("/");
   };
 
   const createEvent = () => {
