@@ -5,6 +5,7 @@ const auth = (state = { authenticated: false }, action) => {
         authenticated: true,
         username: action.payload.data.user.username,
         userId: action.payload.data.user._id,
+        events: action.payload.data.user.events,
       };
     case "SIGN_OUT":
       return {

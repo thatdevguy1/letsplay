@@ -3,19 +3,26 @@ const User = require("../models/user");
 
 async function findAllEvents(req, res) {
   try {
-    const events = await Event.find({}).populate("creator");
+    const events = await Event.find({})
+      .populate("creator")
+      .populate("participants");
     res.send({ events, response: true });
   } catch (err) {
-    res.status(500).send({ message: err.message, response: false });
+    res.send({ message: err.message, response: false });
   }
 }
 
 async function findEvent(req, res) {
+  console.log(req.query);
   try {
-    const event = await Event.findOne({ _id: req.body.id });
+    const event = await Event.findOne({ _id: req.query.id })
+      .populate("creator")
+      .populate("participants");
+
+    console.log(event);
     res.send({ ...event, response: true });
   } catch (err) {
-    res.status(500).send({ message: err.message, response: false });
+    res.send({ message: err.message, response: false });
   }
 }
 
@@ -36,7 +43,7 @@ async function updateEvent(req, res) {
     }
   } catch (err) {
     console.log(err.message);
-    res.status(500).send({ message: "Something went wrong!", response: false });
+    res.send({ message: "Something went wrong!", response: false });
   }
 }
 
@@ -53,7 +60,7 @@ async function deleteEvent(req, res) {
       });
     }
   } catch (err) {
-    res.status(500).send({ message: err.message, response: false });
+    res.send({ message: err.message, response: false });
   }
 }
 
@@ -68,7 +75,7 @@ async function createEvent(req, res) {
     );
     res.send({ ...event, response: true });
   } catch (err) {
-    res.status(500).send({ message: err, response: false });
+    res.send({ message: err, response: false });
   }
 }
 
@@ -92,7 +99,7 @@ async function joinEvent(req, res) {
       res.send({ ...updatedEvent, response: true });
     }
   } catch (err) {
-    res.status(500).send({ message: err.message, response: false });
+    res.send({ message: err.message, response: false });
   }
 }
 

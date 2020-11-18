@@ -16,7 +16,7 @@ async function createUser(req, res) {
 
 async function findUser(req, res) {
   try {
-    let user = await User.findOne({ _id: req.body.id });
+    let user = await User.findOne({ _id: req.body.id }).populate("events");
     delete user._doc.password;
     res.send({ ...user, response: true });
   } catch (err) {

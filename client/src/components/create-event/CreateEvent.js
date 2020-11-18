@@ -25,7 +25,7 @@ function CreateEvent() {
     if (currentUser.data.response === false) {
       dispatch(signOut());
       history.push("/");
-    } else {
+    } else if (currentUser.data.user._id !== user.userId) {
       dispatch(setUser(currentUser));
     }
   };

@@ -18,6 +18,10 @@ function Nav() {
     history.push("/create-event");
   };
 
+  const gotoProfile = () => {
+    history.push("/profile");
+  };
+
   return (
     <div className="navbar">
       <h1>LetsPlay!</h1>
@@ -27,6 +31,7 @@ function Nav() {
           <h4>Welcome {user.username}</h4>
           <button onClick={createEvent}>Create Event</button>
           <button onClick={logout}>Logout</button>
+          <button onClick={gotoProfile}>Profile</button>
         </div>
       ) : (
         ""

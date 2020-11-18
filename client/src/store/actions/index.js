@@ -78,29 +78,34 @@ export const getEvents = () => {
   };
 };
 
-//NOT NEEDED RIGHT NOW... CREATING AN EVENT DOESN'T NEED TO CHANGE STATE
-// export const createEvent = () => {
-//   return async (dispatch) => {
-//     var config = {
-//       method: "post",
-//       url: process.env.REACT_APP_BASE_API + "/createEvent",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     };
+export const getEvent = (id) => {
+  return async (dispatch) => {
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_BASE_API + `/getEvent?id=${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-//     try {
-//       let response = await axios(config);
+    try {
+      let response = await axios(config);
 
-//       if (response && response.data.response === true) {
-//         console.log(response);
-//         dispatch({
-//           type: "createEvent",
-//           payload: response,
-//         });
-//       }
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-// };
+      if (response && response.data.response === true) {
+        dispatch({
+          type: "selectEvent",
+          payload: response.data._doc,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const selectEvent = (payload) => {
+  return {
+    type: "selectEvent",
+    payload: payload,
+  };
+};

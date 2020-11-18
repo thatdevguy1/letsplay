@@ -6,7 +6,7 @@ import "./Events.scss";
 
 function Events() {
   const dispatch = useDispatch();
-  const events = useSelector((state) => state.events);
+  const eventsInfo = useSelector((state) => state.eventsInfo);
 
   useEffect(() => {
     dispatch(getEvents());
@@ -14,8 +14,8 @@ function Events() {
 
   return (
     <div className="events">
-      {events ? (
-        events.map((event) => {
+      {eventsInfo ? (
+        eventsInfo.events.map((event) => {
           return <Event key={event._id} eventData={event} />;
         })
       ) : (

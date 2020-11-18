@@ -1,10 +1,10 @@
 import auth from "./auth";
-import events from "./events";
+import eventsInfo from "./events";
 import { combineReducers } from "redux";
 
 const rootReducers = combineReducers({
   user: auth,
-  events,
+  eventsInfo,
 });
 
 export default rootReducers;

@@ -1,5 +1,8 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
+import { selectEvent } from "../../../../store/actions";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -19,6 +22,14 @@ const useStyles = makeStyles({
 
 function Event(props) {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const eventInfo = (eventData) => {
+    dispatch(selectEvent(eventData));
+    history.push(`/event-information?id=${eventData._id}`);
+  };
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -35,6 +46,7 @@ function Event(props) {
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {props.eventData.description}
+            Created by: {props.eventData.creator.username}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -42,7 +54,14 @@ function Event(props) {
         <Button size="small" color="primary">
           Share
         </Button>
-        <Button size="small" color="primary">
+        <Button
+          size="small"
+          color="primary"
+          onClick={(e) => {
+            e.preventDefault();
+            eventInfo(props.eventData);
+          }}
+        >
           Learn More
         </Button>
       </CardActions>

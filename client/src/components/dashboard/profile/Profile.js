@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signOut, setUser } from "../../store/actions";
+import { signOut, setUser } from "../../../store/actions";
 import axios from "axios";
-import Events from "./events/Events";
+import Event from "../events/event/Event";
 
-function Dashboard() {
+function Profile() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -28,10 +28,15 @@ function Dashboard() {
   };
 
   return (
-    <div>
-      <Events />
+    <div className="profile">
+      <h1>Profile</h1>
+      <h4>Username: {user.username}</h4>
+      <h4>Current Events You're In</h4>
+      {user.events.map((event) => {
+        return <Event key={event._id} eventData={event} />;
+      })}
     </div>
   );
 }
 
-export default Dashboard;
+export default Profile;
