@@ -27,7 +27,6 @@ function EventInformation() {
 
     if (currentUser.data.response === false) {
       dispatch(signOut());
-      history.push("/");
     } else if (currentUser.data.user._id !== user.userId) {
       dispatch(setUser(currentUser));
     }
@@ -41,7 +40,7 @@ function EventInformation() {
           <dt>{eventInfo.selectedEvent.name}</dt>
           <dt>{eventInfo.selectedEvent.description}</dt>
           <dt>{eventInfo.selectedEvent.location.address}</dt>
-          <dt>{eventInfo.selectedEvent.creator.username}</dt>
+          <dt>{eventInfo.selectedEvent.public.toString()}</dt>
           <dt>
             <h3>Participants</h3>
           </dt>

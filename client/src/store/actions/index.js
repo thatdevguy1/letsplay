@@ -22,6 +22,23 @@ export const signIn = (payload) => {
   };
 };
 
+export const register = (payload) => {
+  return async (dispatch) => {
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_BASE_API + "/register",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: payload,
+    };
+
+    let response = await axios(config);
+
+    signIn(response);
+  };
+};
+
 export const setUser = (payload) => {
   return {
     type: "SIGN_IN",
@@ -65,10 +82,35 @@ export const getEvents = () => {
 
     try {
       let response = await axios(config);
-
+      console.log("getEvents res: ", response);
       if (response && response.data.response === true) {
         dispatch({
           type: "getEvents",
+          payload: response,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getMyEvents = () => {
+  return async (dispatch) => {
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_BASE_API + "/getMyEvents",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      let response = await axios(config);
+      console.log("Myevents are: ", response);
+      if (response && response.data.response === true) {
+        dispatch({
+          type: "toggleMyEvents",
           payload: response,
         });
       }

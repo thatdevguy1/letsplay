@@ -17,9 +17,6 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path="/">
-            <Login />
-          </Route>
-          <Route path="/dashboard">
             <Dashboard />
           </Route>
           <Route path="/create-event">
@@ -27,9 +24,6 @@ function App() {
           </Route>
           <Route path="/event-information">
             <EventInformation />
-          </Route>
-          <Route path="/profile">
-            <Profile />
           </Route>
         </Switch>
       </Router>

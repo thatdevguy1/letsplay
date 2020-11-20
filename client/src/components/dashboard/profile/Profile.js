@@ -22,7 +22,10 @@ function Profile() {
     if (currentUser.data.response === false) {
       dispatch(signOut());
       history.push("/");
-    } else if (currentUser.data.user._id !== user.userId) {
+    } else if (
+      currentUser.data.user._id !== user.userId ||
+      user.authenticated === false
+    ) {
       dispatch(setUser(currentUser));
     }
   };
@@ -32,9 +35,11 @@ function Profile() {
       <h1>Profile</h1>
       <h4>Username: {user.username}</h4>
       <h4>Current Events You're In</h4>
-      {user.events.map((event) => {
-        return <Event key={event._id} eventData={event} />;
-      })}
+      {user.authenticated !== false
+        ? user.events.map((event) => {
+            return <Event key={event._id} eventData={event} />;
+          })
+        : ""}
     </div>
   );
 }

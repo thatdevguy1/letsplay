@@ -10,6 +10,14 @@ const eventSchema = new Schema({
     type: String,
     required: true,
   },
+  public: {
+    type: Boolean,
+    required: true,
+  },
+  startTime: {
+    type: String,
+    required: true,
+  },
   maxParticipants: Number,
   minParticipants: Number,
   location: {
@@ -34,8 +42,8 @@ const eventSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
-  creator: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  participants: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  creator: {},
+  participants: [],
 });
 
 module.exports = mongoose.model("Event", eventSchema);

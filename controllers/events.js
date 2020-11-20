@@ -1,5 +1,4 @@
 const Event = require("../models/event");
-const User = require("../models/user");
 
 async function findAllEvents(req, res) {
   try {
@@ -15,9 +14,7 @@ async function findAllEvents(req, res) {
 async function findEvent(req, res) {
   console.log(req.query);
   try {
-    const event = await Event.findOne({ _id: req.query.id })
-      .populate("creator")
-      .populate("participants");
+    const event = await Event.findOne({ _id: req.query.id });
 
     console.log(event);
     res.send({ ...event, response: true });
@@ -65,17 +62,44 @@ async function deleteEvent(req, res) {
 }
 
 async function createEvent(req, res) {
-  const newEvent = new Event({ ...req.body, creator: req.user._id });
+  console.log(req.body);
+  const newEvent = new Event(req.body);
 
   try {
     const event = await newEvent.save();
-    await User.findOneAndUpdate(
-      { _id: req.user._id },
-      { $push: { events: event._id } }
-    );
+
+    //Gonna need to only do this if someone is signed in
+    // await User.findOneAndUpdate(
+    //   { _id: req.user._id },
+    //   { $push: { events: event._id } }
+    // );
+
+    if (req.session.eventIds && req.session.eventIds.length > 0) {
+      req.session.eventIds.push(event._doc._id);
+    } else {
+      req.session.eventIds = [event._doc._id];
+    }
+    console.log(req.session.eventIds);
+
     res.send({ ...event, response: true });
   } catch (err) {
-    res.send({ message: err, response: false });
+    res.send({ message: err.message, response: false });
+  }
+}
+
+async function getMyEvents(req, res) {
+  console.log("EventIds I have right now: ", req.session.eventIds);
+  try {
+    const event = await Event.find()
+      .where("_id")
+      .in(req.session.eventIds)
+      .exec();
+    console.log("Events returned to me: ", event);
+    event.length > 0
+      ? res.send({ myEvents: event, response: true })
+      : res.send({ myEvents: [], response: true });
+  } catch (err) {
+    res.send({ message: err.message, response: false });
   }
 }
 
@@ -110,4 +134,5 @@ module.exports = {
   createEvent,
   findAllEvents,
   joinEvent,
+  getMyEvents,
 };

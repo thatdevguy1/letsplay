@@ -1,24 +1,18 @@
 let router = require("express").Router();
 let eventCtrl = require("../controllers/events");
 
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
+router.get("/getEvents", eventCtrl.findAllEvents);
 
-  res.send({ response: false, message: "You are not logged in" });
-}
+router.get("/getEvent", eventCtrl.findEvent);
 
-router.get("/getEvents", checkAuthenticated, eventCtrl.findAllEvents);
+router.post("/createEvent", eventCtrl.createEvent);
 
-router.get("/getEvent", checkAuthenticated, eventCtrl.findEvent);
+router.put("/updateEvent", eventCtrl.updateEvent);
 
-router.post("/createEvent", checkAuthenticated, eventCtrl.createEvent);
+router.delete("/deleteEvent", eventCtrl.deleteEvent);
 
-router.put("/updateEvent", checkAuthenticated, eventCtrl.updateEvent);
+router.put("/joinEvent", eventCtrl.joinEvent);
 
-router.delete("/deleteEvent", checkAuthenticated, eventCtrl.deleteEvent);
-
-router.put("/joinEvent", checkAuthenticated, eventCtrl.joinEvent);
+router.get("/getMyEvents", eventCtrl.getMyEvents);
 
 module.exports = router;

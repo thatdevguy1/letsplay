@@ -1,33 +1,23 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signOut, setUser } from "../../store/actions";
+import { getEvents } from "../../store/actions";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
+import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import Switch from "@material-ui/core/Switch";
+import "./CreateEvent.scss";
 
 function CreateEvent() {
   const form = useRef(null);
   const history = useHistory();
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [publicEvent, setPublicEvent] = useState(true);
 
-  useEffect(() => {
-    authenticateCurrentUser();
-  }, []);
-
-  const authenticateCurrentUser = async () => {
-    let currentUser = await axios.get(
-      process.env.REACT_APP_BASE_API + "/currentUser"
-    );
-
-    if (currentUser.data.response === false) {
-      dispatch(signOut());
-      history.push("/");
-    } else if (currentUser.data.user._id !== user.userId) {
-      dispatch(setUser(currentUser));
-    }
+  const handleChange = (event) => {
+    setPublicEvent(!publicEvent);
   };
 
   const submitCreateForm = async (e) => {
@@ -42,6 +32,8 @@ function CreateEvent() {
         longitude: form.current.lon.value,
       },
       description: form.current.description.value,
+      startTime: form.current.startTime.value,
+      public: publicEvent,
     };
 
     var config = {
@@ -55,14 +47,50 @@ function CreateEvent() {
 
     try {
       let response = await axios(config);
+      console.log(response);
 
       if (response && response.data.response === true) {
-        history.push("/dashboard");
+        dispatch(getEvents());
+        history.push("/");
       }
     } catch (err) {
       console.log(err);
     }
   };
+
+  const AntSwitch = withStyles((theme) => ({
+    root: {
+      width: 28,
+      height: 16,
+      padding: 0,
+      display: "flex",
+    },
+    switchBase: {
+      padding: 2,
+      color: theme.palette.grey[500],
+      "&$checked": {
+        transform: "translateX(12px)",
+        color: theme.palette.common.white,
+        "& + $track": {
+          opacity: 1,
+          backgroundColor: theme.palette.primary.main,
+          borderColor: theme.palette.primary.main,
+        },
+      },
+    },
+    thumb: {
+      width: 12,
+      height: 12,
+      boxShadow: "none",
+    },
+    track: {
+      border: `1px solid ${theme.palette.grey[500]}`,
+      borderRadius: 16 / 2,
+      opacity: 1,
+      backgroundColor: theme.palette.common.white,
+    },
+    checked: {},
+  }))(Switch);
 
   return (
     <form ref={form}>
@@ -89,6 +117,41 @@ function CreateEvent() {
             fullWidth
             autoComplete="family-name"
           />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="startTime"
+            name="startTime"
+            label="Start Time"
+            fullWidth
+            autoComplete="given-name"
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={3}>
+          <TextField
+            required
+            id="username"
+            name="username"
+            label="Username"
+            fullWidth
+            autoComplete="given-name"
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={3}>
+          <Grid component="label" container alignItems="center" spacing={1}>
+            <Grid item>Private</Grid>
+            <Grid item>
+              <AntSwitch
+                checked={publicEvent}
+                onChange={handleChange}
+                name="publicEvent"
+              />
+            </Grid>
+            <Grid item>Public</Grid>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <TextField

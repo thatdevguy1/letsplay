@@ -3,9 +3,9 @@ const auth = (state = { authenticated: false }, action) => {
     case "SIGN_IN":
       return {
         authenticated: true,
-        username: action.payload.data.user.username,
-        userId: action.payload.data.user._id,
-        events: action.payload.data.user.events,
+        username: action.payload.username,
+        userId: action.payload._id,
+        events: action.payload.events,
       };
     case "SIGN_OUT":
       return {

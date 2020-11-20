@@ -14,13 +14,17 @@ function Events() {
 
   return (
     <div className="events">
-      {eventsInfo ? (
-        eventsInfo.events.map((event) => {
-          return <Event key={event._id} eventData={event} />;
-        })
-      ) : (
-        <h1>No Events Found</h1>
-      )}
+      {eventsInfo.toggleMyEvents === false
+        ? eventsInfo.events.map((event) => {
+            return event.public ? (
+              <Event key={event._id} eventData={event} />
+            ) : (
+              ""
+            );
+          })
+        : eventsInfo.myEvents.map((event) => {
+            return <Event key={event._id} eventData={event} />;
+          })}
     </div>
   );
 }

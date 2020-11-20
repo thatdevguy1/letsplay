@@ -14,7 +14,8 @@ import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    Width: 345,
+    minWidth: 345,
     marginLeft: 10,
     marginTop: 10,
   },
@@ -46,7 +47,6 @@ function Event(props) {
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {props.eventData.description}
-            Created by: {props.eventData.creator.username}
           </Typography>
         </CardContent>
       </CardActionArea>

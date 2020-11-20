@@ -6,26 +6,10 @@ import axios from "axios";
 import Events from "./events/Events";
 
 function Dashboard() {
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect(() => {
-    authenticateCurrentUser();
-  }, []);
-
-  const authenticateCurrentUser = async () => {
-    let currentUser = await axios.get(
-      process.env.REACT_APP_BASE_API + "/currentUser"
-    );
-
-    if (currentUser.data.response === false) {
-      dispatch(signOut());
-      history.push("/");
-    } else if (currentUser.data.user._id !== user.userId) {
-      dispatch(setUser(currentUser));
-    }
-  };
+  useEffect(() => {}, []);
 
   return (
     <div>
