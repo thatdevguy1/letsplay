@@ -36,6 +36,8 @@ function CreateEvent() {
       public: publicEvent,
     };
 
+    console.log("data is: ", data);
+
     var config = {
       method: "post",
       data,

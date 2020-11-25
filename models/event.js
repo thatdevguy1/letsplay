@@ -43,7 +43,7 @@ const eventSchema = new Schema({
     default: Date.now(),
   },
   creator: {},
-  participants: [],
+  participants: [String],
 });
 
 module.exports = mongoose.model("Event", eventSchema);

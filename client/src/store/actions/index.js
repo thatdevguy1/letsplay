@@ -145,6 +145,32 @@ export const getEvent = (id) => {
   };
 };
 
+export const joinEvent = (data) => {
+  return async (dispatch) => {
+    var config = {
+      method: "put",
+      url: process.env.REACT_APP_BASE_API + `/joinEvent`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    try {
+      let response = await axios(config);
+      console.log("response from join event: ", response);
+      if (response && response.data.response === true) {
+        dispatch({
+          type: "selectEvent",
+          payload: response.data._doc,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export const selectEvent = (payload) => {
   return {
     type: "selectEvent",

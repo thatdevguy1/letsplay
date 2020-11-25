@@ -2,8 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-const session = require("express-session");
-const methodOverride = require("method-override");
+//const session = require("express-session");
+//const jwt = require('jsonwebtoken')
+const cookieParser = require("cookie-parser");
+//const methodOverride = require("method-override");
 
 bodyParser = require("body-parser");
 
@@ -13,16 +15,18 @@ const port = process.env.PORT || 8080;
 let eventRoutes = require("./routes/event");
 
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 
-app.use(methodOverride("_method"));
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
+
+//app.use(methodOverride("_method"));
 
 //app.use(express.static(path.join(__dirname, 'client/build')));
 

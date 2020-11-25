@@ -2,9 +2,7 @@ const Event = require("../models/event");
 
 async function findAllEvents(req, res) {
   try {
-    const events = await Event.find({})
-      .populate("creator")
-      .populate("participants");
+    const events = await Event.find({});
     res.send({ events, response: true });
   } catch (err) {
     res.send({ message: err.message, response: false });
@@ -12,11 +10,9 @@ async function findAllEvents(req, res) {
 }
 
 async function findEvent(req, res) {
-  console.log(req.query);
   try {
     const event = await Event.findOne({ _id: req.query.id });
 
-    console.log(event);
     res.send({ ...event, response: true });
   } catch (err) {
     res.send({ message: err.message, response: false });
@@ -31,6 +27,7 @@ async function updateEvent(req, res) {
         { _id: req.body.id },
         { ...req.body }
       );
+
       res.send({ ...updatedEvent, response: true });
     } else {
       res.send({
@@ -39,7 +36,6 @@ async function updateEvent(req, res) {
       });
     }
   } catch (err) {
-    console.log(err.message);
     res.send({ message: "Something went wrong!", response: false });
   }
 }
@@ -62,39 +58,40 @@ async function deleteEvent(req, res) {
 }
 
 async function createEvent(req, res) {
-  console.log(req.body);
   const newEvent = new Event(req.body);
 
   try {
     const event = await newEvent.save();
 
-    //Gonna need to only do this if someone is signed in
-    // await User.findOneAndUpdate(
-    //   { _id: req.user._id },
-    //   { $push: { events: event._id } }
-    // );
+    if (req.cookies.eventIds) {
+      const eventIds = req.cookies.eventIds;
 
-    if (req.session.eventIds && req.session.eventIds.length > 0) {
-      req.session.eventIds.push(event._doc._id);
+      eventIds.push({ id: event._id, creator: true });
+
+      res
+        .cookie("eventIds", eventIds, {
+          expires: new Date(Date.now() + 900000),
+          httpOnly: true,
+        })
+        .send({ ...event, response: true });
     } else {
-      req.session.eventIds = [event._doc._id];
+      res
+        .cookie("eventIds", [{ id: event._id, creator: true }], {
+          expires: new Date(Date.now() + 900000),
+          httpOnly: true,
+        })
+        .send({ ...event, response: true });
     }
-    console.log(req.session.eventIds);
-
-    res.send({ ...event, response: true });
   } catch (err) {
     res.send({ message: err.message, response: false });
   }
 }
 
 async function getMyEvents(req, res) {
-  console.log("EventIds I have right now: ", req.session.eventIds);
   try {
-    const event = await Event.find()
-      .where("_id")
-      .in(req.session.eventIds)
-      .exec();
-    console.log("Events returned to me: ", event);
+    const eventIdArray = req.cookies.eventIds.map((event) => event.id);
+    const event = await Event.find().where("_id").in(eventIdArray).exec();
+
     event.length > 0
       ? res.send({ myEvents: event, response: true })
       : res.send({ myEvents: [], response: true });
@@ -104,26 +101,130 @@ async function getMyEvents(req, res) {
 }
 
 async function joinEvent(req, res) {
-  try {
-    const event = await Event.findOne({ _id: req.body.id });
-    const participants = event.participants;
+  // console.log(req.body);
+  // try {
+  //   let event;
+  //   let participants;
 
-    if (participants.includes(req.user._id)) {
-      res.send("User already joined this event");
-    } else {
-      participants.push(req.user._id);
-      await User.findOneAndUpdate(
-        { _id: req.user._id },
-        { $push: { events: req.body.id } }
+  //   if (req.cookies.eventIds) {
+  //     const eventIds = req.cookies.eventIds;
+
+  //     if (eventIds.includes(req.body.id)) {
+  //       res.send({
+  //         message: "You're already part of this event",
+  //         response: false,
+  //       });
+  //     } else {
+  //       event = await Event.findOne({ _id: req.body.id });
+  //       participants = event.participants;
+  //       participants.push(req.body.participantsName);
+
+  //       updatedEvent = await Event.findOneAndUpdate(
+  //         { _id: req.body.id },
+  //         { participants: participants },
+  //         { new: true }
+  //       );
+  //       eventIds.push(event._id);
+  //       res
+  //         .cookie("eventIds", eventIds, {
+  //           expires: new Date(Date.now() + 900000),
+  //           httpOnly: true,
+  //         })
+  //         .send({ ...updatedEvent, response: true });
+  //     }
+  //   } else {
+  //     event = await Event.findOne({ _id: req.body.id });
+  //     participants = event.participants;
+  //     participants.push(req.body.participantsName);
+
+  //     updatedEvent = await Event.findOneAndUpdate(
+  //       { _id: req.body.id },
+  //       { participants: participants },
+  //       { new: true }
+  //     );
+  //     res
+  //       .cookie("eventIds", [event._id], {
+  //         expires: new Date(Date.now() + 900000),
+  //         httpOnly: true,
+  //       })
+  //       .send({ ...updatedEvent, response: true });
+  //   }
+
+  //   console.log(updatedEvent);
+  // } catch (err) {
+  //   res.send({ message: err.message, response: false });
+  // }
+
+  const handleJoin = async ({ cookies, body }) => {
+    let event;
+    let participants;
+    let updatedEvent;
+
+    try {
+      if (cookies.eventIds) {
+        const eventIds = cookies.eventIds;
+        const events = eventIds.map((event) => event.id);
+        if (events.includes(body.id)) {
+          return {
+            resObj: {
+              message: "You're already part of this event",
+              response: false,
+            },
+          };
+        }
+
+        event = await Event.findOne({ _id: body.id });
+        participants = event.participants;
+        participants.push(body.participantsName);
+
+        updatedEvent = await Event.findOneAndUpdate(
+          { _id: body.id },
+          { participants: participants },
+          { new: true }
+        );
+
+        eventIds.push(event._id);
+
+        return {
+          cookie: { name: "eventIds", value: eventIds },
+          resObj: { ...updatedEvent, response: true },
+        };
+      }
+
+      event = await Event.findOne({ _id: body.id });
+      participants = event.participants;
+      participants.push(body.participantsName);
+
+      updatedEvent = await Event.findOneAndUpdate(
+        { _id: body.id },
+        { participants: participants },
+        { new: true }
       );
-      const updatedEvent = await Event.findOneAndUpdate(
-        { _id: req.body.id },
-        { participants: participants }
-      );
-      res.send({ ...updatedEvent, response: true });
+
+      return {
+        cookie: { name: "eventIds", value: event._id },
+        resObj: { ...updatedEvent, response: true },
+      };
+    } catch (err) {
+      return { message: err.message, response: false };
     }
-  } catch (err) {
-    res.send({ message: err.message, response: false });
+  };
+
+  let payload = await handleJoin(req);
+
+  if (Object.keys(payload).includes("cookie")) {
+    res
+      .cookie(
+        payload.cookie.name,
+        [{ id: payload.cookie.value, creator: false }],
+        {
+          expires: new Date(Date.now() + 900000),
+          httpOnly: true,
+        }
+      )
+      .send(payload.resObj);
+  } else {
+    res.send(payload.resObj);
   }
 }
 
