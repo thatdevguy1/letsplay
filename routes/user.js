@@ -9,6 +9,7 @@ function checkAuthenticated(req, res, next) {
   res.send({ response: false, message: "You are not logged in" });
 }
 
+//small change
 router.post("/login", passport.authenticate("local"), userCtrl.login);
 
 router.post("/logout", checkAuthenticated, userCtrl.logout);
