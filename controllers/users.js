@@ -2,6 +2,7 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 
+//small change
 async function createUser(req, res) {
   try {
     const hashPassword = await bcrypt.hash(req.body.password, 10);
