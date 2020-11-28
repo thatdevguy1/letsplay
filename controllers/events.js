@@ -1,4 +1,5 @@
 const Event = require("../models/event");
+const User = require("../models/user");
 
 async function findAllEvents(req, res) {
   try {
@@ -63,20 +64,27 @@ async function createEvent(req, res) {
   try {
     const event = await newEvent.save();
 
-    if (req.cookies.eventIds) {
-      const eventIds = req.cookies.eventIds;
+    if (req.cookies.userId) {
+      const currentUserId = req.cookies.userId;
 
-      eventIds.push({ id: event._id, creator: true });
+      const currentUser = await User.findOneAndUpdate(
+        { _id: currentUserId },
+        { $push: { events: event._id } },
+        { new: true }
+      );
 
       res
-        .cookie("eventIds", eventIds, {
+        .cookie("userId", currentUserId, {
           expires: new Date(Date.now() + 900000),
           httpOnly: true,
         })
         .send({ ...event, response: true });
     } else {
+      const user = new User({ signedUp: false, events: event._id });
+      await user.save();
+
       res
-        .cookie("eventIds", [{ id: event._id, creator: true }], {
+        .cookie("userId", user._id, {
           expires: new Date(Date.now() + 900000),
           httpOnly: true,
         })
@@ -89,11 +97,10 @@ async function createEvent(req, res) {
 
 async function getMyEvents(req, res) {
   try {
-    const eventIdArray = req.cookies.eventIds.map((event) => event.id);
-    const event = await Event.find().where("_id").in(eventIdArray).exec();
-
-    event.length > 0
-      ? res.send({ myEvents: event, response: true })
+    const { userId } = req.cookies;
+    const user = await User.findOne({ _id: userId }).populate("events");
+    user.events.length > 0
+      ? res.send({ myEvents: user.events, response: true })
       : res.send({ myEvents: [], response: true });
   } catch (err) {
     res.send({ message: err.message, response: false });
@@ -161,10 +168,13 @@ async function joinEvent(req, res) {
     let updatedEvent;
 
     try {
-      if (cookies.eventIds) {
-        const eventIds = cookies.eventIds;
-        const events = eventIds.map((event) => event.id);
-        if (events.includes(body.id)) {
+      if (cookies.userId) {
+        const { userId } = cookies;
+        //const events = eventIds.map((event) => event.id)
+
+        const currentUser = await User.findOne({ _id: userId });
+
+        if (currentUser.events.includes(body.id)) {
           return {
             resObj: {
               message: "You're already part of this event",
@@ -183,10 +193,13 @@ async function joinEvent(req, res) {
           { new: true }
         );
 
-        eventIds.push(event._id);
+        await User.findOneAndUpdate(
+          { _id: currentUser._id },
+          { $push: { events: body.id } }
+        );
 
         return {
-          cookie: { name: "eventIds", value: eventIds },
+          cookie: { name: "userId", value: currentUser._id },
           resObj: { ...updatedEvent, response: true },
         };
       }
@@ -195,6 +208,9 @@ async function joinEvent(req, res) {
       participants = event.participants;
       participants.push(body.participantsName);
 
+      const user = new User({ signedUp: false, events: event._id });
+      await user.save();
+
       updatedEvent = await Event.findOneAndUpdate(
         { _id: body.id },
         { participants: participants },
@@ -202,11 +218,11 @@ async function joinEvent(req, res) {
       );
 
       return {
-        cookie: { name: "eventIds", value: event._id },
+        cookie: { name: "userId", value: user._id },
         resObj: { ...updatedEvent, response: true },
       };
     } catch (err) {
-      return { message: err.message, response: false };
+      return { resObj: { message: err.message, response: false } };
     }
   };
 
@@ -214,14 +230,10 @@ async function joinEvent(req, res) {
 
   if (Object.keys(payload).includes("cookie")) {
     res
-      .cookie(
-        payload.cookie.name,
-        [{ id: payload.cookie.value, creator: false }],
-        {
-          expires: new Date(Date.now() + 900000),
-          httpOnly: true,
-        }
-      )
+      .cookie(payload.cookie.name, payload.cookie.value, {
+        expires: new Date(Date.now() + 900000),
+        httpOnly: true,
+      })
       .send(payload.resObj);
   } else {
     res.send(payload.resObj);
