@@ -8,6 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
+import CreateMap from "../map/createMap";
 import "./CreateEvent.scss";
 
 function CreateEvent() {
@@ -15,6 +16,7 @@ function CreateEvent() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [publicEvent, setPublicEvent] = useState(true);
+  const { createEventLocation } = useSelector((state) => state.eventsInfo);
 
   const handleChange = (event) => {
     setPublicEvent(!publicEvent);
@@ -28,8 +30,8 @@ function CreateEvent() {
       type: form.current.sportName.value,
       location: {
         address: form.current.address.value,
-        latitude: form.current.lat.value,
-        longitude: form.current.lon.value,
+        latitude: createEventLocation.lat,
+        longitude: createEventLocation.lng,
       },
       description: form.current.description.value,
       startTime: form.current.startTime.value,
@@ -174,27 +176,8 @@ function CreateEvent() {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lat"
-            name="lat"
-            label="Latitude"
-            fullWidth
-            autoComplete="18998783244"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lon"
-            name="lon"
-            label="Longitude"
-            fullWidth
-            autoComplete="18998783244"
-          />
-        </Grid>
       </Grid>
+      <CreateMap />
       <button onClick={submitCreateForm}>Create Event</button>
     </form>
   );

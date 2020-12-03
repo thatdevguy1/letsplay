@@ -46,6 +46,13 @@ export const setUser = (payload) => {
   };
 };
 
+export const setLatLng = (coords) => {
+  return {
+    type: "SETLATLNG",
+    payload: coords,
+  };
+};
+
 export const signOut = () => {
   return async (dispatch) => {
     var config = {

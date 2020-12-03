@@ -75,7 +75,7 @@ async function createEvent(req, res) {
 
       res
         .cookie("userId", currentUserId, {
-          expires: new Date(Date.now() + 900000),
+          expires: new Date(Date.now() + 90000),
           httpOnly: true,
         })
         .send({ ...event, response: true });
@@ -85,7 +85,7 @@ async function createEvent(req, res) {
 
       res
         .cookie("userId", user._id, {
-          expires: new Date(Date.now() + 900000),
+          expires: new Date(Date.now() + 90000),
           httpOnly: true,
         })
         .send({ ...event, response: true });

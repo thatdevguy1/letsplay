@@ -5,6 +5,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./EventInformation.scss";
 import Modal from "../../../modal/modal";
+import InfoMap from "../../../map/infoMap";
 
 function EventInformation() {
   const eventInfo = useSelector((state) => state.eventsInfo);
@@ -52,7 +53,9 @@ function EventInformation() {
                 </span>
               </div>
             </div>
-            <div className="map-wrapper">MAP</div>
+            <div className="map-wrapper">
+              <InfoMap selectedEvent={eventInfo.selectedEvent} />
+            </div>
             <div className="button-wrapper">
               <button>Share</button>
               <Modal eventId={eventInfo.selectedEvent._id}>Accept</Modal>
