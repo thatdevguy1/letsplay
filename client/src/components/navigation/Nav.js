@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut, getMyEvents } from "../../store/actions";
+import { Link } from "react-router-dom";
 import "./Nav.scss";
 
 function Nav() {
@@ -19,10 +20,11 @@ function Nav() {
 
   return (
     <div className="navbar">
-      <h1>LetsPlay!</h1>
+      <Link to="/">
+        <h1>LetsPlay!</h1>
+      </Link>
       <div className="searchBar"> </div>
       <div className="userNav">
-        <h4>Welcome</h4>
         <button onClick={createEvent}>Create Event</button>
         <button onClick={toggleMyEvents}>
           {events.toggleMyEvents === false ? (

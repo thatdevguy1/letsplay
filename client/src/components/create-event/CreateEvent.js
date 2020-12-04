@@ -177,7 +177,9 @@ function CreateEvent() {
           />
         </Grid>
       </Grid>
-      <CreateMap />
+      <div className="mapHolder">
+        <CreateMap />
+      </div>
       <button onClick={submitCreateForm}>Create Event</button>
     </form>
   );

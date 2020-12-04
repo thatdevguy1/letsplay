@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import "./EventInformation.scss";
 import Modal from "../../../modal/modal";
 import InfoMap from "../../../map/infoMap";
+import Participants from "./participants/Participants";
 
 function EventInformation() {
   const eventInfo = useSelector((state) => state.eventsInfo);
@@ -25,20 +26,11 @@ function EventInformation() {
       {eventInfo.selectedEvent &&
       Object.keys(eventInfo.selectedEvent).length > 0 ? (
         <div className="eventInformation">
-          <h1>{eventInfo.selectedEvent.name}</h1>
           <div className="participants-wrapper">
-            <h3>Participants</h3>
-            <div className="participants-list">
-              {eventInfo.selectedEvent.participants.length > 0
-                ? eventInfo.selectedEvent.participants.map(
-                    (participant, idx) => {
-                      return <span key={idx}>{participant}</span>;
-                    }
-                  )
-                : ""}
-            </div>
+            <Participants eventInfo={eventInfo} />
           </div>
           <div className="body-container">
+            <h1>{eventInfo.selectedEvent.name}</h1>
             <p className="description-wrapper">
               {eventInfo.selectedEvent.description}
             </p>
@@ -49,7 +41,11 @@ function EventInformation() {
               <div className="public-wrapper">
                 <span>
                   This event is:
-                  {eventInfo.selectedEvent.public ? " Public" : " Private"}
+                  {eventInfo.selectedEvent.public ? (
+                    <span style={{ color: "blue" }}> Public</span>
+                  ) : (
+                    <span style={{ color: "red" }}> Private</span>
+                  )}
                 </span>
               </div>
             </div>
@@ -57,8 +53,7 @@ function EventInformation() {
               <InfoMap selectedEvent={eventInfo.selectedEvent} />
             </div>
             <div className="button-wrapper">
-              <button>Share</button>
-              <Modal eventId={eventInfo.selectedEvent._id}>Accept</Modal>
+              <Modal eventId={eventInfo.selectedEvent._id}>Join</Modal>
             </div>
           </div>
         </div>

@@ -75,7 +75,7 @@ async function createEvent(req, res) {
 
       res
         .cookie("userId", currentUserId, {
-          expires: new Date(Date.now() + 90000),
+          expires: new Date(Number(new Date()) + 315360000000),
           httpOnly: true,
         })
         .send({ ...event, response: true });
@@ -85,7 +85,7 @@ async function createEvent(req, res) {
 
       res
         .cookie("userId", user._id, {
-          expires: new Date(Date.now() + 90000),
+          expires: new Date(Number(new Date()) + 315360000000),
           httpOnly: true,
         })
         .send({ ...event, response: true });
@@ -108,60 +108,6 @@ async function getMyEvents(req, res) {
 }
 
 async function joinEvent(req, res) {
-  // console.log(req.body);
-  // try {
-  //   let event;
-  //   let participants;
-
-  //   if (req.cookies.eventIds) {
-  //     const eventIds = req.cookies.eventIds;
-
-  //     if (eventIds.includes(req.body.id)) {
-  //       res.send({
-  //         message: "You're already part of this event",
-  //         response: false,
-  //       });
-  //     } else {
-  //       event = await Event.findOne({ _id: req.body.id });
-  //       participants = event.participants;
-  //       participants.push(req.body.participantsName);
-
-  //       updatedEvent = await Event.findOneAndUpdate(
-  //         { _id: req.body.id },
-  //         { participants: participants },
-  //         { new: true }
-  //       );
-  //       eventIds.push(event._id);
-  //       res
-  //         .cookie("eventIds", eventIds, {
-  //           expires: new Date(Date.now() + 900000),
-  //           httpOnly: true,
-  //         })
-  //         .send({ ...updatedEvent, response: true });
-  //     }
-  //   } else {
-  //     event = await Event.findOne({ _id: req.body.id });
-  //     participants = event.participants;
-  //     participants.push(req.body.participantsName);
-
-  //     updatedEvent = await Event.findOneAndUpdate(
-  //       { _id: req.body.id },
-  //       { participants: participants },
-  //       { new: true }
-  //     );
-  //     res
-  //       .cookie("eventIds", [event._id], {
-  //         expires: new Date(Date.now() + 900000),
-  //         httpOnly: true,
-  //       })
-  //       .send({ ...updatedEvent, response: true });
-  //   }
-
-  //   console.log(updatedEvent);
-  // } catch (err) {
-  //   res.send({ message: err.message, response: false });
-  // }
-
   const handleJoin = async ({ cookies, body }) => {
     let event;
     let participants;
@@ -231,7 +177,7 @@ async function joinEvent(req, res) {
   if (Object.keys(payload).includes("cookie")) {
     res
       .cookie(payload.cookie.name, payload.cookie.value, {
-        expires: new Date(Date.now() + 900000),
+        expires: new Date(Number(new Date()) + 315360000000),
         httpOnly: true,
       })
       .send(payload.resObj);
