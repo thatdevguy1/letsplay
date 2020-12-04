@@ -20,18 +20,31 @@ const MapModifier = ({ coords }) => {
   const [coordsState, setCoordsState] = useState(coords);
   const map = useMap();
 
-  const mapEvent = useMapEvent("click", async () => {
-    const latlng = await mapEvent.getCenter();
-    setCoordsState([latlng.lat, latlng.lng]);
+  const mapEvent = useMapEvents({
+    click(e) {
+      setCoordsState([e.latlng.lat, e.latlng.lng]);
+    },
+    locationfound(e) {
+      setCoordsState([e.latlng.lat, e.latlng.lng]);
+    },
   });
 
   useEffect(() => {
+    mapEvent.locate();
+  });
+
+  useEffect(async () => {
     positionMapView(coordsState);
     dispatch(setLatLng(coordsState));
   }, [coordsState]);
 
   const positionMapView = (coordsArray) => {
-    map.setView(coordsArray, 16);
+    if (coordsState[0] !== 0) {
+      //map.setView(coordsArray, 16);
+      map.flyTo(coordsArray, 16);
+    } else {
+      map.setView(coordsArray, 2);
+    }
   };
 
   return <Marker position={coordsState} />;
@@ -39,7 +52,7 @@ const MapModifier = ({ coords }) => {
 
 //Consumes MapModifier to dynamically change the map location and zoom
 const CreateMap = (props) => {
-  const [coords, setCoords] = useState(false);
+  const [coords, setCoords] = useState([0, 0]);
   useEffect(() => {
     props.coords && setCoords([props.coords.latitude, props.coords.longitude]);
   }, [props.coords]);
@@ -50,7 +63,7 @@ const CreateMap = (props) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {coords && <MapModifier coords={coords} />}
+        <MapModifier coords={coords} />
       </MapContainer>
     </div>
   );

@@ -7,10 +7,16 @@ const defaultState = {
     lat: 0,
     lng: 0,
   },
+  searchEvent: "",
 };
 
 const eventsInfo = (state = defaultState, action) => {
   switch (action.type) {
+    case "SEARCH_EVENT":
+      return {
+        ...state,
+        searchEvent: action.payload,
+      };
     case "SETLATLNG":
       return {
         ...state,

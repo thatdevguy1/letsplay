@@ -14,10 +14,9 @@ import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    Width: 345,
-    minWidth: 345,
-    marginLeft: 10,
-    marginTop: 10,
+    width: "30vw",
+    minWidth: 245,
+    margin: 10,
   },
 });
 

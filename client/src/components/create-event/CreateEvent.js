@@ -8,8 +8,18 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
+import Button from "@material-ui/core/Button";
 import CreateMap from "../map/createMap";
+//import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 import "./CreateEvent.scss";
+import MomentUtils from "@date-io/moment";
+import moment from "moment";
+moment().format();
 
 function CreateEvent() {
   const form = useRef(null);
@@ -17,6 +27,16 @@ function CreateEvent() {
   const dispatch = useDispatch();
   const [publicEvent, setPublicEvent] = useState(true);
   const { createEventLocation } = useSelector((state) => state.eventsInfo);
+  const [selectedDate, setSelectedDate] = React.useState(moment());
+  const [selectedTime, setSelectedTime] = React.useState(moment());
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const handleTimeChange = (time) => {
+    setSelectedTime(time);
+  };
 
   const handleChange = (event) => {
     setPublicEvent(!publicEvent);
@@ -34,7 +54,8 @@ function CreateEvent() {
         longitude: createEventLocation.lng,
       },
       description: form.current.description.value,
-      startTime: form.current.startTime.value,
+      startTime: selectedTime.format("LT"),
+      date: selectedDate.format("dddd, MMMM Do YYYY"),
       public: publicEvent,
     };
 
@@ -71,13 +92,13 @@ function CreateEvent() {
     },
     switchBase: {
       padding: 2,
-      color: theme.palette.grey[500],
+      color: theme.palette.error.light,
       "&$checked": {
         transform: "translateX(12px)",
-        color: theme.palette.common.white,
+        color: theme.palette.primary.main,
         "& + $track": {
           opacity: 1,
-          backgroundColor: theme.palette.primary.main,
+          backgroundColor: theme.palette.common.white,
           borderColor: theme.palette.primary.main,
         },
       },
@@ -97,91 +118,127 @@ function CreateEvent() {
   }))(Switch);
 
   return (
-    <form ref={form}>
-      <Typography variant="h6" gutterBottom>
-        Create Event
-      </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="eventName"
-            name="eventName"
-            label="Event Name"
-            fullWidth
-            autoComplete="given-name"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="sport"
-            name="sportName"
-            label="Sport Name"
-            fullWidth
-            autoComplete="family-name"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="startTime"
-            name="startTime"
-            label="Start Time"
-            fullWidth
-            autoComplete="given-name"
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={3}>
-          <TextField
-            required
-            id="username"
-            name="username"
-            label="Username"
-            fullWidth
-            autoComplete="given-name"
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={3}>
-          <Grid component="label" container alignItems="center" spacing={1}>
-            <Grid item>Private</Grid>
-            <Grid item>
-              <AntSwitch
-                checked={publicEvent}
-                onChange={handleChange}
-                name="publicEvent"
+    <div className="create-event">
+      <form ref={form}>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <Typography variant="h6" gutterBottom>
+            Create Event
+          </Typography>
+          <Grid item xs={12} sm={6}>
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>Private</Grid>
+              <Grid item>
+                <AntSwitch
+                  checked={publicEvent}
+                  onChange={handleChange}
+                  name="publicEvent"
+                />
+              </Grid>
+              <Grid item>Public</Grid>
+            </Grid>
+          </Grid>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="eventName"
+                name="eventName"
+                label="Event Name"
+                fullWidth
+                autoComplete="given-name"
               />
             </Grid>
-            <Grid item>Public</Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="sport"
+                name="sportName"
+                label="Sport Name"
+                fullWidth
+                autoComplete="family-name"
+              />
+            </Grid>
+            {/* <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="startTime"
+                name="startTime"
+                label="Start Time"
+                fullWidth
+                autoComplete="given-name"
+              />
+            </Grid> */}
+
+            <Grid item xs={12} sm={6}>
+              <KeyboardTimePicker
+                margin="normal"
+                id="time-picker"
+                label="Start Time"
+                value={selectedTime}
+                onChange={handleTimeChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change time",
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <KeyboardDatePicker
+                margin="normal"
+                id="date-picker-dialog"
+                label="Date"
+                format="MM/DD/yyyy"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="username"
+                name="username"
+                label="Username"
+                fullWidth
+                autoComplete="given-name"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="address"
+                name="address"
+                label="Address"
+                fullWidth
+                autoComplete="address"
+              />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                required
+                id="description"
+                name="description"
+                label="Event Description"
+                fullWidth
+              />
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="address"
-            name="address"
-            label="Address"
-            fullWidth
-            autoComplete="address"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="description"
-            name="description"
-            label="Event Description"
-            fullWidth
-          />
-        </Grid>
-      </Grid>
+        </MuiPickersUtilsProvider>
+        <Button
+          variant="contained"
+          style={{ margin: "20px 0 " }}
+          onClick={submitCreateForm}
+        >
+          Create Event
+        </Button>
+      </form>
       <div className="mapHolder">
         <CreateMap />
       </div>
-      <button onClick={submitCreateForm}>Create Event</button>
-    </form>
+    </div>
   );
 }
 

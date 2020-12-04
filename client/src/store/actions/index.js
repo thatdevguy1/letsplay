@@ -184,3 +184,10 @@ export const selectEvent = (payload) => {
     payload: payload,
   };
 };
+
+export const searchEvent = (searchTerm) => {
+  return {
+    type: "SEARCH_EVENT",
+    payload: searchTerm.toLowerCase(),
+  };
+};

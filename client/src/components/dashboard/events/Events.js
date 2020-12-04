@@ -16,14 +16,19 @@ function Events() {
     <div className="events">
       {eventsInfo.toggleMyEvents === false
         ? eventsInfo.events.map((event) => {
-            return event.public ? (
+            return event.name.toLowerCase().includes(eventsInfo.searchEvent) &&
+              event.public ? (
               <Event key={event._id} eventData={event} />
             ) : (
               ""
             );
           })
         : eventsInfo.myEvents.map((event) => {
-            return <Event key={event._id} eventData={event} />;
+            return (
+              event.name.toLowerCase().includes(eventsInfo.searchEvent) && (
+                <Event key={event._id} eventData={event} />
+              )
+            );
           })}
     </div>
   );
