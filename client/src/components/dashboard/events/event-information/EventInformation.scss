@@ -2,7 +2,7 @@ $primary: #3f51b4;
 
 .eventInformation {
   width: 85vw;
-  height: 65vh;
+  height: 85vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -76,16 +76,27 @@ $primary: #3f51b4;
     }
   }
 
-  .participants-wrapper {
-    width: 27%;
-    height: 80%;
-    background: $primary;
-    border-radius: 5px;
-    padding: 10px;
+  .sidebar {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    .participants-list {
-      display: flex;
-      flex-direction: column;
+    .share {
+      background: $primary;
+      padding-top: 20px;
+    }
+    .participants-wrapper {
+      height: 80%;
+      background: $primary;
+      border-radius: 5px;
+      padding: 10px;
+
+      .participants-list {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 }

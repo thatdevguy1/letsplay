@@ -7,6 +7,7 @@ import "./EventInformation.scss";
 import Modal from "../../../modal/modal";
 import InfoMap from "../../../map/infoMap";
 import Participants from "./participants/Participants";
+import Share from "./share/Share";
 
 function EventInformation() {
   const eventInfo = useSelector((state) => state.eventsInfo);
@@ -26,8 +27,11 @@ function EventInformation() {
       {eventInfo.selectedEvent &&
       Object.keys(eventInfo.selectedEvent).length > 0 ? (
         <div className="eventInformation">
-          <div className="participants-wrapper">
-            <Participants eventInfo={eventInfo} />
+          <div className="sidebar">
+            <div className="participants-wrapper">
+              <Participants eventInfo={eventInfo} />
+            </div>
+            <Share />
           </div>
           <div className="body-container">
             <h1>{eventInfo.selectedEvent.name}</h1>

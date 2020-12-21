@@ -1,0 +1,26 @@
+.share {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  margin-top: 20px;
+
+  h1 {
+    text-align: center;
+  }
+
+  .minified-url-wrapper {
+    text-align: center;
+    padding: 10px;
+    border: solid 1px white;
+    border-radius: 5px;
+    margin: 0 20px 20px;
+  }
+
+  .share-button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 0 10px 0;
+    margin: 0 20px 20px 0;
+  }
+}
