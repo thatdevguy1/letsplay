@@ -39,10 +39,25 @@ $primary: #3f51b4;
       margin: 21px 0;
 
       div {
-        border-bottom: solid 1px rgb(141, 169, 211);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.42);
         width: 40%;
         padding: 10px 0;
         font-weight: 100;
+      }
+
+      .time-wrapper {
+        border-bottom: none;
+        padding: 0;
+        div {
+          width: 100%;
+          border-bottom: none;
+        }
+      }
+
+      .public-wrapper {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
       }
     }
 
@@ -53,8 +68,8 @@ $primary: #3f51b4;
 
     .button-wrapper {
       display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
+      flex-direction: row-reverse;
+      justify-content: space-between;
       width: 100%;
       align-self: center;
       margin: 21px 0;

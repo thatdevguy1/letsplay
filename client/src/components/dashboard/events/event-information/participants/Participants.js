@@ -21,7 +21,7 @@ function Participants({ eventInfo }) {
                   <ListItemIcon>
                     <HowToReg />
                   </ListItemIcon>
-                  <ListItemText primary={participant} />
+                  <ListItemText primary={participant.name} />
                 </ListItem>
                 <Divider />
               </div>

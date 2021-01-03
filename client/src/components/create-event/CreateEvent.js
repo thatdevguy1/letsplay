@@ -27,8 +27,8 @@ function CreateEvent() {
   const dispatch = useDispatch();
   const [publicEvent, setPublicEvent] = useState(true);
   const { createEventLocation } = useSelector((state) => state.eventsInfo);
-  const [selectedDate, setSelectedDate] = React.useState(moment());
-  const [selectedTime, setSelectedTime] = React.useState(moment());
+  const [selectedDate, setSelectedDate] = useState(moment());
+  const [selectedTime, setSelectedTime] = useState(moment());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);

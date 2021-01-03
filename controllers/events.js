@@ -22,8 +22,8 @@ async function findEvent(req, res) {
 
 async function updateEvent(req, res) {
   try {
-    const event = await Event.findOne({ _id: req.body.id }).populate("creator");
-    if (event.creator.username == req.user.username) {
+    const event = await Event.findOne({ _id: req.body.id });
+    if (event.creator == req.cookies.userId) {
       const updatedEvent = await Event.findOneAndUpdate(
         { _id: req.body.id },
         { ...req.body }
@@ -37,6 +37,7 @@ async function updateEvent(req, res) {
       });
     }
   } catch (err) {
+    console.log(err.message);
     res.send({ message: "Something went wrong!", response: false });
   }
 }
@@ -60,11 +61,10 @@ async function deleteEvent(req, res) {
 
 async function createEvent(req, res) {
   const newEvent = new Event(req.body);
-
   try {
-    const event = await newEvent.save();
-
     if (req.cookies.userId) {
+      newEvent.creator = req.cookies.userId;
+      const event = await newEvent.save();
       const currentUserId = req.cookies.userId;
 
       const currentUser = await User.findOneAndUpdate(
@@ -76,17 +76,20 @@ async function createEvent(req, res) {
       res
         .cookie("userId", currentUserId, {
           expires: new Date(Number(new Date()) + 315360000000),
-          httpOnly: true,
+          httpOnly: false,
         })
         .send({ ...event, response: true });
     } else {
-      const user = new User({ signedUp: false, events: event._id });
+      const user = new User({ signedUp: false, events: newEvent._id });
       await user.save();
+
+      newEvent.creator = user._id;
+      const event = await newEvent.save();
 
       res
         .cookie("userId", user._id, {
           expires: new Date(Number(new Date()) + 315360000000),
-          httpOnly: true,
+          httpOnly: false,
         })
         .send({ ...event, response: true });
     }
@@ -109,10 +112,9 @@ async function getMyEvents(req, res) {
 
 async function joinEvent(req, res) {
   const handleJoin = async ({ cookies, body }) => {
-    let event;
     let participants;
     let updatedEvent;
-
+    let event = await Event.findOne({ _id: body.id });
     try {
       if (cookies.userId) {
         const { userId } = cookies;
@@ -120,7 +122,12 @@ async function joinEvent(req, res) {
 
         const currentUser = await User.findOne({ _id: userId });
 
-        if (currentUser.events.includes(body.id)) {
+        // if (currentUser.events.includes(body.id)) {
+        if (
+          event.participants.length > 0 &&
+          event.participants.filter((user) => user.userId === cookies.userId)
+            .length > 0
+        ) {
           return {
             resObj: {
               message: "You're already part of this event",
@@ -129,9 +136,8 @@ async function joinEvent(req, res) {
           };
         }
 
-        event = await Event.findOne({ _id: body.id });
         participants = event.participants;
-        participants.push(body.participantsName);
+        participants.push({ name: body.participantsName, userId: userId });
 
         updatedEvent = await Event.findOneAndUpdate(
           { _id: body.id },
@@ -141,7 +147,7 @@ async function joinEvent(req, res) {
 
         await User.findOneAndUpdate(
           { _id: currentUser._id },
-          { $push: { events: body.id } }
+          { $addToSet: { events: body.id } }
         );
 
         return {
@@ -151,11 +157,12 @@ async function joinEvent(req, res) {
       }
 
       event = await Event.findOne({ _id: body.id });
-      participants = event.participants;
-      participants.push(body.participantsName);
 
       const user = new User({ signedUp: false, events: event._id });
       await user.save();
+
+      participants = event.participants;
+      participants.push({ name: body.participantsName, userId: user._id });
 
       updatedEvent = await Event.findOneAndUpdate(
         { _id: body.id },
@@ -178,7 +185,7 @@ async function joinEvent(req, res) {
     res
       .cookie(payload.cookie.name, payload.cookie.value, {
         expires: new Date(Number(new Date()) + 315360000000),
-        httpOnly: true,
+        httpOnly: false,
       })
       .send(payload.resObj);
   } else {
