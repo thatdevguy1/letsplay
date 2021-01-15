@@ -29,8 +29,8 @@ const eventsInfo = (state = defaultState, action) => {
     case "toggleMyEvents":
       return {
         ...state,
-        toggleMyEvents: !state.toggleMyEvents,
-        myEvents: action.payload.data.myEvents,
+        toggleMyEvents: action.payload.toggle,
+        myEvents: action.payload.response.data.myEvents,
       };
     default:
       return state;

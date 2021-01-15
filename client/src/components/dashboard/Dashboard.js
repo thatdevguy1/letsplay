@@ -44,12 +44,17 @@ const AntSwitch = withStyles((theme) => ({
 
 function Dashboard() {
   const dispatch = useDispatch();
+  const eventToggle = useSelector((state) => {
+    return state.eventsInfo.toggleMyEvents;
+  });
   const history = useHistory();
-  const [publicEvent, setPublicEvent] = useState(true);
+
+  useEffect(() => {
+    dispatch(getMyEvents(eventToggle));
+  }, []);
 
   const handleChange = (event) => {
-    setPublicEvent(!publicEvent);
-    dispatch(getMyEvents());
+    dispatch(getMyEvents(!eventToggle));
   };
 
   return (
@@ -57,7 +62,8 @@ function Dashboard() {
       <div className="switchWrapper">
         <span style={{ fontSize: "12px", padding: "0 10px" }}>My Events</span>
         <AntSwitch
-          checked={publicEvent}
+          //The AntSwitch is set up backwords
+          checked={!eventToggle}
           onChange={handleChange}
           name="publicEvent"
         />

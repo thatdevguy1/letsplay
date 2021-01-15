@@ -102,7 +102,7 @@ export const getEvents = () => {
   };
 };
 
-export const getMyEvents = () => {
+export const getMyEvents = (toggle) => {
   return async (dispatch) => {
     var config = {
       method: "get",
@@ -118,7 +118,7 @@ export const getMyEvents = () => {
       if (response && response.data.response === true) {
         dispatch({
           type: "toggleMyEvents",
-          payload: response,
+          payload: { response, toggle },
         });
       }
     } catch (err) {

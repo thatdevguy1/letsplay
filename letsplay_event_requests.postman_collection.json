@@ -1,0 +1,1254 @@
+{
+	"info": {
+		"_postman_id": "b71c8e43-bd1e-4ec5-92bb-a946b7a32b9b",
+		"name": "letsplay_event_requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "127.0.0.1:8080/api/getMyEvents",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5fb6c403105c334b329ed0e0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/getMyEvents",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getMyEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/getMyEvents",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5fb6c403105c334b329ed0e0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/getMyEvents",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getMyEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/getMyEvents",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5fb6c403105c334b329ed0e0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/getMyEvents",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getMyEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/getMyEvents",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5fb6c403105c334b329ed0e0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/getMyEvents",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getMyEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/getMyEvents",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5fb6c403105c334b329ed0e0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/getMyEvents",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getMyEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/getEvent?id=5fb6c403105c334b329ed0e0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5fb6c403105c334b329ed0e0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/getEvent?id=5fb6c403105c334b329ed0e0",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getEvent"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5fb6c403105c334b329ed0e0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/getEvent",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5fb6c403105c334b329ed0e0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/getEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/getEvent",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5fb6c403105c334b329ed0e0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/getEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": [],\n    \"startTime\": \"8pm\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvent",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvents",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvents",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvents",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvents",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/createEvents",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/createEvents",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8080/api/getEvents",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sexy Soccer Time With Dave\",\n    \"type\": \"Soccer\",\n    \"maxParticipents\": 22,\n    \"minParticipents\": 10,\n    \"location\": {\n        \"address\": \"123 dippty doo rd\",\n        \"latitude\": \"213345342453\",\n        \"longitude\": \"21344325134\"\n    },\n    \"description\": \"Super dope soccer game with some new rules involved... no guys allowed\",\n    \"participants\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/getEvents",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getEvents"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
