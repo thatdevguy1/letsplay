@@ -19,6 +19,8 @@ import {
 import "./CreateEvent.scss";
 import MomentUtils from "@date-io/moment";
 import moment from "moment";
+import { toast } from "react-toastify";
+
 moment().format();
 
 function CreateEvent() {
@@ -76,10 +78,12 @@ function CreateEvent() {
 
       if (response && response.data.response === true) {
         dispatch(getEvents());
+        toast.success("Event has been created");
         history.push("/");
       }
     } catch (err) {
       console.log(err);
+      toast.error("Something went wrong. Please try again later");
     }
   };
 

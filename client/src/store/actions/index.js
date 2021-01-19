@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const signIn = (payload) => {
   return async (dispatch) => {
@@ -171,9 +172,13 @@ export const joinEvent = (data) => {
           type: "selectEvent",
           payload: response.data._doc,
         });
+        toast.success(`You have joined this event as ${data.participantsName}`);
+      } else {
+        toast.warn(response.data.message);
       }
     } catch (err) {
       console.log(err);
+      toast.error("Something went wrong! Please try again later");
     }
   };
 };
