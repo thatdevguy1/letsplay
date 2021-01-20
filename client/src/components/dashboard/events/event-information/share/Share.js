@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import { toast } from "react-toastify";
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -18,11 +19,20 @@ import "./Share.scss";
 //Need to modify social media shares to include a message / hashtag
 function Share() {
   const URL = "http://www.imgur.com";
+  const URLele = useRef(null);
+
+  const copyUrl = () => {
+    URLele.current.select();
+    URLele.current.setSelectionRange(0, 9999);
+    document.execCommand("copy");
+    toast(`${URL} copied to clipboard`);
+  };
+
   return (
     <div className="share">
       <h1>SHARE</h1>
-      <div className="minified-url-wrapper">
-        <p>{URL}</p>
+      <div className="minified-url-wrapper" onClick={copyUrl}>
+        <input ref={URLele} value={URL} disabled />
       </div>
       <div className="share-button-wrapper">
         <FacebookShareButton url={URL}>
