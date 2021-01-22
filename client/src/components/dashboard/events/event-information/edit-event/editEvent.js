@@ -7,7 +7,7 @@ import Modal from "../../../../modal/modal";
 import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
-import CreateMap from "../../../../map/createMap";
+import Map from "../../../../map/Map";
 import { withStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import {
@@ -199,7 +199,7 @@ function EditEvent(props) {
               </div>
             </div>
             <div className="map-wrapper">
-              <CreateMap selectedEvent={props.eventInfo.selectedEvent} />
+              <Map type="editLocation" />
             </div>
             <div className="button-wrapper">
               <div>

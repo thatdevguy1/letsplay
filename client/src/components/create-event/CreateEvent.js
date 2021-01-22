@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
-import CreateMap from "../map/createMap";
+import Map from "../map/Map";
 //import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
@@ -239,9 +239,7 @@ function CreateEvent() {
           Create Event
         </Button>
       </form>
-      <div className="mapHolder">
-        <CreateMap />
-      </div>
+      <div className="mapHolder">{<Map type="setLocation" />}</div>
     </div>
   );
 }

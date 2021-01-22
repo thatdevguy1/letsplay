@@ -1,7 +1,7 @@
 import React from "react";
 import "../EventInformation.scss";
 import Modal from "../../../../modal/modal";
-import InfoMap from "../../../../map/infoMap";
+import Map from "../../../../map/Map";
 import Button from "@material-ui/core/Button";
 
 function EventBody(props) {
@@ -30,7 +30,7 @@ function EventBody(props) {
             </div>
           </div>
           <div className="map-wrapper">
-            <InfoMap selectedEvent={props.eventInfo.selectedEvent} />
+            <Map type="displayLocation" />
           </div>
           <div className="button-wrapper">
             {props.admin ? (

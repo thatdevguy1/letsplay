@@ -5,7 +5,6 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./EventInformation.scss";
 import Modal from "../../../modal/modal";
-import InfoMap from "../../../map/infoMap";
 import Participants from "./participants/Participants";
 import Share from "./share/Share";
 import EventBody from "./event-body/eventBody";
