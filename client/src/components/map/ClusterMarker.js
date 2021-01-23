@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useMap, Marker, useMapEvents, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
-import useSupercluster from "react-supercluster";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+import "leaflet/dist/leaflet.css";
+import "react-leaflet-markercluster/dist/styles.min.css";
 
 const ClusterMarker = () => {
   const events = useSelector((state) => state.eventsInfo.events);
@@ -13,6 +15,7 @@ const ClusterMarker = () => {
     locationfound(e) {
       map.setView([e.latlng.lat, e.latlng.lng], 16);
     },
+    //Possible solution for batching events based on map view
     // move(e) {
     //   const { _southWest, _northEast } = map.getBounds();
     //   setBounds([
@@ -31,19 +34,21 @@ const ClusterMarker = () => {
 
   return (
     <>
-      {Array.isArray(events) &&
-        events.map((event, index) => {
-          if (event) {
-            return (
-              <Marker
-                key={`event-${index}`}
-                position={[event.location.latitude, event.location.longitude]}
-              >
-                <Popup>{event.name}</Popup>
-              </Marker>
-            );
-          }
-        })}
+      <MarkerClusterGroup>
+        {Array.isArray(events) &&
+          events.map((event, index) => {
+            if (event) {
+              return (
+                <Marker
+                  key={`event-${index}`}
+                  position={[event.location.latitude, event.location.longitude]}
+                >
+                  <Popup>{event.name}</Popup>
+                </Marker>
+              );
+            }
+          })}
+      </MarkerClusterGroup>
     </>
   );
 };
