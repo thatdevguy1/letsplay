@@ -4,6 +4,7 @@ import "./Map.css";
 import EventMarker from "./EventMarker";
 import CreateMarker from "./CreateMarker";
 import EditMarker from "./EditMarker";
+import ClusterMarker from "./ClusterMarker";
 
 //Different Markers modify the functionality of the map in their respective components
 const Map = ({ type }) => {
@@ -15,6 +16,8 @@ const Map = ({ type }) => {
         return <CreateMarker />;
       case "editLocation":
         return <EditMarker />;
+      case "cluster":
+        return <ClusterMarker />;
     }
   };
 

@@ -7,3 +7,15 @@
   align-items: center;
   right: 0;
 }
+
+.list-and-map {
+  display: flex;
+  justify-content: space-around;
+}
+
+.map-wrapper {
+  height: 85vh;
+  width: 45vw;
+  align-self: center;
+  margin: 0 40px 0 20px;
+}

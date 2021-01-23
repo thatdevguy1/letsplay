@@ -7,6 +7,7 @@ import Events from "./events/Events";
 import { withStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import "./Dashboard.scss";
+import Map from "../map/Map";
 
 const AntSwitch = withStyles((theme) => ({
   root: {
@@ -58,7 +59,7 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <div className="dashboard">
       <div className="switchWrapper">
         <span style={{ fontSize: "12px", padding: "0 10px" }}>My Events</span>
         <AntSwitch
@@ -69,7 +70,12 @@ function Dashboard() {
         />
         <span style={{ fontSize: "12px", padding: "0 10px" }}>All Events</span>
       </div>
-      <Events />
+      <div className="list-and-map">
+        <Events />
+        <div className="map-wrapper">
+          <Map type="cluster" />
+        </div>
+      </div>
     </div>
   );
 }
