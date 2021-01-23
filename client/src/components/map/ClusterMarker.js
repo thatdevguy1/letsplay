@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useMap, Marker, useMapEvents, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import "leaflet/dist/leaflet.css";
 import "react-leaflet-markercluster/dist/styles.min.css";
 
 const ClusterMarker = () => {
