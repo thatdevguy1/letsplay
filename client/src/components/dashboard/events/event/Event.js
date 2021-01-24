@@ -26,42 +26,19 @@ function Event(props) {
     history.push(`/event-information?id=${eventData._id}`);
   };
 
+  const makeSelectedEvent = () => {
+    dispatch(selectEvent(props.eventData));
+  };
+
   return (
-    // <Card className={classes.root}>
-    //   <CardActionArea>
-    //     <CardMedia
-    //       component="img"
-    //       alt="Contemplative Reptile"
-    //       height="140"
-    //       image="https://pbs.twimg.com/profile_images/531498936218189824/_8_2bNtP_400x400.jpeg"
-    //       title="Contemplative Reptile"
-    //     />
-    //     <CardContent>
-    //       <Typography gutterBottom variant="h5" component="h2">
-    //         {props.eventData.name}
-    //       </Typography>
-    //       <Typography variant="body2" color="textSecondary" component="p">
-    //         {props.eventData.description}
-    //       </Typography>
-    //     </CardContent>
-    //   </CardActionArea>
-    //   <CardActions>
-    //     <Button size="small" color="primary">
-    //       Share
-    //     </Button>
-    // <Button
-    //   size="small"
-    //   color="primary"
-    //   onClick={(e) => {
-    //     e.preventDefault();
-    //     eventInfo(props.eventData);
-    //   }}
-    // >
-    //   Learn More
-    // </Button>
-    //   </CardActions>
-    // </Card>
-    <ListItem>
+    <ListItem
+      style={
+        props.selected
+          ? { border: "solid 3px #c5ffc5", background: "#daffda" }
+          : null
+      }
+      onClick={makeSelectedEvent}
+    >
       <ListItemAvatar>
         <Avatar>
           <ImageIcon />

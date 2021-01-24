@@ -31,7 +31,13 @@ function Events() {
               return event.name
                 .toLowerCase()
                 .includes(eventsInfo.searchEvent) && event.public ? (
-                <Event key={event._id} eventData={event} />
+                <Event
+                  key={event._id}
+                  eventData={event}
+                  selected={
+                    event._id === eventsInfo.selectedEvent._id ? true : false
+                  }
+                />
               ) : (
                 ""
               );
@@ -39,7 +45,13 @@ function Events() {
           : eventsInfo.myEvents.map((event) => {
               return (
                 event.name.toLowerCase().includes(eventsInfo.searchEvent) && (
-                  <Event key={event._id} eventData={event} />
+                  <Event
+                    key={event._id}
+                    eventData={event}
+                    selected={
+                      event._id === eventsInfo.selectedEvent._id ? true : false
+                    }
+                  />
                 )
               );
             })}

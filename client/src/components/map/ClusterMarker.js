@@ -1,12 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { useMap, Marker, useMapEvents, Popup } from "react-leaflet";
-import { useSelector } from "react-redux";
+import { selectEvent } from "../../store/actions";
+import { useSelector, useDispatch } from "react-redux";
 import MarkerClusterGroup from "react-leaflet-markercluster";
+import { divIcon } from "leaflet";
+import { renderToStaticMarkup } from "react-dom/server";
 import "react-leaflet-markercluster/dist/styles.min.css";
 
 const ClusterMarker = () => {
-  const events = useSelector((state) => state.eventsInfo.events);
+  const eventsInfo = useSelector((state) => state.eventsInfo);
   const [bounds, setBounds] = useState([0, 0, 0, 0]);
+  const dispatch = useDispatch();
+
+  const markerHtmlStyles = `
+  background-color: #3F51B4;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: block;
+  left: -1.5rem;
+  top: -1.5rem;
+  position: relative;
+  border-radius: 1.5rem 1.5rem 0;
+  transform: rotate(45deg);
+  border: 1px solid #FFFFFF`;
+
+  const selectedMarkerHtmlStyles = `
+  background-color: #2bb437;
+  border: solid 2px black;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: block;
+  left: -1.5rem;
+  top: -1.5rem;
+  position: relative;
+  border-radius: 2.5rem 2.5rem 0;
+  transform: rotate(45deg);
+  border: 1px solid #FFFFFF`;
+
+  const customMarkerIcon = divIcon({
+    html: `<span style="${markerHtmlStyles}">`,
+  });
+  const selectedCustomMarkerIcon = divIcon({
+    html: `<span style="${selectedMarkerHtmlStyles}">`,
+  });
 
   const map = useMap();
 
@@ -31,16 +67,36 @@ const ClusterMarker = () => {
     mapEvent.locate();
   }, []);
 
+  useEffect(() => {
+    map.setView(
+      [
+        eventsInfo.selectedEvent.location.latitude,
+        eventsInfo.selectedEvent.location.longitude,
+      ],
+      17
+    );
+  }, [eventsInfo.selectedEvent]);
+
   return (
     <>
       <MarkerClusterGroup>
-        {Array.isArray(events) &&
-          events.map((event, index) => {
+        {Array.isArray(eventsInfo.events) &&
+          eventsInfo.events.map((event, index) => {
             if (event) {
               return (
                 <Marker
                   key={`event-${index}`}
+                  icon={
+                    event._id === eventsInfo.selectedEvent._id
+                      ? selectedCustomMarkerIcon
+                      : customMarkerIcon
+                  }
                   position={[event.location.latitude, event.location.longitude]}
+                  eventHandlers={{
+                    click: () => {
+                      dispatch(selectEvent(event));
+                    },
+                  }}
                 >
                   <Popup>{event.name}</Popup>
                 </Marker>
