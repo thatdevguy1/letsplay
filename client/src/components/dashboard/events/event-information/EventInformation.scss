@@ -26,40 +26,83 @@ $primary: #3f51b4;
     padding: 25px;
     border-radius: 5px;
 
-    .description-wrapper {
-      width: 100%;
-      font-weight: 100;
+    h1 {
+      text-align: center;
+      margin: 0 0 20px 0;
     }
 
-    .time-public-wrapper {
+    p {
+    }
+
+    .event-details {
+      box-sizing: border-box;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: space-between;
-      width: 100%;
-      margin: 21px 0;
+      position: relative;
+      -webkit-box-shadow: 0px 0px 23px -6px #000000;
+      box-shadow: 0px 0px 23px -6px #000000;
+      background: #3f51b3;
+      top: -28px;
+      z-index: 1000;
+      border-radius: 5px;
+      width: 90%;
+      align-self: center;
+      padding: 20px;
+      height: 33%;
+      overflow: auto;
 
-      div {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-        width: 40%;
-        padding: 10px 0;
-        font-weight: 100;
-      }
+      // .time-wrapper {
+      //   font-size: 11pt;
+      // }
 
-      .time-wrapper {
-        border-bottom: none;
-        padding: 0;
+      // .public-wrapper {
+      //   font-size: 11pt;
+      // }
+
+      .time-public-wrapper {
         div {
-          width: 100%;
-          border-bottom: none;
+          font-size: 11pt;
+          margin-bottom: 6px;
         }
       }
-
-      .public-wrapper {
-        display: flex;
-        justify-content: space-around;
-        align-items: flex-end;
-      }
     }
+
+    .description-wrapper {
+      width: 100%;
+      //font-weight: 100;
+      font-size: 13pt;
+    }
+
+    // .time-public-wrapper {
+    //   display: flex;
+    //   flex-direction: row;
+    //   justify-content: space-between;
+    //   width: 100%;
+    //   margin: 21px 0;
+
+    //   div {
+    //     border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+    //     width: 40%;
+    //     padding: 10px 0;
+    //     font-weight: 100;
+    //   }
+
+    //   .time-wrapper {
+    //     border-bottom: none;
+    //     padding: 0;
+    //     div {
+    //       width: 100%;
+    //       border-bottom: none;
+    //     }
+    //   }
+
+    //   .public-wrapper {
+    //     display: flex;
+    //     justify-content: space-around;
+    //     align-items: flex-end;
+    //   }
+    // }
 
     .map-wrapper {
       width: 100%;
