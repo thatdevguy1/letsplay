@@ -49,7 +49,7 @@ function EventInformation() {
             <div className="participants-wrapper">
               <Participants eventInfo={eventInfo} />
             </div>
-            <Share />
+            <Share eventId={history.location.search.split("=")[1]}/>
           </div>
           {editable ? (
             <EditEvent eventInfo={eventInfo} toggleEditMode={toggleEdit} />

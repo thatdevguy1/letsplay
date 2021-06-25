@@ -17,8 +17,9 @@ import {
 import "./Share.scss";
 
 //Need to modify social media shares to include a message / hashtag
-function Share() {
-  const URL = "http://www.imgur.com";
+function Share({eventId}) {
+  console.log('The location prop is: ', eventId);
+  const URL = `localhost:3000/event-information?id=${eventId}`;
   const URLele = useRef(null);
 
   const copyUrl = () => {
@@ -32,7 +33,7 @@ function Share() {
     <div className="share">
       <h1>SHARE</h1>
       <div className="minified-url-wrapper" onClick={copyUrl}>
-        <input ref={URLele} value={URL} disabled />
+        <input ref={URLele} value={URL} readonly />
       </div>
       <div className="share-button-wrapper">
         <FacebookShareButton url={URL}>
