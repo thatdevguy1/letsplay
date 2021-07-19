@@ -42,6 +42,10 @@ const eventSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  date: {
+    type: Date,
+    required: true,
+  },
   creator: {
     type: String,
     required: true,

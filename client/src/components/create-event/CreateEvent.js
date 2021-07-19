@@ -57,7 +57,8 @@ function CreateEvent() {
       },
       description: form.current.description.value,
       startTime: selectedTime.format("LT"),
-      date: selectedDate.format("dddd, MMMM Do YYYY"),
+      //date: selectedDate.format("dddd, MMMM Do YYYY"),
+      date: selectedDate,
       public: publicEvent,
     };
 

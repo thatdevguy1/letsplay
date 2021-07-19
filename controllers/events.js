@@ -61,6 +61,8 @@ async function deleteEvent(req, res) {
 
 async function createEvent(req, res) {
   const newEvent = new Event(req.body);
+  console.log(req.body);
+  console.log(newEvent);
   try {
     if (req.cookies.userId) {
       newEvent.creator = req.cookies.userId;

@@ -3,6 +3,9 @@ import "../EventInformation.scss";
 import Modal from "../../../../modal/modal";
 import Map from "../../../../map/Map";
 import Button from "@material-ui/core/Button";
+import moment from "moment";
+
+moment().format();
 
 function EventBody(props) {
   return (
@@ -36,7 +39,15 @@ function EventBody(props) {
               nulla quas modi dolore veritatis possimus, perspiciatis rem! */}
             </p>
             <div className="time-public-wrapper">
-              <div className="date-wrapper">Date:</div>
+              <div className="date-wrapper">
+                Date:
+                <span style={{ color: "white" }}>
+                  {" "}
+                  {moment(props.eventInfo.selectedEvent.date).format(
+                    "dddd, MMMM Do YYYY"
+                  )}
+                </span>
+              </div>
               <div className="time-wrapper">
                 Start time:
                 <span style={{ color: "white" }}>
