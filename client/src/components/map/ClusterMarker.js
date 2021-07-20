@@ -3,6 +3,8 @@ import { useMap, Marker, useMapEvents, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import "react-leaflet-markercluster/dist/styles.min.css";
+import moment from "moment";
+moment().format();
 
 const ClusterMarker = () => {
   const events = useSelector((state) => state.eventsInfo.events);
@@ -42,7 +44,15 @@ const ClusterMarker = () => {
                   key={`event-${index}`}
                   position={[event.location.latitude, event.location.longitude]}
                 >
-                  <Popup>{event.name}</Popup>
+                  <Popup>
+                    <span>{event.name}</span>
+                    <br />
+                    <span>
+                      {moment(event.date).format("dddd, MMMM Do YYYY")}
+                    </span>
+                    <br />
+                    <span>{event.startTime}</span>
+                  </Popup>
                 </Marker>
               );
             }
