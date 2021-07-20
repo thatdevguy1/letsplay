@@ -7,6 +7,7 @@ import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import moment from "moment";
+import "./Map.css";
 moment().format();
 
 const ClusterMarker = () => {
@@ -46,6 +47,31 @@ const ClusterMarker = () => {
     html: `<span style="${selectedMarkerHtmlStyles}">`,
   });
 
+  // const createClusterCustomIcon = (cluster, eventsInfo) => {
+  //   const count = cluster.getChildCount();
+  //   console.log(cluster.getAllChildMarkers());
+  //   let eventIdsInCluster = cluster
+  //     .getAllChildMarkers()
+  //     .map((marker) => marker.options["data-id"]);
+  //   console.log(eventsInfo.selectedEvent._id);
+  //   if (eventIdsInCluster.includes(eventsInfo.selectedEvent._id)) {
+  //     console.log("its a match");
+  //     return divIcon({
+  //       html: `<div>
+  //           <span>${count}</span>
+  //         </div>`,
+  //       className: "marker-cluster selected",
+  //     });
+  //   } else {
+  //     return divIcon({
+  //       html: `<div>
+  //           <span>${count}</span>
+  //         </div>`,
+  //       className: "marker-cluster",
+  //     });
+  //   }
+  // };
+
   const map = useMap();
 
   const mapEvent = useMapEvents({
@@ -82,13 +108,22 @@ const ClusterMarker = () => {
 
   return (
     <>
-      <MarkerClusterGroup>
+      <MarkerClusterGroup
+      // iconCreateFunction={(cluster) =>
+      //   createClusterCustomIcon(cluster, eventsInfo)
+      // }
+      // spiderLegPolylineOptions={{
+      //   weight: 0,
+      //   opacity: 0,
+      // }}
+      >
         {Array.isArray(eventsInfo.events) &&
           eventsInfo.events.map((event, index) => {
             if (event) {
               return (
                 <Marker
                   key={`event-${index}`}
+                  data-id={event._id}
                   icon={
                     event._id === eventsInfo.selectedEvent._id
                       ? selectedCustomMarkerIcon
