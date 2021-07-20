@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMap, Marker, useMapEvents, Popup } from "react-leaflet";
+import { useMap, Marker, useMapEvents, Tooltip } from "react-leaflet";
 import { selectEvent } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import MarkerClusterGroup from "react-leaflet-markercluster";
@@ -101,7 +101,7 @@ const ClusterMarker = () => {
                     },
                   }}
                 >
-                  <Popup>
+                  <Tooltip>
                     <span>{event.name}</span>
                     <br />
                     <span>
@@ -109,7 +109,7 @@ const ClusterMarker = () => {
                     </span>
                     <br />
                     <span>{event.startTime}</span>
-                  </Popup>
+                  </Tooltip>
                 </Marker>
               );
             }
