@@ -70,13 +70,14 @@ const ClusterMarker = () => {
   }, []);
 
   useEffect(() => {
-    map.setView(
-      [
-        eventsInfo.selectedEvent.location.latitude,
-        eventsInfo.selectedEvent.location.longitude,
-      ],
-      17
-    );
+    Object.keys(eventsInfo.selectedEvent) > 0 &&
+      map.setView(
+        [
+          eventsInfo.selectedEvent.location.latitude,
+          eventsInfo.selectedEvent.location.longitude,
+        ],
+        17
+      );
   }, [eventsInfo.selectedEvent]);
 
   return (
