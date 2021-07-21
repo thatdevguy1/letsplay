@@ -50,13 +50,12 @@ const ClusterMarker = () => {
 
   const createClusterCustomIcon = (cluster) => {
     const count = cluster.getChildCount();
-    console.log(cluster.getAllChildMarkers());
+
     let selectedInCluster = cluster
       .getAllChildMarkers()
       .map((marker) => marker.options.isSelected);
-    console.log(selectedInCluster);
+
     if (selectedInCluster.includes("true")) {
-      console.log("its a match");
       return divIcon({
         html: `<div>
               <span>${count}</span>
@@ -79,10 +78,6 @@ const ClusterMarker = () => {
     locationfound(e) {
       map.setView([e.latlng.lat, e.latlng.lng], 16);
     },
-  });
-
-  useEffect(() => {
-    console.log("rerender");
   });
 
   useEffect(() => {
