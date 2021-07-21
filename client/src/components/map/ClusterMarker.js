@@ -7,6 +7,7 @@ import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 import "./Map.css";
 moment().format();
 
@@ -47,30 +48,30 @@ const ClusterMarker = () => {
     html: `<span style="${selectedMarkerHtmlStyles}">`,
   });
 
-  // const createClusterCustomIcon = (cluster, eventsInfo) => {
-  //   const count = cluster.getChildCount();
-  //   console.log(cluster.getAllChildMarkers());
-  //   let eventIdsInCluster = cluster
-  //     .getAllChildMarkers()
-  //     .map((marker) => marker.options["data-id"]);
-  //   console.log(eventsInfo.selectedEvent._id);
-  //   if (eventIdsInCluster.includes(eventsInfo.selectedEvent._id)) {
-  //     console.log("its a match");
-  //     return divIcon({
-  //       html: `<div>
-  //           <span>${count}</span>
-  //         </div>`,
-  //       className: "marker-cluster selected",
-  //     });
-  //   } else {
-  //     return divIcon({
-  //       html: `<div>
-  //           <span>${count}</span>
-  //         </div>`,
-  //       className: "marker-cluster",
-  //     });
-  //   }
-  // };
+  const createClusterCustomIcon = (cluster) => {
+    const count = cluster.getChildCount();
+    console.log(cluster.getAllChildMarkers());
+    let selectedInCluster = cluster
+      .getAllChildMarkers()
+      .map((marker) => marker.options.isSelected);
+    console.log(selectedInCluster);
+    if (selectedInCluster.includes("true")) {
+      console.log("its a match");
+      return divIcon({
+        html: `<div>
+              <span>${count}</span>
+            </div>`,
+        className: "marker-cluster selected",
+      });
+    } else {
+      return divIcon({
+        html: `<div>
+              <span>${count}</span>
+            </div>`,
+        className: "marker-cluster",
+      });
+    }
+  };
 
   const map = useMap();
 
@@ -78,17 +79,10 @@ const ClusterMarker = () => {
     locationfound(e) {
       map.setView([e.latlng.lat, e.latlng.lng], 16);
     },
-    //Possible solution for batching events based on map view
-    // move(e) {
-    //   const { _southWest, _northEast } = map.getBounds();
-    //   setBounds([
-    //     _southWest.lat,
-    //     _southWest.lng,
-    //     _northEast.lat,
-    //     _northEast.lng,
-    //   ]);
-    //   console.log(`Moved! new bounds: ${bounds}`);
-    // },
+  });
+
+  useEffect(() => {
+    console.log("rerender");
   });
 
   useEffect(() => {
@@ -109,13 +103,12 @@ const ClusterMarker = () => {
   return (
     <>
       <MarkerClusterGroup
-      // iconCreateFunction={(cluster) =>
-      //   createClusterCustomIcon(cluster, eventsInfo)
-      // }
-      // spiderLegPolylineOptions={{
-      //   weight: 0,
-      //   opacity: 0,
-      // }}
+        key={uuidv4()}
+        iconCreateFunction={createClusterCustomIcon}
+        spiderLegPolylineOptions={{
+          weight: 0,
+          opacity: 0,
+        }}
       >
         {Array.isArray(eventsInfo.events) &&
           eventsInfo.events.map((event, index) => {
@@ -128,6 +121,11 @@ const ClusterMarker = () => {
                     event._id === eventsInfo.selectedEvent._id
                       ? selectedCustomMarkerIcon
                       : customMarkerIcon
+                  }
+                  isSelected={
+                    event._id === eventsInfo.selectedEvent._id
+                      ? "true"
+                      : "false"
                   }
                   position={[event.location.latitude, event.location.longitude]}
                   eventHandlers={{
