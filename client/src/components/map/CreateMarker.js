@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useMap, Marker, useMapEvents } from "react-leaflet";
 import { useDispatch, useSelector } from "react-redux";
 import { setLatLng } from "../../store/actions";
+import markerStyles from "./CustomerMarker/CustomeMarker";
 
 const CreateMarker = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const CreateMarker = () => {
     mapEvent.locate();
   }, []);
 
-  return <Marker position={[lat, lng]} />;
+  return <Marker position={[lat, lng]} icon={markerStyles.customMarkerIcon} />;
 };
 
 export default CreateMarker;

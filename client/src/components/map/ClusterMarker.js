@@ -9,44 +9,13 @@ import "react-leaflet-markercluster/dist/styles.min.css";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import "./Map.css";
+import markerStyles from "./CustomerMarker/CustomeMarker";
 moment().format();
 
 const ClusterMarker = () => {
   const eventsInfo = useSelector((state) => state.eventsInfo);
   const [bounds, setBounds] = useState([0, 0, 0, 0]);
   const dispatch = useDispatch();
-
-  const markerHtmlStyles = `
-  background-color: #3F51B4;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: block;
-  left: -1.5rem;
-  top: -1.5rem;
-  position: relative;
-  border-radius: 1.5rem 1.5rem 0;
-  transform: rotate(45deg);
-  border: 1px solid #FFFFFF`;
-
-  const selectedMarkerHtmlStyles = `
-  background-color: #2bb437;
-  border: solid 2px black;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: block;
-  left: -1.5rem;
-  top: -1.5rem;
-  position: relative;
-  border-radius: 2.5rem 2.5rem 0;
-  transform: rotate(45deg);
-  border: 1px solid #FFFFFF`;
-
-  const customMarkerIcon = divIcon({
-    html: `<span style="${markerHtmlStyles}">`,
-  });
-  const selectedCustomMarkerIcon = divIcon({
-    html: `<span style="${selectedMarkerHtmlStyles}">`,
-  });
 
   const createClusterCustomIcon = (cluster) => {
     const count = cluster.getChildCount();
@@ -114,8 +83,8 @@ const ClusterMarker = () => {
                   data-id={event._id}
                   icon={
                     event._id === eventsInfo.selectedEvent._id
-                      ? selectedCustomMarkerIcon
-                      : customMarkerIcon
+                      ? markerStyles.selectedCustomMarkerIcon
+                      : markerStyles.customMarkerIcon
                   }
                   isSelected={
                     event._id === eventsInfo.selectedEvent._id
