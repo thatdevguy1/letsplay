@@ -8,13 +8,53 @@
   border-radius: 5px;
   overflow: hidden;
 }
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+  width: 60px !important;
+  height: 60px !important;
+  border: none;
+  background: rgb(0, 0, 0, 0);
+}
 
 .marker-cluster div {
-  background-color: rgba(218, 94, 94, 0.6);
+  background-color: #3f50b38c;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.marker-cluster div::after {
+  content: "";
+  display: block;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0) 0%,
+    #3f50b3a9,
+    rgba(255, 255, 255, 1) 100%
+  );
+  border-radius: 50%;
+  position: absolute;
+  top: -1px;
+  left: -1px;
 }
 
 .marker-cluster.selected div {
-  background-color: green;
+  background-color: #3eb4388c;
+}
+
+.marker-cluster.selected div::after {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0) 0%,
+    #3eb438a9,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
 
 .markerClusterLabel {
