@@ -10,19 +10,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -212,21 +204,6 @@ function Nav() {
         {renderMobileMenu}
         {renderMenu}
       </div>
-
-      {/* <Link to="/">
-        <h1>LetsPlay!</h1>
-      </Link>
-      <div className="searchBar"> </div>
-      <div className="userNav">
-        <button onClick={createEvent}>Create Event</button>
-        <button onClick={toggleMyEvents}>
-          {events.toggleMyEvents === false ? (
-            <span>Show My Events</span>
-          ) : (
-            <span>Show All Events</span>
-          )}
-        </button>
-      </div> */}
     </div>
   );
 }
