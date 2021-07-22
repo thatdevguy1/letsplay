@@ -3,6 +3,8 @@
   justify-content: center;
   padding: 20px;
   width: 50%;
+  max-height: 83vh;
+  overflow: auto;
 }
 
 ul > li:nth-child(odd) {
