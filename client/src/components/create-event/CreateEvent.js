@@ -51,7 +51,7 @@ function CreateEvent() {
       name: form.current.eventName.value,
       type: form.current.sportName.value,
       location: {
-        address: form.current.address.value,
+        address: "n/a",
         latitude: createEventLocation.lat,
         longitude: createEventLocation.lng,
       },
@@ -126,10 +126,14 @@ function CreateEvent() {
     <div className="create-event">
       <form ref={form}>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <Typography variant="h6" gutterBottom>
+          <Typography
+            variant="h4"
+            style={{ margin: "0 0 40px 0" }}
+            gutterBottom
+          >
             Create Event
           </Typography>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <Grid component="label" container alignItems="center" spacing={1}>
               <Grid item>Private</Grid>
               <Grid item>
@@ -143,7 +147,17 @@ function CreateEvent() {
             </Grid>
           </Grid>
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                id="username"
+                name="username"
+                label="Username"
+                fullWidth
+                autoComplete="given-name"
+              />
+            </Grid>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="eventName"
@@ -153,7 +167,7 @@ function CreateEvent() {
                 autoComplete="given-name"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="sport"
@@ -174,7 +188,7 @@ function CreateEvent() {
               />
             </Grid> */}
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <KeyboardTimePicker
                 margin="normal"
                 id="time-picker"
@@ -187,7 +201,7 @@ function CreateEvent() {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
@@ -200,18 +214,7 @@ function CreateEvent() {
                 }}
               />
             </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                id="username"
-                name="username"
-                label="Username"
-                fullWidth
-                autoComplete="given-name"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12}>
               <TextField
                 required
                 id="address"
@@ -220,21 +223,22 @@ function CreateEvent() {
                 fullWidth
                 autoComplete="address"
               />
-            </Grid>
-            <Grid item xs={12} sm={12}>
+            </Grid> */}
+            <Grid item xs={12}>
               <TextField
                 required
                 id="description"
                 name="description"
                 label="Event Description"
                 fullWidth
+                multiline
               />
             </Grid>
           </Grid>
         </MuiPickersUtilsProvider>
         <Button
           variant="contained"
-          style={{ margin: "20px 0 " }}
+          style={{ margin: "40px 0 0 0" }}
           onClick={submitCreateForm}
         >
           Create Event
