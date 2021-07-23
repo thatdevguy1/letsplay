@@ -76,6 +76,7 @@ function Event(props) {
       }
       onClick={makeSelectedEvent}
     >
+      <input type="hidden" data-id={props.eventData._id} />
       <ListItemAvatar>
         <Avatar>{getIcon()}</Avatar>
       </ListItemAvatar>
