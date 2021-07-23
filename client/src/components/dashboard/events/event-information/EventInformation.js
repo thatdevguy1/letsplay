@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { signOut, setUser, getEvent } from "../../../../store/actions";
+import {
+  signOut,
+  setUser,
+  getEvent,
+  deleteEvent,
+} from "../../../../store/actions";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./EventInformation.scss";
@@ -40,6 +45,12 @@ function EventInformation() {
     setEditable(!editable);
   };
 
+  const handleDelete = () => {
+    console.log(`trigger delete on ${eventInfo.selectedEvent._id}`);
+    dispatch(deleteEvent({ id: eventInfo.selectedEvent._id }));
+    history.push(`/`);
+  };
+
   return (
     <>
       {eventInfo.selectedEvent &&
@@ -49,7 +60,7 @@ function EventInformation() {
             <div className="participants-wrapper">
               <Participants eventInfo={eventInfo} />
             </div>
-            <Share eventId={history.location.search.split("=")[1]}/>
+            <Share eventId={history.location.search.split("=")[1]} />
           </div>
           {editable ? (
             <EditEvent eventInfo={eventInfo} toggleEditMode={toggleEdit} />
@@ -58,6 +69,7 @@ function EventInformation() {
               eventInfo={eventInfo}
               admin={admin}
               handleEdit={toggleEdit}
+              handleDelete={handleDelete}
             />
           )}
         </div>

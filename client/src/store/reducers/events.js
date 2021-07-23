@@ -26,6 +26,8 @@ const eventsInfo = (state = defaultState, action) => {
       return { ...state, events: action.payload.data.events };
     case "selectEvent":
       return { ...state, selectedEvent: action.payload };
+    case "deleteEvent":
+      return { ...state };
     case "toggleMyEvents":
       return {
         ...state,

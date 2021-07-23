@@ -44,10 +44,10 @@ async function updateEvent(req, res) {
 
 async function deleteEvent(req, res) {
   try {
-    const event = await Event.findOne({ _id: req.body.id }).populate("creator");
-    if (event.creator.username == req.user.username) {
+    const event = await Event.findOne({ _id: req.body.id });
+    if (event.creator == req.cookies.userId) {
       await Event.deleteOne({ _id: req.body.id });
-      res.send({ response: true, message: "Event Deleted" });
+      res.send({ response: true, message: "Event Deleted", name: event.name });
     } else {
       res.send({
         message: "You do not have permission to delete that event",

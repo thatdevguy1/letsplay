@@ -70,12 +70,22 @@ function EventBody(props) {
           </div>
           <div className="button-wrapper">
             {props.admin ? (
-              <Button onClick={props.handleEdit}>Edit</Button>
+              <div className="admin-btns">
+                <Button onClick={props.handleEdit}>Edit</Button>
+                <Button className="warning-btn" onClick={props.handleDelete}>
+                  Delete
+                </Button>
+              </div>
             ) : (
               ""
             )}
 
-            <Modal eventId={props.eventInfo.selectedEvent._id}>JOIN</Modal>
+            <Modal
+              btnStyle="success-btn"
+              eventId={props.eventInfo.selectedEvent._id}
+            >
+              JOIN
+            </Modal>
           </div>
         </div>
       ) : (

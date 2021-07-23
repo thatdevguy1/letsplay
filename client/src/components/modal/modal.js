@@ -66,7 +66,7 @@ export default function SimpleModal(props) {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <button className={props.btnStyle} type="button" onClick={handleOpen}>
         {props.children}
       </button>
       <Modal

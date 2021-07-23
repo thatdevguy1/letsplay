@@ -31,9 +31,6 @@ $primary: #3f51b4;
       margin: 0 0 20px 0;
     }
 
-    p {
-    }
-
     .event-details {
       box-sizing: border-box;
       display: flex;
@@ -117,6 +114,23 @@ $primary: #3f51b4;
       width: 100%;
       align-self: center;
       margin: 21px 0;
+
+      .admin-btns {
+        button {
+          margin-left: 10px;
+        }
+      }
+
+      .warning-btn {
+        background-color: rgb(255, 50, 50);
+        color: white;
+      }
+
+      .success-btn {
+        background-color: rgb(43, 179, 43);
+        margin: 0;
+        height: 100%;
+      }
 
       button {
         padding: 15px 30px;

@@ -183,6 +183,38 @@ export const joinEvent = (data) => {
   };
 };
 
+export const deleteEvent = (data) => {
+  return async (dispatch) => {
+    var config = {
+      method: "delete",
+      url: process.env.REACT_APP_BASE_API + `/deleteEvent`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    try {
+      let response = await axios(config);
+      console.log("response from delete event: ", response);
+      if (response && response.data.response === true) {
+        console.log(`payload from delete ${response.data._doc}`);
+        dispatch({
+          type: "deleteEvent",
+          payload: response.data._doc,
+        });
+        console.log(response);
+        toast.success(`You have deleted ${response.data.name}`);
+      } else {
+        toast.warn(response.data.message);
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong! Please try again later");
+    }
+  };
+};
+
 export const selectEvent = (payload) => {
   return {
     type: "selectEvent",
