@@ -6,6 +6,7 @@ import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
@@ -22,6 +23,18 @@ import moment from "moment";
 import { toast } from "react-toastify";
 
 moment().format();
+const sports = [
+  "Soccer",
+  "Hockey",
+  "Baseball",
+  "Football",
+  "Cricket",
+  "Handball",
+  "Rugby",
+  "Tennis",
+  "Volleyball",
+  "Golf",
+];
 
 function CreateEvent() {
   const form = useRef(null);
@@ -47,9 +60,12 @@ function CreateEvent() {
   const submitCreateForm = async (e) => {
     e.preventDefault();
 
+    console.log(form.current.sportName.value);
+
     const data = {
       name: form.current.eventName.value,
       type: form.current.sportName.value,
+      icon: `Sports${form.current.sportName.value}OutlinedIcon`,
       location: {
         address: "n/a",
         latitude: createEventLocation.lat,
@@ -168,26 +184,31 @@ function CreateEvent() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              {/* <TextField
                 required
                 id="sport"
                 name="sportName"
                 label="Sport Name"
                 fullWidth
                 autoComplete="family-name"
+              /> */}
+              <Autocomplete
+                required
+                fullWidth
+                freeSolo
+                options={sports.map((sport) => sport)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    id="sport"
+                    name="sportName"
+                    label="Sport"
+                    margin="normal"
+                    variant="outlined"
+                  />
+                )}
               />
             </Grid>
-            {/* <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                id="startTime"
-                name="startTime"
-                label="Start Time"
-                fullWidth
-                autoComplete="given-name"
-              />
-            </Grid> */}
-
             <Grid item xs={12}>
               <KeyboardTimePicker
                 margin="normal"
