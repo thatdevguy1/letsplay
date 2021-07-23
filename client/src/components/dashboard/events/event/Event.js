@@ -16,6 +16,16 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
+import SportsBaseballOutlinedIcon from "@material-ui/icons/SportsBaseballOutlined";
+import SportsSoccerOutlinedIcon from "@material-ui/icons/SportsSoccerOutlined";
+import SportsFootballOutlinedIcon from "@material-ui/icons/SportsFootballOutlined";
+import SportsBasketballOutlinedIcon from "@material-ui/icons/SportsBasketballOutlined";
+import SportsCricketOutlinedIcon from "@material-ui/icons/SportsCricketOutlined";
+import SportsHockeyOutlinedIcon from "@material-ui/icons/SportsHockeyOutlined";
+import SportsRugbyOutlinedIcon from "@material-ui/icons/SportsRugbyOutlined";
+import SportsVolleyballOutlinedIcon from "@material-ui/icons/SportsVolleyballOutlined";
+import SportsGolfOutlinedIcon from "@material-ui/icons/SportsGolfOutlined";
+import SportsHandballOutlinedIcon from "@material-ui/icons/SportsHandballOutlined";
 
 function Event(props) {
   const history = useHistory();
@@ -30,6 +40,33 @@ function Event(props) {
     dispatch(selectEvent(props.eventData));
   };
 
+  const getIcon = () => {
+    switch (props.eventData.type) {
+      case "Soccer":
+        return <SportsSoccerOutlinedIcon />;
+      case "Hockey":
+        return <SportsHockeyOutlinedIcon />;
+      case "Baseball":
+        return <SportsBaseballOutlinedIcon />;
+      case "Football":
+        return <SportsFootballOutlinedIcon />;
+      case "Basketball":
+        return <SportsBasketballOutlinedIcon />;
+      case "Cricket":
+        return <SportsCricketOutlinedIcon />;
+      case "Rugby":
+        return <SportsRugbyOutlinedIcon />;
+      case "Volleyball":
+        return <SportsVolleyballOutlinedIcon />;
+      case "Golf":
+        return <SportsGolfOutlinedIcon />;
+      case "Handball":
+        return <SportsHandballOutlinedIcon />;
+      default:
+        return <ImageIcon />;
+    }
+  };
+
   return (
     <ListItem
       style={
@@ -40,9 +77,7 @@ function Event(props) {
       onClick={makeSelectedEvent}
     >
       <ListItemAvatar>
-        <Avatar>
-          <ImageIcon />
-        </Avatar>
+        <Avatar>{getIcon()}</Avatar>
       </ListItemAvatar>
       <ListItemText
         primary={props.eventData.name}
