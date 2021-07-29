@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../EventInformation.scss";
 import Modal from "../../../../modal/modal";
 import Map from "../../../../map/Map";
@@ -8,6 +8,19 @@ import moment from "moment";
 moment().format();
 
 function EventBody(props) {
+  const [joined, setJoined] = useState(false);
+  useEffect(() => {
+    let cookieValue = document.cookie.replace(
+      /(?:(?:^|.*;\s*)userId\s*\=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    let foundParticipant = props.eventInfo.selectedEvent.participants.some(
+      (p) => cookieValue.includes(p.userId)
+    );
+
+    setJoined(foundParticipant);
+  }, []);
+
   return (
     <>
       {props.eventInfo.selectedEvent &&
@@ -83,6 +96,7 @@ function EventBody(props) {
             <Modal
               btnStyle="success-btn"
               eventId={props.eventInfo.selectedEvent._id}
+              disabled={joined}
             >
               JOIN
             </Modal>
