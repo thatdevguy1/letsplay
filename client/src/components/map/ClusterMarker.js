@@ -4,12 +4,12 @@ import { selectEvent } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { divIcon } from "leaflet";
-import { renderToStaticMarkup } from "react-dom/server";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import "./Map.css";
 import markerStyles from "./CustomerMarker/CustomeMarker";
+import getCityCoords from "./utils/utils";
 moment().format();
 
 const ClusterMarker = () => {
@@ -46,6 +46,10 @@ const ClusterMarker = () => {
   const mapEvent = useMapEvents({
     locationfound(e) {
       map.setView([e.latlng.lat, e.latlng.lng], 16);
+    },
+    async locationerror(e) {
+      let data = await getCityCoords();
+      map.setView([data.latitude, data.longitude], 10);
     },
   });
 
