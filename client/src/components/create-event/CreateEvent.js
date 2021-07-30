@@ -200,20 +200,8 @@ function CreateEvent() {
                 )}
               />
             </Grid>
-            <Grid item xs={12}>
-              <KeyboardTimePicker
-                margin="normal"
-                id="time-picker"
-                label="Start Time"
-                value={selectedTime}
-                onChange={handleTimeChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change time",
-                }}
-              />
-            </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
@@ -223,6 +211,19 @@ function CreateEvent() {
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
                   "aria-label": "change date",
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <KeyboardTimePicker
+                margin="normal"
+                id="time-picker"
+                label="Start Time"
+                value={selectedTime}
+                onChange={handleTimeChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change time",
                 }}
               />
             </Grid>
