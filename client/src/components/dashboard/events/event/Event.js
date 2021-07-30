@@ -41,26 +41,26 @@ function Event(props) {
   };
 
   const getIcon = () => {
-    switch (props.eventData.type) {
-      case "Soccer":
+    switch (props.eventData.type.toLowerCase()) {
+      case "soccer":
         return <SportsSoccerOutlinedIcon />;
-      case "Hockey":
+      case "hockey":
         return <SportsHockeyOutlinedIcon />;
-      case "Baseball":
+      case "baseball":
         return <SportsBaseballOutlinedIcon />;
-      case "Football":
+      case "football":
         return <SportsFootballOutlinedIcon />;
-      case "Basketball":
+      case "basketball":
         return <SportsBasketballOutlinedIcon />;
-      case "Cricket":
+      case "cricket":
         return <SportsCricketOutlinedIcon />;
-      case "Rugby":
+      case "rugby":
         return <SportsRugbyOutlinedIcon />;
-      case "Volleyball":
+      case "volleyball":
         return <SportsVolleyballOutlinedIcon />;
-      case "Golf":
+      case "golf":
         return <SportsGolfOutlinedIcon />;
-      case "Handball":
+      case "handball":
         return <SportsHandballOutlinedIcon />;
       default:
         return <ImageIcon />;
