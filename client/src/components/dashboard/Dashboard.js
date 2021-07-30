@@ -68,7 +68,9 @@ function Dashboard() {
           onChange={handleChange}
           name="publicEvent"
         />
-        <span style={{ fontSize: "12px", padding: "0 10px" }}>All Events</span>
+        <span style={{ fontSize: "12px", padding: "0 10px" }}>
+          Public Events
+        </span>
       </div>
       <div className="list-and-map">
         <Events />
