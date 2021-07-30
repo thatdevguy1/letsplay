@@ -19,3 +19,17 @@
   align-self: flex-start;
   margin: 0 40px 0 20px;
 }
+
+@media only screen and (max-width: 1000px) {
+  .list-and-map {
+    flex-direction: column;
+    height: 80vh;
+  }
+
+  .map-wrapper {
+    height: 110vh;
+    width: 95vw;
+    align-self: flex-start;
+    margin: 0 40px 0 20px;
+  }
+}

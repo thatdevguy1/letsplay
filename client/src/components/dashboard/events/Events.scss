@@ -15,3 +15,10 @@ li {
   border-radius: 5px;
   margin: 10px 0;
 }
+
+@media only screen and (max-width: 1000px) {
+  .events {
+    margin-bottom: 20px;
+    width: 95vw;
+  }
+}
