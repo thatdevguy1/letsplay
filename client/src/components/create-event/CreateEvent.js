@@ -167,16 +167,6 @@ function CreateEvent() {
             <Grid item xs={12}>
               <TextField
                 required
-                id="username"
-                name="username"
-                label="Username"
-                fullWidth
-                autoComplete="given-name"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
                 id="eventName"
                 name="eventName"
                 label="Event Name"
