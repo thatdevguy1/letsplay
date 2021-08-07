@@ -66,6 +66,7 @@ const ClusterMarker = () => {
         ],
         17
       );
+    console.log(eventsInfo);
   }, [eventsInfo.selectedEvent]);
 
   return (
@@ -79,8 +80,47 @@ const ClusterMarker = () => {
         }}
       >
         {Array.isArray(eventsInfo.events) &&
+          eventsInfo.toggleMyEvents === false &&
           eventsInfo.events.map((event, index) => {
-            if (event) {
+            if (event && event.public) {
+              return (
+                <Marker
+                  key={`event-${index}`}
+                  data-id={event._id}
+                  icon={
+                    event._id === eventsInfo.selectedEvent._id
+                      ? markerStyles.selectedCustomMarkerIcon
+                      : markerStyles.customMarkerIcon
+                  }
+                  isSelected={
+                    event._id === eventsInfo.selectedEvent._id
+                      ? "true"
+                      : "false"
+                  }
+                  position={[event.location.latitude, event.location.longitude]}
+                  eventHandlers={{
+                    click: () => {
+                      dispatch(selectEvent(event));
+                    },
+                  }}
+                >
+                  <Tooltip>
+                    <span>{event.name}</span>
+                    <br />
+                    <span>
+                      {moment(event.date).format("dddd, MMMM Do YYYY")}
+                    </span>
+                    <br />
+                    <span>{event.startTime}</span>
+                  </Tooltip>
+                </Marker>
+              );
+            }
+          })}
+        {Array.isArray(eventsInfo.events) &&
+          eventsInfo.toggleMyEvents === true &&
+          eventsInfo.events.map((event, index) => {
+            if (event && event.public === false) {
               return (
                 <Marker
                   key={`event-${index}`}
