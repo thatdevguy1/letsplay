@@ -104,7 +104,7 @@ async function getMyEvents(req, res) {
   try {
     const { userId } = req.cookies;
     const user = await User.findOne({ _id: userId }).populate("events");
-    user.events.length > 0
+    user && user.events.length > 0
       ? res.send({ myEvents: user.events, response: true })
       : res.send({ myEvents: [], response: true });
   } catch (err) {

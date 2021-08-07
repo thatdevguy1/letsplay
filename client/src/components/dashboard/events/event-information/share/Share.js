@@ -17,8 +17,8 @@ import {
 import "./Share.scss";
 
 //Need to modify social media shares to include a message / hashtag
-function Share({eventId}) {
-  console.log('The location prop is: ', eventId);
+function Share({ eventId }) {
+  console.log("The location prop is: ", eventId);
   const URL = `localhost:3000/event-information?id=${eventId}`;
   const URLele = useRef(null);
 
@@ -33,7 +33,7 @@ function Share({eventId}) {
     <div className="share">
       <h1>SHARE</h1>
       <div className="minified-url-wrapper" onClick={copyUrl}>
-        <input ref={URLele} value={URL} readonly />
+        <input ref={URLele} value={URL} readOnly />
       </div>
       <div className="share-button-wrapper">
         <FacebookShareButton url={URL}>
