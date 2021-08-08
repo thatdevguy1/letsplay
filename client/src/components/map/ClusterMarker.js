@@ -119,8 +119,8 @@ const ClusterMarker = () => {
           })}
         {Array.isArray(eventsInfo.events) &&
           eventsInfo.toggleMyEvents === true &&
-          eventsInfo.events.map((event, index) => {
-            if (event && event.public === false) {
+          eventsInfo.myEvents.map((event, index) => {
+            if (event) {
               return (
                 <Marker
                   key={`event-${index}`}
