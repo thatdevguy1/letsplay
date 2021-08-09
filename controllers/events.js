@@ -61,18 +61,18 @@ async function deleteEvent(req, res) {
 
 async function createEvent(req, res) {
   const newEvent = new Event(req.body);
-  console.log(req.body);
-  console.log(newEvent);
   try {
     if (req.cookies.userId) {
       newEvent.creator = req.cookies.userId;
       const event = await newEvent.save();
       const currentUserId = req.cookies.userId;
 
-      const currentUser = await User.findOneAndUpdate(
+      console.log(currentUserId);
+
+      await User.findOneAndUpdate(
         { _id: currentUserId },
         { $push: { events: event._id } },
-        { new: true }
+        { new: true, upsert: true }
       );
 
       res
