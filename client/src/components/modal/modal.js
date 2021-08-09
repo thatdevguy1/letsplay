@@ -34,6 +34,7 @@ export default function SimpleModal(props) {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [error, setError] = React.useState(false);
   const dispatch = useDispatch();
   const participant = useRef(null);
 
@@ -46,18 +47,27 @@ export default function SimpleModal(props) {
   };
 
   const submitParticipant = () => {
-    const data = {
-      participantsName: participant.current.value,
-      id: props.eventId,
-    };
-    dispatch(joinEvent(data));
-    handleClose();
+    if (participant.current.value) {
+      const data = {
+        participantsName: participant.current.value,
+        id: props.eventId,
+      };
+      dispatch(joinEvent(data));
+      handleClose();
+    } else {
+      setError(true);
+    }
   };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">What name should we use?</h2>
-      <TextField id="standard-basic" label="username" inputRef={participant} />
+      <TextField
+        error={error}
+        id="standard-basic"
+        label="username"
+        inputRef={participant}
+      />
       <button style={{ marginTop: "20px" }} onClick={submitParticipant}>
         Join Event
       </button>
