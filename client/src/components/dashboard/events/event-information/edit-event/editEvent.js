@@ -37,8 +37,6 @@ function EditEvent(props) {
   );
 
   useEffect(() => {
-    console.log(history.location.search.split("=")[1]);
-
     if (Object.keys(eventInfo.selectedEvent).length === 0) {
       dispatch(getEvent(history.location.search.split("=")[1]));
     }
@@ -91,8 +89,6 @@ function EditEvent(props) {
 
     try {
       let response = await axios(config);
-      console.log(response);
-
       if (response && response.data.response === true) {
         dispatch(getEvent(response.data._doc._id));
         props.toggleEditMode();

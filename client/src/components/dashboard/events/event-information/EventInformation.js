@@ -23,8 +23,6 @@ function EventInformation() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(history.location.search.split("=")[1]);
-
     if (Object.keys(eventInfo.selectedEvent).length === 0) {
       //eventInfo.creator ==
       dispatch(getEvent(history.location.search.split("=")[1]));
@@ -46,7 +44,6 @@ function EventInformation() {
   };
 
   const handleDelete = () => {
-    console.log(`trigger delete on ${eventInfo.selectedEvent._id}`);
     dispatch(deleteEvent({ id: eventInfo.selectedEvent._id }));
     history.push(`/`);
   };
