@@ -23,7 +23,7 @@
 @media only screen and (max-width: 1000px) {
   .list-and-map {
     flex-direction: column;
-    height: 80vh;
+    height: 84vh;
   }
 
   .map-wrapper {
@@ -31,5 +31,11 @@
     width: 100vw;
     align-self: flex-start;
     margin: 0;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .map-wrapper {
+    height: 50vh;
   }
 }

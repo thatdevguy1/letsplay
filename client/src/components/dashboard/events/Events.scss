@@ -5,6 +5,7 @@
   width: 50%;
   max-height: 83vh;
   overflow: auto;
+  box-sizing: border-box;
 }
 
 ul > li:nth-child(odd) {

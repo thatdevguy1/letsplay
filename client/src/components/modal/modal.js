@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     display: "flex",
     flexDirection: "column",
+    "@media (max-width: 1000px)": {
+      width: 200,
+    },
   },
 }));
 
