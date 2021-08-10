@@ -53,6 +53,7 @@ export default function SimpleModal(props) {
         id: props.eventId,
       };
       dispatch(joinEvent(data));
+      props.setJoined(true);
       handleClose();
     } else {
       setError(true);

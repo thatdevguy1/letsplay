@@ -97,6 +97,7 @@ function EventBody(props) {
               btnStyle="success-btn"
               eventId={props.eventInfo.selectedEvent._id}
               disabled={joined}
+              setJoined={setJoined}
             >
               JOIN
             </Modal>
