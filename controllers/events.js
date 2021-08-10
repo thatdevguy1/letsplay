@@ -37,7 +37,6 @@ async function updateEvent(req, res) {
       });
     }
   } catch (err) {
-    console.log(err.message);
     res.send({ message: "Something went wrong!", response: false });
   }
 }
@@ -66,8 +65,6 @@ async function createEvent(req, res) {
       newEvent.creator = req.cookies.userId;
       const event = await newEvent.save();
       const currentUserId = req.cookies.userId;
-
-      console.log(currentUserId);
 
       await User.findOneAndUpdate(
         { _id: currentUserId },
@@ -195,6 +192,29 @@ async function joinEvent(req, res) {
   }
 }
 
+async function removeParticipant(req, res) {
+  try {
+    let selectedEvent = await Event.findById(req.body.selectedEventId);
+    const participantIndex = selectedEvent.participants.findIndex(
+      (obj) => obj.userId === req.body.participantId
+    );
+
+    if (participantIndex >= 0) {
+      selectedEvent.participants.splice(participantIndex, 1);
+      const savedEvent = await selectedEvent.save();
+
+      res.json({ updatedEvent: savedEvent, response: true });
+    } else {
+      res.json({
+        message: "You are not part of this event",
+        response: false,
+      });
+    }
+  } catch (err) {
+    res.json({ err, response: false });
+  }
+}
+
 module.exports = {
   findEvent,
   updateEvent,
@@ -203,4 +223,5 @@ module.exports = {
   findAllEvents,
   joinEvent,
   getMyEvents,
+  removeParticipant,
 };

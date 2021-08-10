@@ -18,7 +18,6 @@ import "./Share.scss";
 
 //Need to modify social media shares to include a message / hashtag
 function Share({ eventId }) {
-  console.log("The location prop is: ", eventId);
   const URL = `https://www.letsplay.gdn/event-information?id=${eventId}`;
   const URLele = useRef(null);
 

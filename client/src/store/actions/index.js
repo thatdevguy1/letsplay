@@ -90,7 +90,6 @@ export const getEvents = () => {
 
     try {
       let response = await axios(config);
-      console.log("getEvents res: ", response);
       if (response && response.data.response === true) {
         dispatch({
           type: "getEvents",
@@ -115,7 +114,6 @@ export const getMyEvents = (toggle) => {
 
     try {
       let response = await axios(config);
-      console.log("Myevents are: ", response);
       if (response && response.data.response === true) {
         dispatch({
           type: "toggleMyEvents",
@@ -166,7 +164,7 @@ export const joinEvent = (data) => {
 
     try {
       let response = await axios(config);
-      console.log("response from join event: ", response);
+
       if (response && response.data.response === true) {
         dispatch({
           type: "selectEvent",
@@ -177,7 +175,35 @@ export const joinEvent = (data) => {
         toast.warn(response.data.message);
       }
     } catch (err) {
-      console.log(err);
+      toast.error("Something went wrong! Please try again later");
+    }
+  };
+};
+
+export const removeParticipant = (data) => {
+  return async (dispatch) => {
+    var config = {
+      method: "delete",
+      url: process.env.REACT_APP_BASE_API + `/removeParticipant`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    try {
+      let response = await axios(config);
+
+      if (response && response.data.response === true) {
+        dispatch({
+          type: "selectEvent",
+          payload: response.data.updatedEvent,
+        });
+        toast.success(`You have left this event`);
+      } else {
+        toast.warn(response.data.message);
+      }
+    } catch (err) {
       toast.error("Something went wrong! Please try again later");
     }
   };
@@ -196,14 +222,11 @@ export const deleteEvent = (data) => {
 
     try {
       let response = await axios(config);
-      console.log("response from delete event: ", response);
       if (response && response.data.response === true) {
-        console.log(`payload from delete ${response.data._doc}`);
         dispatch({
           type: "deleteEvent",
           payload: response.data._doc,
         });
-        console.log(response);
         toast.success(`You have deleted ${response.data.name}`);
       } else {
         toast.warn(response.data.message);

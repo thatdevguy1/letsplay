@@ -87,8 +87,6 @@ function CreateEvent() {
         public: publicEvent,
       };
 
-      console.log("data is: ", data);
-
       var config = {
         method: "post",
         data,
@@ -100,7 +98,6 @@ function CreateEvent() {
 
       try {
         let response = await axios(config);
-        console.log(response);
 
         if (response && response.data.response === true) {
           dispatch(getEvents());

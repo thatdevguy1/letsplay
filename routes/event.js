@@ -15,4 +15,6 @@ router.put("/joinEvent", eventCtrl.joinEvent);
 
 router.get("/getMyEvents", eventCtrl.getMyEvents);
 
+router.delete("/removeParticipant", eventCtrl.removeParticipant);
+
 module.exports = router;

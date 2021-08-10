@@ -66,7 +66,6 @@ const ClusterMarker = () => {
         ],
         17
       );
-    console.log(eventsInfo);
   }, [eventsInfo.selectedEvent]);
 
   return (
