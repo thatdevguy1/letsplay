@@ -197,6 +197,11 @@ h3 {
   color: rgb(230, 100, 100);
 }
 
+@media only screen and (max-height: 765px) {
+  .eventInformation {
+    height: 765px;
+  }
+}
 @media only screen and (max-width: 1000px) {
   .eventInformation {
     width: 100vw;
@@ -217,11 +222,5 @@ h3 {
         margin-top: 20px;
       }
     }
-  }
-}
-
-@media only screen and (max-height: 765px) {
-  .eventInformation {
-    height: 765px;
   }
 }
