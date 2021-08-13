@@ -3,6 +3,7 @@ $primary: #3f51b4;
 .eventInformation {
   width: 85vw;
   height: 85vh;
+  min-height: 765px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -25,6 +26,8 @@ $primary: #3f51b4;
     background: $primary;
     padding: 25px;
     border-radius: 5px;
+    height: 100%;
+    box-sizing: border-box;
 
     h1 {
       text-align: center;
@@ -163,11 +166,15 @@ $primary: #3f51b4;
     justify-content: space-between;
 
     .share {
+      height: 35%;
+      box-sizing: border-box;
       background: $primary;
       padding-top: 20px;
     }
     .participants-wrapper {
-      height: 80%;
+      height: 65%;
+      box-sizing: border-box;
+      overflow-x: auto;
       background: $primary;
       border-radius: 5px;
       padding: 10px;
@@ -210,5 +217,11 @@ h3 {
         margin-top: 20px;
       }
     }
+  }
+}
+
+@media only screen and (max-height: 765px) {
+  .eventInformation {
+    height: 765px;
   }
 }
