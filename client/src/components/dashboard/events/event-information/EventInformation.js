@@ -6,7 +6,7 @@ import {
   getEvent,
   deleteEvent,
 } from "../../../../store/actions";
-import axios from "axios";
+import { Helmet } from "react-helmet";
 import { useHistory } from "react-router-dom";
 import "./EventInformation.scss";
 import Modal from "../../../modal/modal";
@@ -50,6 +50,17 @@ function EventInformation() {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta
+          name="description"
+          content={
+            "Inviting you to join " +
+            eventInfo.selectedEvent.name +
+            " with Lets Play"
+          }
+        />
+      </Helmet>
       {eventInfo.selectedEvent &&
       Object.keys(eventInfo.selectedEvent).length > 0 ? (
         <div className="eventInformation">
