@@ -33,25 +33,15 @@ function EventBody(props) {
           <div className="event-details">
             <p className="description-wrapper">
               {props.eventInfo.selectedEvent.description}
-              {/* Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores
-              vero omnis non dicta modi voluptate adipisci autem unde sit,
-              excepturi molestias voluptatem nesciunt repellendus, recusandae,
-              consequatur nisi facere itaque atque perferendis! Deserunt culpa
-              harum aliquid ab incidunt rem voluptate vero eaque voluptatem
-              porro natus dicta corporis vel earum odio molestias error
-              voluptatibus, eius qui? Similique blanditiis quae ipsam laboriosam
-              omnis dolores quod odit voluptatum tenetur porro. Maxime quo
-              expedita amet quaerat. Consequatur officia consectetur eius maxime
-              porro eum atque repudiandae, velit nihil harum tempora nesciunt
-              consequuntur quasi, voluptas animi delectus ratione sit et,
-              commodi perspiciatis. Iure vitae natus dolor, at est, reiciendis
-              totam iste earum sapiente itaque reprehenderit, iusto labore
-              perspiciatis pariatur? Deleniti incidunt aliquam eaque praesentium
-              corrupti esse rem consectetur, id tenetur, fuga veniam ipsam
-              accusantium consequuntur sunt aliquid voluptatibus! Exercitationem
-              nulla quas modi dolore veritatis possimus, perspiciatis rem! */}
             </p>
             <div className="time-public-wrapper">
+              <div className="address-wrapper">
+                Address:
+                <span style={{ color: "white" }}>
+                  {" "}
+                  {props.eventInfo.selectedEvent.location.address}
+                </span>
+              </div>
               <div className="date-wrapper">
                 Date:
                 <span style={{ color: "white" }}>

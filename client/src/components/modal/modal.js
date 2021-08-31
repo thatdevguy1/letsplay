@@ -68,6 +68,7 @@ export default function SimpleModal(props) {
         id="standard-basic"
         label="username"
         inputRef={participant}
+        inputProps={{ maxLength: 15 }}
       />
       <button style={{ marginTop: "20px" }} onClick={submitParticipant}>
         Join Event

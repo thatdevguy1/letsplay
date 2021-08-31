@@ -6,6 +6,7 @@ const defaultState = {
   createEventLocation: {
     lat: 0,
     lng: 0,
+    address: "",
   },
   searchEvent: "",
 };
@@ -20,7 +21,11 @@ const eventsInfo = (state = defaultState, action) => {
     case "SETLATLNG":
       return {
         ...state,
-        createEventLocation: { lat: action.payload[0], lng: action.payload[1] },
+        createEventLocation: {
+          lat: action.payload.coords[0],
+          lng: action.payload.coords[1],
+          address: action.payload.address,
+        },
       };
     case "getEvents":
       return { ...state, events: action.payload.data.events };

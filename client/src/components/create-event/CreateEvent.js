@@ -76,7 +76,7 @@ function CreateEvent() {
         type: form.current.sportName.value,
         icon: `Sports${form.current.sportName.value}OutlinedIcon`,
         location: {
-          address: "n/a",
+          address: createEventLocation.address,
           latitude: createEventLocation.lat,
           longitude: createEventLocation.lng,
         },
@@ -265,7 +265,7 @@ function CreateEvent() {
                 }}
               />
             </Grid>
-            {/* <Grid item xs={12}>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="address"
@@ -273,8 +273,9 @@ function CreateEvent() {
                 label="Address"
                 fullWidth
                 autoComplete="address"
+                value={createEventLocation.address}
               />
-            </Grid> */}
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 required
