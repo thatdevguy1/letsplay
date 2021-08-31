@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "./Map.css";
 import EventMarker from "./EventMarker";
 import CreateMarker from "./CreateMarker";
 import EditMarker from "./EditMarker";
 import ClusterMarker from "./ClusterMarker";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 //Different Markers modify the functionality of the map in their respective components
 const Map = ({ type }) => {
+  const [loading, setLoading] = useState(true);
+
   const showMarker = () => {
     switch (type) {
       case "displayLocation":
         return <EventMarker />;
       case "setLocation":
-        return <CreateMarker />;
+        return <CreateMarker setLoading={setLoading} />;
       case "editLocation":
         return <EditMarker />;
       case "cluster":
@@ -30,6 +33,7 @@ const Map = ({ type }) => {
         />
         {showMarker()}
       </MapContainer>
+      {loading ? <LinearProgress color="secondary" /> : null}
     </div>
   );
 };

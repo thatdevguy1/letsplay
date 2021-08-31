@@ -51,13 +51,12 @@ export const setLatLng = (coords) => {
   return async (dispatch) => {
     //make api call string
     const API_STRING = `http://api.positionstack.com/v1/reverse?access_key=${process.env.REACT_APP_PS_KEY}&query=${coords[0]},${coords[1]}`;
-
+    console.log("string from setLATLNG ", API_STRING);
     try {
       //axios call
-      console.log("string from setLATLNG ", API_STRING);
       let { data } = await axios.get(API_STRING);
+      console.log(data);
 
-      console.log("Data from setLATLNG ", data.data[0].label);
       //disect data object returned for address
       dispatch({
         type: "SETLATLNG",
@@ -65,6 +64,30 @@ export const setLatLng = (coords) => {
       });
     } catch (err) {
       console.log(err.message);
+      toast.error(err.message);
+    }
+  };
+};
+
+export const findAndSetLatLng = (address) => {
+  return async (dispatch) => {
+    const API_STRING = `http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_PS_KEY}&query=${address}`;
+
+    try {
+      //axios call
+
+      let { data } = await axios.get(API_STRING);
+
+      console.log("Data from setLATLNG ", data);
+      // disect data object returned for address
+      dispatch({
+        type: "SETLATLNG",
+        payload: {
+          coords: [data.data[0].latitude, data.data[0].longitude],
+          address: data.data[0].label,
+        },
+      });
+    } catch (err) {
       toast.error(err.message);
     }
   };
