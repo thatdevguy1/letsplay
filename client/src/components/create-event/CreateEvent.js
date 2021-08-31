@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getEvents } from "../../store/actions";
+import { getEvents, findAndSetLatLng } from "../../store/actions";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
@@ -11,6 +11,8 @@ import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
 import Map from "../map/Map";
+import LinearProgress from "@material-ui/core/LinearProgress";
+
 //import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
@@ -45,11 +47,27 @@ function CreateEvent() {
   const { createEventLocation } = useSelector((state) => state.eventsInfo);
   const [selectedDate, setSelectedDate] = useState(moment());
   const [selectedTime, setSelectedTime] = useState(moment());
+  const [address, setAddress] = useState(createEventLocation.address);
+  const [loading, setLoading] = useState(true);
   const [formError, setFormError] = useState({
     eventNameError: false,
     sportNameError: false,
     descriptionError: false,
   });
+
+  useEffect(() => {
+    setAddress(createEventLocation.address);
+    setLoading(false);
+  }, [createEventLocation]);
+
+  const updateAddress = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const handleAddressToLatLng = (e) => {
+    setLoading(true);
+    dispatch(findAndSetLatLng(address));
+  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -76,7 +94,7 @@ function CreateEvent() {
         type: form.current.sportName.value,
         icon: `Sports${form.current.sportName.value}OutlinedIcon`,
         location: {
-          address: "n/a",
+          address: createEventLocation.address,
           latitude: createEventLocation.lat,
           longitude: createEventLocation.lng,
         },
@@ -264,7 +282,7 @@ function CreateEvent() {
                 }}
               />
             </Grid>
-            {/* <Grid item xs={12}>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="address"
@@ -272,8 +290,12 @@ function CreateEvent() {
                 label="Address"
                 fullWidth
                 autoComplete="address"
+                value={address}
+                onChange={updateAddress}
+                onBlur={handleAddressToLatLng}
               />
-            </Grid> */}
+              {loading ? <LinearProgress color="secondary" /> : null}
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 required

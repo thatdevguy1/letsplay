@@ -5,7 +5,7 @@ import { setLatLng } from "../../store/actions";
 import markerStyles from "./CustomerMarker/CustomeMarker";
 import getCityCoords from "./utils/utils";
 
-const CreateMarker = () => {
+const CreateMarker = (props) => {
   const dispatch = useDispatch();
   const { lat, lng } = useSelector(
     (state) => state.eventsInfo.createEventLocation
@@ -15,6 +15,7 @@ const CreateMarker = () => {
   const mapEvent = useMapEvents({
     click(e) {
       dispatch(setLatLng([e.latlng.lat, e.latlng.lng]));
+      props.setLoading(true);
       map.setView([e.latlng.lat, e.latlng.lng]);
     },
     locationfound(e) {
@@ -30,6 +31,10 @@ const CreateMarker = () => {
   useEffect(() => {
     mapEvent.locate();
   }, []);
+
+  useEffect(() => {
+    props.setLoading(false);
+  }, [lat]);
 
   return <Marker position={[lat, lng]} icon={markerStyles.customMarkerIcon} />;
 };
