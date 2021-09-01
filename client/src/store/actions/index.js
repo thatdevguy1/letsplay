@@ -49,19 +49,42 @@ export const setUser = (payload) => {
 
 export const setLatLng = (coords) => {
   return async (dispatch) => {
+    const API_STRING = `https://nominatim.openstreetmap.org/reverse?lat=${coords[0]}&lon=${coords[1]}&format=json`;
+    var config = {
+      method: "get",
+      url: API_STRING,
+    };
     //make api call string
-    const API_STRING = `http://api.positionstack.com/v1/reverse?access_key=${process.env.REACT_APP_PS_KEY}&query=${coords[0]},${coords[1]}`;
     console.log("string from setLATLNG ", API_STRING);
     try {
       //axios call
-      let { data } = await axios.get(API_STRING);
-      console.log(data);
+      let { data } = await axios(config);
 
-      //disect data object returned for address
-      dispatch({
-        type: "SETLATLNG",
-        payload: { coords, address: data.data[0].label },
-      });
+      if (data.display_name) {
+        let label = data.display_name.split(",");
+        label.splice(4, 2);
+        label.splice(2, 1);
+        let finalLabelArr = label.map((word, idx) =>
+          idx === 0 || idx === label.length - 1 ? word : word + ","
+        );
+        let finalLabel = finalLabelArr.join("");
+        //disect data object returned for address
+        dispatch({
+          type: "SETLATLNG",
+          payload: {
+            coords,
+            address: finalLabel,
+          },
+        });
+      } else {
+        dispatch({
+          type: "SETLATLNG",
+          payload: {
+            coords,
+            address: "",
+          },
+        });
+      }
     } catch (err) {
       console.log(err.message);
       toast.error(err.message);
@@ -71,22 +94,42 @@ export const setLatLng = (coords) => {
 
 export const findAndSetLatLng = (address) => {
   return async (dispatch) => {
-    const API_STRING = `http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_PS_KEY}&query=${address}`;
+    const API_STRING = `https://nominatim.openstreetmap.org/search?q=${address}&format=json`;
+    var config = {
+      method: "get",
+      url: API_STRING,
+    };
 
     try {
       //axios call
 
-      let { data } = await axios.get(API_STRING);
-
-      console.log("Data from setLATLNG ", data);
-      // disect data object returned for address
-      dispatch({
-        type: "SETLATLNG",
-        payload: {
-          coords: [data.data[0].latitude, data.data[0].longitude],
-          address: data.data[0].label,
-        },
-      });
+      let { data } = await axios(config);
+      console.log(data);
+      if (data[0].display_name) {
+        let label = data[0].display_name.split(",");
+        label.splice(4, 2);
+        label.splice(2, 1);
+        let finalLabelArr = label.map((word, idx) =>
+          idx === 0 || idx === label.length - 1 ? word : word + ","
+        );
+        let finalLabel = finalLabelArr.join("");
+        // disect data object returned for address
+        dispatch({
+          type: "SETLATLNG",
+          payload: {
+            coords: [data[0].lat, data[0].lon],
+            address: finalLabel,
+          },
+        });
+      } else {
+        dispatch({
+          type: "SETLATLNG",
+          payload: {
+            coords: [0, 0],
+            address: "",
+          },
+        });
+      }
     } catch (err) {
       toast.error(err.message);
     }

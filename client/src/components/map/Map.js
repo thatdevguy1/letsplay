@@ -9,7 +9,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 
 //Different Markers modify the functionality of the map in their respective components
 const Map = ({ type }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const showMarker = () => {
     switch (type) {
