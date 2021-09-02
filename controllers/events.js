@@ -2,8 +2,13 @@ const Event = require("../models/event");
 const User = require("../models/user");
 
 async function findAllEvents(req, res) {
+  let today = new Date();
+  today.setUTCHours(0);
+
   try {
-    const events = await Event.find({});
+    const events = await Event.find({
+      date: { $gte: today.toISOString() },
+    });
     res.send({ events, response: true });
   } catch (err) {
     res.send({ message: err.message, response: false });
