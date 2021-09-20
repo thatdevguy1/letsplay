@@ -13,6 +13,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 let eventRoutes = require("./routes/event");
+let nomRoutes = require("./routes/nominatim");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -30,6 +31,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/api", eventRoutes);
+app.use("/api/nominatim", nomRoutes);
 
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "client/build/index.html"));

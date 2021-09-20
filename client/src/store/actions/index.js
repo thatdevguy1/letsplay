@@ -49,7 +49,7 @@ export const setUser = (payload) => {
 
 export const setLatLng = (coords) => {
   return async (dispatch) => {
-    const API_STRING = `https://nominatim.openstreetmap.org/reverse?lat=${coords[0]}&lon=${coords[1]}&format=json`;
+    const API_STRING = `/api/nominatim/getLatLng/${coords[0]}/${coords[1]}`;
     var config = {
       method: "get",
       url: API_STRING,
@@ -59,6 +59,7 @@ export const setLatLng = (coords) => {
     try {
       //axios call
       let { data } = await axios(config);
+      console.log(data);
 
       if (data.display_name) {
         let label = data.display_name.split(",");
@@ -94,7 +95,7 @@ export const setLatLng = (coords) => {
 
 export const findAndSetLatLng = (address) => {
   return async (dispatch) => {
-    const API_STRING = `https://nominatim.openstreetmap.org/search?q=${address}&format=json`;
+    const API_STRING = `/api/nominatim/setLatLng/${address}`;
     var config = {
       method: "get",
       url: API_STRING,

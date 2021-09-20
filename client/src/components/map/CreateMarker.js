@@ -24,7 +24,7 @@ const CreateMarker = (props) => {
     },
     async locationerror(e) {
       let data = await getCityCoords();
-      map.setView([data.latitude, data.longitude], 10);
+      if (data) map.setView([data.latitude, data.longitude], 10);
     },
   });
 
