@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 //const jwt = require('jsonwebtoken')
 const cookieParser = require("cookie-parser");
 //const methodOverride = require("method-override");
+const initSocketListener = require("./socket-listeners/connection");
 
 bodyParser = require("body-parser");
 
@@ -52,7 +53,11 @@ const startServer = async () => {
     });
 
     //If a connection to the database is made we can start our server
-    app.listen(port, () => console.log(`app listening on port ${port}!`));
+    const server = app.listen(port, () =>
+      console.log(`app listening on port ${port}!`)
+    );
+    const io = require("./config/socket").init(server);
+    initSocketListener(io);
   } catch (error) {
     console.log(error.message);
   }

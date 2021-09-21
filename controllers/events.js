@@ -1,3 +1,4 @@
+const socket = require("../config/socket");
 const Event = require("../models/event");
 const User = require("../models/user");
 
@@ -115,8 +116,8 @@ async function getMyEvents(req, res) {
 }
 
 async function joinEvent(req, res) {
+  let participants;
   const handleJoin = async ({ cookies, body }) => {
-    let participants;
     let updatedEvent;
     let event = await Event.findOne({ _id: body.id });
     try {
@@ -186,6 +187,7 @@ async function joinEvent(req, res) {
   let payload = await handleJoin(req);
 
   if (Object.keys(payload).includes("cookie")) {
+    socket.getIO().to(req.body.id).emit("update participants", participants);
     res
       .cookie(payload.cookie.name, payload.cookie.value, {
         expires: new Date(Number(new Date()) + 315360000000),
@@ -207,6 +209,12 @@ async function removeParticipant(req, res) {
     if (participantIndex >= 0) {
       selectedEvent.participants.splice(participantIndex, 1);
       const savedEvent = await selectedEvent.save();
+
+      //Socket to remove participant from list
+      socket
+        .getIO()
+        .to(req.body.selectedEventId)
+        .emit("update participants", selectedEvent.participants);
 
       res.json({ updatedEvent: savedEvent, response: true });
     } else {

@@ -10,12 +10,20 @@ import HowToReg from "@material-ui/icons/HowToReg";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import { useDispatch } from "react-redux";
 import { removeParticipant } from "../../../../../store/actions";
+import socketInit from "../../../../../utils/socket";
 
 function Participants({ eventInfo }) {
+  const socket = socketInit.getSocket();
   const [id, setId] = useState("");
+  const [participants, setParticipants] = useState(
+    eventInfo.selectedEvent.participants
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
+    socket.on("update participants", (data) => {
+      setParticipants(data);
+    });
     let cookieValue = document.cookie.replace(
       /(?:(?:^|.*;\s*)userId\s*\=\s*([^;]*).*$)|^.*$/,
       "$1"
@@ -37,8 +45,8 @@ function Participants({ eventInfo }) {
     <div>
       <h3>Participants</h3>
       <List component="nav" aria-label="contacts">
-        {eventInfo.selectedEvent.participants &&
-          eventInfo.selectedEvent.participants.map((participant, index) => {
+        {participants &&
+          participants.map((participant, index) => {
             return (
               <div key={index}>
                 <ListItem>
