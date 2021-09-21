@@ -10,9 +10,13 @@ import Nav from "./components/navigation/Nav";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import socket from "./utils/socket";
+
+socket.init();
 
 function App() {
   axios.defaults.withCredentials = true;
+
   return (
     <div className="App">
       <ToastContainer

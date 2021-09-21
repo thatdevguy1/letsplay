@@ -14,8 +14,10 @@ import Participants from "./participants/Participants";
 import Share from "./share/Share";
 import EventBody from "./event-body/eventBody";
 import EditEvent from "./edit-event/editEvent";
+import socketObj from "../../../../utils/socket";
 
 function EventInformation() {
+  const socket = socketObj.getSocket();
   const eventInfo = useSelector((state) => state.eventsInfo);
   const [editable, setEditable] = useState(false);
   const [admin, setAdmin] = useState(false);
@@ -30,6 +32,8 @@ function EventInformation() {
   }, []);
 
   useEffect(() => {
+    if (eventInfo.selectedEvent._id)
+      socket.emit("join room", eventInfo.selectedEvent._id);
     let cookieValue = document.cookie.replace(
       /(?:(?:^|.*;\s*)userId\s*\=\s*([^;]*).*$)|^.*$/,
       "$1"

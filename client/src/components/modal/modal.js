@@ -57,6 +57,7 @@ export default function SimpleModal(props) {
       };
       dispatch(joinEvent(data));
       props.setJoined(true);
+
       handleClose();
     } else {
       setError(true);
