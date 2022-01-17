@@ -39,7 +39,7 @@ function Event(props) {
         primary={props.eventData.name}
         secondary={props.eventData.description}
         style={{
-          maxHeight: "66px",
+          maxHeight: "46px",
           overflow: "hidden",
           width: "70%",
           paddingRight: "20px",
