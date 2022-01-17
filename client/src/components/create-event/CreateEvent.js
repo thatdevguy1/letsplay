@@ -217,14 +217,6 @@ function CreateEvent() {
               />
             </Grid>
             <Grid item xs={12}>
-              {/* <TextField
-                required
-                id="sport"
-                name="sportName"
-                label="Sport Name"
-                fullWidth
-                autoComplete="family-name"
-              /> */}
               <Autocomplete
                 required
                 fullWidth
