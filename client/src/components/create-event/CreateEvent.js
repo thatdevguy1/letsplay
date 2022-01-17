@@ -26,19 +26,6 @@ import { toast } from "react-toastify";
 
 moment().format();
 
-const sports = [
-  "Soccer",
-  "Hockey",
-  "Baseball",
-  "Football",
-  "Cricket",
-  "Handball",
-  "Rugby",
-  "Tennis",
-  "Volleyball",
-  "Golf",
-];
-
 function CreateEvent() {
   const form = useRef(null);
   const history = useHistory();
@@ -283,7 +270,11 @@ function CreateEvent() {
         </MuiPickersUtilsProvider>
         <Button
           variant="contained"
-          style={{ margin: "40px 0 0 0" }}
+          style={{
+            margin: "40px 0 0 0",
+            backgroundColor: "#3f51b4",
+            color: "rgb(240, 240, 240)",
+          }}
           onClick={submitCreateForm}
         >
           Create Event

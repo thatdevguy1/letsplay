@@ -8,13 +8,14 @@
   box-sizing: border-box;
 }
 
-ul > li:nth-child(odd) {
-  background-color: rgb(235, 241, 255);
+ul > li {
+  background-color: rgb(255, 255, 255);
 }
 
 li {
   border-radius: 5px;
   margin: 10px 0;
+  border: solid 2px rgb(240, 240, 240);
 }
 
 @media only screen and (max-width: 1000px) {
