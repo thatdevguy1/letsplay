@@ -33,7 +33,7 @@ const Map = ({ type }) => {
         />
         {showMarker()}
       </MapContainer>
-      {loading ? <LinearProgress color="secondary" /> : null}
+      {loading ? <LinearProgress color="primary" /> : null}
     </div>
   );
 };

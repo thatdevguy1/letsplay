@@ -216,38 +216,6 @@ function CreateEvent() {
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
-              <Autocomplete
-                required
-                fullWidth
-                freeSolo
-                options={sports.map((sport) => sport)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    id="sport"
-                    error={formError.sportNameError}
-                    name="sportName"
-                    label="Sport"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => {
-                      if (e.target.value) {
-                        setFormError({ ...formError, sportNameError: false });
-                      }
-                    }}
-                    onBlur={(e) => {
-                      if (e.target.value) {
-                        setFormError({ ...formError, sportNameError: false });
-                      } else {
-                        setFormError({ ...formError, sportNameError: true });
-                      }
-                    }}
-                  />
-                )}
-              />
-            </Grid>
-
             <Grid item xs={6}>
               <KeyboardDatePicker
                 margin="normal"
@@ -286,7 +254,7 @@ function CreateEvent() {
                 onChange={updateAddress}
                 onBlur={handleAddressToLatLng}
               />
-              {loading ? <LinearProgress color="secondary" /> : null}
+              {loading ? <LinearProgress color="primary" /> : null}
             </Grid>
             <Grid item xs={12}>
               <TextField
