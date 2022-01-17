@@ -71,15 +71,9 @@ function CreateEvent() {
   const submitCreateForm = async (e) => {
     e.preventDefault();
 
-    if (
-      form.current.eventName.value &&
-      form.current.sportName.value &&
-      form.current.description.value
-    ) {
+    if (form.current.eventName.value && form.current.description.value) {
       const data = {
         name: form.current.eventName.value,
-        type: form.current.sportName.value,
-        icon: `Sports${form.current.sportName.value}OutlinedIcon`,
         location: {
           address: createEventLocation.address,
           latitude: createEventLocation.lat,
@@ -107,6 +101,8 @@ function CreateEvent() {
           dispatch(getEvents());
           toast.success("Event has been created");
           history.push("/");
+        } else {
+          console.log(response);
         }
       } catch (err) {
         console.log(err);
