@@ -7,27 +7,37 @@ $primary: #3f51b4;
 .create-event {
   position: relative;
   width: 100vw;
+  height: calc(100vh - 64px);
   display: flex;
+  align-items: center;
   flex-direction: row;
-  justify-content: space-evenly;
   border-radius: 5px;
-  margin-top: 70px;
+  align-self: center;
 }
 
 .create-event > form {
+  position: relative;
   width: 35vw;
-  max-width: 550px;
+  max-width: 500px;
+  margin: 0 0 0 8%;
   padding: 3%;
   color: #14182f;
   border-radius: 5px;
   background-color: white;
-  border: solid 2px rgb(240, 240, 240);
+  z-index: 2;
+  -webkit-box-shadow: 2px 2px 7px -1px #000000;
+  box-shadow: 2px 2px 7px -1px #000000;
 }
 
 .mapHolder {
-  width: 45vw;
-  border: solid 2px rgb(240, 240, 240);
-  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.create-event .leaflet-container {
+  border-radius: 0;
 }
 
 button {

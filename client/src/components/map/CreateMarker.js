@@ -14,9 +14,10 @@ const CreateMarker = (props) => {
 
   const mapEvent = useMapEvents({
     click(e) {
+      console.log(e);
       dispatch(setLatLng([e.latlng.lat, e.latlng.lng]));
       props.setLoading(true);
-      map.setView([e.latlng.lat, e.latlng.lng]);
+      // map.setView([e.latlng.lat, e.latlng.lng]);
     },
     locationfound(e) {
       dispatch(setLatLng([e.latlng.lat, e.latlng.lng]));
