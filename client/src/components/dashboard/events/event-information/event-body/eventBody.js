@@ -36,14 +36,11 @@ function EventBody(props) {
             <div className="time-public-wrapper">
               <div className="address-wrapper">
                 Address:
-                <span style={{ color: "white" }}>
-                  {" "}
-                  {props.eventInfo.selectedEvent.location.address}
-                </span>
+                <span> {props.eventInfo.selectedEvent.location.address}</span>
               </div>
               <div className="date-wrapper">
                 Date:
-                <span style={{ color: "white" }}>
+                <span>
                   {" "}
                   {moment(props.eventInfo.selectedEvent.date).format(
                     "dddd, MMMM Do YYYY"
@@ -52,10 +49,7 @@ function EventBody(props) {
               </div>
               <div className="time-wrapper">
                 Start time:
-                <span style={{ color: "white" }}>
-                  {" "}
-                  {props.eventInfo.selectedEvent.startTime}
-                </span>
+                <span> {props.eventInfo.selectedEvent.startTime}</span>
               </div>
               <div className="public-wrapper">
                 <span>

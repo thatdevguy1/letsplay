@@ -49,7 +49,7 @@ function Participants({ eventInfo }) {
           participants.map((participant, index) => {
             return (
               <div key={index}>
-                <ListItem>
+                <ListItem style={{ backgroundColor: "white" }}>
                   <ListItemIcon>
                     <HowToReg />
                   </ListItemIcon>
@@ -64,7 +64,6 @@ function Participants({ eventInfo }) {
                     </div>
                   ) : null}
                 </ListItem>
-                <Divider />
               </div>
             );
           })}

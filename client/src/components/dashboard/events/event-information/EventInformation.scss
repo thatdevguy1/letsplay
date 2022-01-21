@@ -19,7 +19,6 @@ $primary: #3f51b4;
   .body-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     width: 70%;
     padding: 0 25px;
     border-radius: 5px;
@@ -36,14 +35,17 @@ $primary: #3f51b4;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      -webkit-box-shadow: 0px 0px 23px -6px #000000;
-      box-shadow: 0px 0px 23px -6px #000000;
+      // -webkit-box-shadow: 2px 2px 9px -6px #000000;
+      // box-shadow: 2px 2px 9px -6px #000000;
       z-index: 1000;
+      background-color: white;
+      border: solid 1px #f0f0f0;
       border-radius: 5px;
-      width: 90%;
+      width: 100%;
       align-self: center;
       padding: 20px;
       height: 33%;
+      margin-top: 20px;
       overflow: auto;
 
       // .time-wrapper {
@@ -169,7 +171,6 @@ $primary: #3f51b4;
       height: 65%;
       box-sizing: border-box;
       overflow-x: auto;
-      background: $primary;
       border-radius: 5px;
       padding: 10px;
 
@@ -182,8 +183,8 @@ $primary: #3f51b4;
 }
 
 h3 {
-  font-weight: 100;
-  margin-left: 20px;
+  font-weight: 500;
+  margin: 5px;
 }
 
 .remove-icon-wrapper {
