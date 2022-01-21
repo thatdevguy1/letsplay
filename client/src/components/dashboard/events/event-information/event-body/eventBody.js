@@ -26,7 +26,6 @@ function EventBody(props) {
       {props.eventInfo.selectedEvent &&
       Object.keys(props.eventInfo.selectedEvent).length > 0 ? (
         <div className="body-container">
-          <h1>{props.eventInfo.selectedEvent.name}</h1>
           <div className="map-wrapper">
             <Map type="displayLocation" />
           </div>

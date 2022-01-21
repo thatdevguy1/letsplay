@@ -68,11 +68,12 @@ function EventInformation() {
       {eventInfo.selectedEvent &&
       Object.keys(eventInfo.selectedEvent).length > 0 ? (
         <div className="eventInformation">
+          <h1>{eventInfo.selectedEvent.name}</h1>
+          {/* <Share eventId={history.location.search.split("=")[1]} /> */}
           <div className="sidebar">
             <div className="participants-wrapper">
               <Participants eventInfo={eventInfo} />
             </div>
-            <Share eventId={history.location.search.split("=")[1]} />
           </div>
           {editable ? (
             <EditEvent eventInfo={eventInfo} toggleEditMode={toggleEdit} />
