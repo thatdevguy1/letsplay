@@ -1,19 +1,20 @@
 .share {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   border-radius: 5px;
-  margin-top: 20px;
+  flex-grow: 2;
+  justify-content: space-between;
+  position: relative;
 
   h1 {
     text-align: center;
   }
 
   .minified-url-wrapper {
-    text-align: center;
     padding: 10px;
-    border: solid 1px white;
     border-radius: 5px;
-    margin: 0 20px 20px;
+    display: flex;
+    align-items: center;
     cursor: pointer;
     overflow: hidden;
 
@@ -22,15 +23,16 @@
       border: none;
       font: inherit;
       cursor: pointer;
-      color: white;
     }
   }
 
   .share-button-wrapper {
-    width: 100%;
+    position: relative;
     display: flex;
     justify-content: space-around;
     padding: 0 0 10px 0;
-    margin: 0 20px 20px 0;
+    flex-grow: 2;
+    max-width: 400px;
+    margin-right: 6px;
   }
 }

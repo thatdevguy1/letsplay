@@ -68,7 +68,15 @@ function EventInformation() {
       {eventInfo.selectedEvent &&
       Object.keys(eventInfo.selectedEvent).length > 0 ? (
         <div className="eventInformation">
-          <h1>{eventInfo.selectedEvent.name}</h1>
+          <div className="event-header">
+            <span>
+              {eventInfo.selectedEvent.name}
+              {/* <span className="heading-id">
+                #{history.location.search.split("=")[1]}
+              </span> */}
+            </span>
+            <Share eventId={history.location.search.split("=")[1]} />
+          </div>
           {/* <Share eventId={history.location.search.split("=")[1]} /> */}
           <div className="sidebar">
             <div className="participants-wrapper">
