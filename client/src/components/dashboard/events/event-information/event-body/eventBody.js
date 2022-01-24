@@ -65,6 +65,14 @@ function EventBody(props) {
             </div>
           </div>
           <div className="button-wrapper">
+            <Modal
+              btnStyle="success-btn"
+              eventId={props.eventInfo.selectedEvent._id}
+              disabled={joined}
+              setJoined={setJoined}
+            >
+              JOIN
+            </Modal>
             {props.admin ? (
               <div className="admin-btns">
                 <Button onClick={props.handleEdit}>Edit</Button>
@@ -75,15 +83,6 @@ function EventBody(props) {
             ) : (
               ""
             )}
-
-            <Modal
-              btnStyle="success-btn"
-              eventId={props.eventInfo.selectedEvent._id}
-              disabled={joined}
-              setJoined={setJoined}
-            >
-              JOIN
-            </Modal>
           </div>
         </div>
       ) : (

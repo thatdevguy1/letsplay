@@ -11,12 +11,15 @@
   }
 
   .minified-url-wrapper {
-    padding: 10px;
     border-radius: 5px;
     display: flex;
     align-items: center;
     cursor: pointer;
     overflow: hidden;
+
+    span {
+      font-size: 2em;
+    }
 
     input {
       background: none;
