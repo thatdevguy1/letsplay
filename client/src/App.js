@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./components/login/Login";
+import Signup from "./components/signup/Signup";
 import Profile from "./components/dashboard/profile/Profile";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateEvent from "./components/create-event/CreateEvent";
@@ -35,6 +36,12 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Dashboard />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/signup">
+            <Signup />
           </Route>
           <Route path="/create-event">
             <CreateEvent />
