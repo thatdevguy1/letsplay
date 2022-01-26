@@ -1,6 +1,7 @@
 const socket = require("../config/socket");
 const Event = require("../models/event");
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 async function findAllEvents(req, res) {
   let today = new Date();
@@ -50,7 +51,7 @@ async function updateEvent(req, res) {
 async function deleteEvent(req, res) {
   try {
     const event = await Event.findOne({ _id: req.body.id });
-    if (event.creator == req.cookies.userId) {
+    if (event.creator == req.user._id) {
       await Event.deleteOne({ _id: req.body.id });
       res.send({ response: true, message: "Event Deleted", name: event.name });
     } else {
@@ -67,36 +68,25 @@ async function deleteEvent(req, res) {
 async function createEvent(req, res) {
   const newEvent = new Event(req.body);
   try {
-    if (req.cookies.userId) {
-      newEvent.creator = req.cookies.userId;
+    if (req.user) {
+      newEvent.creator = req.user._id;
       const event = await newEvent.save();
-      const currentUserId = req.cookies.userId;
 
       await User.findOneAndUpdate(
-        { _id: currentUserId },
+        { _id: req.user._id },
         { $push: { events: event._id } },
         { new: true, upsert: true }
       );
 
-      res
-        .cookie("userId", currentUserId, {
-          expires: new Date(Number(new Date()) + 315360000000),
-          httpOnly: false,
-        })
-        .send({ ...event, response: true });
+      res.send({ ...event, response: true });
     } else {
       const user = new User({ signedUp: false, events: newEvent._id });
       await user.save();
 
       newEvent.creator = user._id;
       const event = await newEvent.save();
-
-      res
-        .cookie("userId", user._id, {
-          expires: new Date(Number(new Date()) + 315360000000),
-          httpOnly: false,
-        })
-        .send({ ...event, response: true });
+      const token = jwt.sign({ user }, process.env.SECRET, {});
+      res.send({ ...event, token, response: true });
     }
   } catch (err) {
     res.send({ message: err.message, response: false });
@@ -105,8 +95,8 @@ async function createEvent(req, res) {
 
 async function getMyEvents(req, res) {
   try {
-    const { userId } = req.cookies;
-    const user = await User.findOne({ _id: userId }).populate("events");
+    const { _id } = req.user;
+    const user = await User.findOne({ _id }).populate("events");
     user && user.events.length > 0
       ? res.send({ myEvents: user.events, response: true })
       : res.send({ myEvents: [], response: true });
@@ -117,85 +107,86 @@ async function getMyEvents(req, res) {
 
 async function joinEvent(req, res) {
   let participants;
-  const handleJoin = async ({ cookies, body }) => {
+  const handleJoin = async (request) => {
     let updatedEvent;
-    let event = await Event.findOne({ _id: body.id });
+    let event = await Event.findOne({ _id: request.body.id });
     try {
-      if (cookies.userId) {
-        const { userId } = cookies;
+      if (request.user) {
+        const { _id } = request.user;
         //const events = eventIds.map((event) => event.id)
 
-        const currentUser = await User.findOne({ _id: userId });
+        const currentUser = await User.findOne({ _id });
 
         // if (currentUser.events.includes(body.id)) {
         if (
           event.participants.length > 0 &&
-          event.participants.filter((user) => user.userId === cookies.userId)
-            .length > 0
+          event.participants.filter((user) => user.userId === user._id).length >
+            0
         ) {
           return {
-            resObj: {
-              message: "You're already part of this event",
-              response: false,
-            },
+            message: "You're already part of this event",
+            response: false,
           };
         }
 
         participants = event.participants;
-        participants.push({ name: body.participantsName, userId: userId });
+        participants.push({ name: request.body.participantsName, userId: _id });
 
         updatedEvent = await Event.findOneAndUpdate(
-          { _id: body.id },
+          { _id: request.body.id },
           { participants: participants },
           { new: true }
         );
 
         await User.findOneAndUpdate(
           { _id: currentUser._id },
-          { $addToSet: { events: body.id } }
+          { $addToSet: { events: request.body.id } }
         );
 
         return {
-          cookie: { name: "userId", value: currentUser._id },
-          resObj: { ...updatedEvent, response: true },
+          ...updatedEvent,
+          response: true,
         };
       }
 
-      event = await Event.findOne({ _id: body.id });
+      event = await Event.findOne({ _id: request.body.id });
 
-      const user = new User({ signedUp: false, events: event._id });
+      const user = await new User({ signedUp: false, events: event._id });
       await user.save();
 
       participants = event.participants;
-      participants.push({ name: body.participantsName, userId: user._id });
+      participants.push({
+        name: request.body.participantsName,
+        userId: user._id,
+      });
 
       updatedEvent = await Event.findOneAndUpdate(
-        { _id: body.id },
+        { _id: request.body.id },
         { participants: participants },
         { new: true }
       );
 
+      const token = jwt.sign({ user }, process.env.SECRET, {});
+
       return {
-        cookie: { name: "userId", value: user._id },
-        resObj: { ...updatedEvent, response: true },
+        ...updatedEvent,
+        response: true,
+        token,
       };
     } catch (err) {
-      return { resObj: { message: err.message, response: false } };
+      console.log(err);
+      return { message: err.message, response: false };
     }
   };
 
   let payload = await handleJoin(req);
 
-  if (Object.keys(payload).includes("cookie")) {
+  // if (Object.keys(payload).includes("cookie")) {
+  if (payload.response === true) {
     socket.getIO().to(req.body.id).emit("update participants", participants);
-    res
-      .cookie(payload.cookie.name, payload.cookie.value, {
-        expires: new Date(Number(new Date()) + 315360000000),
-        httpOnly: false,
-      })
-      .send(payload.resObj);
+    res.send(payload);
   } else {
-    res.send(payload.resObj);
+    res.send(payload);
   }
 }
 

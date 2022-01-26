@@ -2,37 +2,26 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-//const session = require("express-session");
-//const jwt = require('jsonwebtoken')
-const cookieParser = require("cookie-parser");
-//const methodOverride = require("method-override");
 const initSocketListener = require("./socket-listeners/connection");
 
-bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 let eventRoutes = require("./routes/event");
 let nomRoutes = require("./routes/nominatim");
+let userRoutes = require("./routes/user");
 
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(require("./config/auth"));
 
-// app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
-
-//app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/api", eventRoutes);
 app.use("/api/nominatim", nomRoutes);
+app.use("/api/user", userRoutes);
 
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "client/build/index.html"));

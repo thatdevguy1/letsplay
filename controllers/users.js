@@ -1,53 +1,78 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const passport = require("passport");
+const SALT_ROUNDS = 6;
+const jwt = require("jsonwebtoken");
 
 //small change
-async function createUser(req, res) {
+async function create(req, res) {
+  console.log(req.body);
+  console.log("request user from create", req.user);
   try {
-    const hashPassword = await bcrypt.hash(req.body.password, 10);
-    const newUser = new User({ ...req.body, password: hashPassword });
-    const user = await newUser.save();
-
-    res.send({ ...user, response: true });
+    let user;
+    const hashPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS);
+    if (req.user) {
+      user = await User.findOneAndUpdate(
+        { _id: req.user._id },
+        { ...req.body, password: hashPassword },
+        { new: true }
+      );
+    } else {
+      user = await User.create({
+        ...req.body,
+        password: hashPassword,
+      });
+    }
+    console.log("the user being created", user);
+    const token = jwt.sign({ user }, process.env.SECRET, {
+      expiresIn: "24h",
+    });
+    res.status(200).send({ token, respons: true });
   } catch (err) {
-    res.status(500).send({ message: err.message, response: false });
+    console.log(err);
+    res.status(400).send({ message: err.message, response: false });
   }
 }
 
-async function findUser(req, res) {
+async function find(req, res) {
   try {
     let user = await User.findOne({ _id: req.body.id }).populate("events");
-    delete user._doc.password;
     res.send({ ...user, response: true });
   } catch (err) {
     res.status(500).send({ message: err.message, response: false });
   }
 }
 
-async function updateUser(req, res) {
+//Update Token and pass token back || Might need {new: true} to get updated user
+async function update(req, res) {
   try {
     const user = await User.findOneAndUpdate(
-      { id: req.body.id },
+      { id: req.user._id },
       { ...req.body }
     );
 
-    res.send({ ...user, response: true });
+    const token = jwt.sign({ user }, process.env.SECRET, { expiresIn: "24h" });
+    res.send({ token, response: true });
   } catch (err) {
     res.status(500).send({ message: err.message, response: false });
   }
 }
 
 async function login(req, res) {
-  res.send({
-    message: "Successfully Authenticated",
-    response: true,
-    user: req.user,
-  });
+  try {
+    const user = await User.findOne({ username: req.body.username });
+    if (!(await bcrypt.compare(req.body.password, user.password)))
+      throw new Error("Password incorrect");
+    const token = jwt.sign({ user }, process.env.SECRET, { expiresIn: "24h" });
+    res
+      .status(200)
+      .send({ token, message: "Successfully Authenticated", response: true });
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err.message);
+  }
 }
 
 async function logout(req, res) {
-  req.logout();
   res.send({
     message: "Successfully logged out",
     response: true,
@@ -72,9 +97,9 @@ async function register(req, res) {
 }
 
 module.exports = {
-  createUser,
-  findUser,
-  updateUser,
+  create,
+  find,
+  update,
   login,
   register,
   logout,
