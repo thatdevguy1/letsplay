@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -84,6 +85,7 @@ function Nav() {
   const dispatch = useDispatch();
   const history = useHistory();
   const events = useSelector((state) => state.eventsInfo);
+  const user = useSelector((state) => state.user);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -115,6 +117,10 @@ function Nav() {
 
   const handleSearch = (event) => {
     dispatch(searchEvent(event.target.value));
+  };
+
+  const logout = () => {
+    dispatch(signOut());
   };
 
   const menuId = "primary-search-account-menu";
@@ -175,6 +181,20 @@ function Nav() {
               />
             </div>
             <div className={classes.grow} />
+            <div className="user-icon-or-login">
+              {user.id ? (
+                <>
+                  <AccountCircleIcon />
+                  <span> {user.username} </span>
+                  <Button onClick={logout}>Logout</Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">Login</Link>
+                  <Link to="/signup">Sign Up</Link>
+                </>
+              )}
+            </div>
             <div className={classes.sectionDesktop}>
               {history.location.pathname != "/create-event" ? (
                 <Button

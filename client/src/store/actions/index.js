@@ -1,6 +1,13 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
+export const signOut = () => {
+  if (localStorage.getItem("token")) localStorage.removeItem("token");
+  return {
+    type: "SIGN_OUT",
+  };
+};
+
 export const signIn = (payload) => {
   return async (dispatch) => {
     try {
@@ -60,31 +67,6 @@ export const setUser = (payload) => {
   return {
     type: "SIGN_IN",
     payload: payload,
-  };
-};
-
-export const signOut = () => {
-  return async (dispatch) => {
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_BASE_API + "/logout",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    try {
-      let response = await axios(config);
-
-      if (response && response.data.response === true) {
-        dispatch({
-          type: "SIGN_OUT",
-        });
-      }
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
-    }
   };
 };
 
@@ -205,11 +187,13 @@ export const getEvents = () => {
 
 export const getMyEvents = (toggle) => {
   return async (dispatch) => {
+    const token = localStorage.getItem("token");
     var config = {
       method: "get",
       url: process.env.REACT_APP_BASE_API + "/getMyEvents",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
 
