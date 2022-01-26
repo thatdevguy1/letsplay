@@ -25,6 +25,10 @@ function Participants({ eventInfo }) {
     socket.on("update participants", (data) => {
       setParticipants(data);
     });
+
+    return () => {
+      socket.off("update participants");
+    };
   }, []);
 
   function removeUser(e) {

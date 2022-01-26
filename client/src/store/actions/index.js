@@ -288,8 +288,10 @@ export const joinEvent = (data) => {
 
       if (response && response.data.response === true) {
         if (response.data.token) {
-          localStorage.setItem("token", token);
-          let userDoc = JSON.parse(atob(token.split(".")[1])).user;
+          localStorage.setItem("token", response.data.token);
+          let userDoc = JSON.parse(
+            atob(response.data.token.split(".")[1])
+          ).user;
           dispatch({
             type: "SIGN_IN",
             payload: userDoc,
@@ -304,6 +306,7 @@ export const joinEvent = (data) => {
         toast.warn(response.data.message);
       }
     } catch (err) {
+      console.log(err);
       toast.error("Something went wrong! Please try again later");
     }
   };

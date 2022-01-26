@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./components/login/Login";
@@ -12,11 +12,22 @@ import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import socket from "./utils/socket";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "./store/actions";
 
 socket.init();
 
 function App() {
+  const dispatch = useDispatch();
   axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const userDoc = JSON.parse(atob(token.split(".")[1])).user;
+      dispatch(setUser(userDoc));
+    }
+  }, []);
 
   return (
     <div className="App">
