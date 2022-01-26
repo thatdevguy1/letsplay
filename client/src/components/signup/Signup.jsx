@@ -89,11 +89,7 @@ export default function SignUp() {
 
   useEffect(() => {
     let token = localStorage.getItem("token");
-    if (token && user.id === "") {
-      let userDoc = JSON.parse(atob(token.split(".")[1])).user;
-      dispatch(setUser(userDoc));
-      history.push("/");
-    } else if (token && user.id) {
+    if (token && user.signedUp === true) {
       history.push("/");
     }
   }, [user]);

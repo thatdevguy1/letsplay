@@ -41,18 +41,30 @@ export const signIn = (payload) => {
 export const signup = (payload) => {
   try {
     return async (dispatch) => {
+      let headers;
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+      } else {
+        headers = {
+          "Content-Type": "application/json",
+        };
+      }
       var config = {
         method: "post",
         url: process.env.REACT_APP_BASE_API + "/user/signup",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         data: payload,
       };
 
       let response = await axios(config);
       localStorage.setItem("token", response.data.token);
       const user = JSON.parse(atob(response.data.token.split(".")[1])).user;
+      console.log("The user after signin is: ", user);
       dispatch({
         type: "SIGN_IN",
         payload: user,
