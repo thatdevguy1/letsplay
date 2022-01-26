@@ -1,4 +1,7 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { signup, setUser } from "../../store/actions";
+import { useHistory } from "react-router-dom";
 // import Avatar from "@mui/material/Avatar";
 // import Button from "@mui/material/Button";
 // import CssBaseline from "@mui/material/CssBaseline";
@@ -12,6 +15,8 @@ import * as React from "react";
 // import Typography from "@mui/material/Typography";
 // import Container from "@mui/material/Container";
 // import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import axios from "axios";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -72,15 +77,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const user = useSelector((state) => state.user);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    email: "",
+  });
   const classes = useStyles();
-  const handleSubmit = (event) => {
+
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token && user.id === "") {
+      let userDoc = JSON.parse(atob(token.split(".")[1])).user;
+      dispatch(setUser(userDoc));
+      history.push("/");
+    } else if (token && user.id) {
+      history.push("/");
+    }
+  }, [user]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    try {
+      dispatch(signup({ ...formData, signedUp: true }));
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   return (
@@ -112,25 +141,17 @@ export default function SignUp() {
           sx={{ mt: 3 }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
-                autoComplete="given-name"
-                name="firstName"
+                autoComplete="Username"
+                name="username"
                 required
                 fullWidth
-                id="firstName"
-                label="First Name"
+                id="username"
+                label="Username"
                 autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
+                value={formData.username}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -141,6 +162,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={formData.email}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -152,14 +175,16 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                value={formData.password}
+                onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Button
             type="submit"

@@ -3,47 +3,88 @@ import { toast } from "react-toastify";
 
 export const signIn = (payload) => {
   return async (dispatch) => {
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_BASE_API + "/login",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: payload,
-    };
+    try {
+      var config = {
+        method: "post",
+        url: process.env.REACT_APP_BASE_API + "/user/login",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: payload,
+      };
 
-    let response = await axios(config);
-
-    if (response && response.data.response == true) {
-      dispatch({
-        type: "SIGN_IN",
-        payload: response,
-      });
+      let response = await axios(config);
+      localStorage.setItem("token", response.data.token);
+      const user = JSON.parse(atob(response.data.token.split(".")[1])).user;
+      if (response && response.data.response == true) {
+        dispatch({
+          type: "SIGN_IN",
+          payload: user,
+        });
+      } else {
+        console.log(response.data.message);
+        throw new Error(response.data.message);
+      }
+    } catch (err) {
+      toast.error(err.response.data);
     }
   };
 };
 
-export const register = (payload) => {
-  return async (dispatch) => {
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_BASE_API + "/register",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: payload,
+export const signup = (payload) => {
+  try {
+    return async (dispatch) => {
+      var config = {
+        method: "post",
+        url: process.env.REACT_APP_BASE_API + "/user/signup",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: payload,
+      };
+
+      let response = await axios(config);
+      localStorage.setItem("token", response.data.token);
+      const user = JSON.parse(atob(response.data.token.split(".")[1])).user;
+      dispatch({
+        type: "SIGN_IN",
+        payload: user,
+      });
     };
-
-    let response = await axios(config);
-
-    signIn(response);
-  };
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const setUser = (payload) => {
   return {
     type: "SIGN_IN",
     payload: payload,
+  };
+};
+
+export const signOut = () => {
+  return async (dispatch) => {
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_BASE_API + "/logout",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      let response = await axios(config);
+
+      if (response && response.data.response === true) {
+        dispatch({
+          type: "SIGN_OUT",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
   };
 };
 
@@ -132,31 +173,6 @@ export const findAndSetLatLng = (address) => {
         });
       }
     } catch (err) {
-      toast.error(err.message);
-    }
-  };
-};
-
-export const signOut = () => {
-  return async (dispatch) => {
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_BASE_API + "/logout",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    try {
-      let response = await axios(config);
-
-      if (response && response.data.response === true) {
-        dispatch({
-          type: "SIGN_OUT",
-        });
-      }
-    } catch (err) {
-      console.log(err);
       toast.error(err.message);
     }
   };

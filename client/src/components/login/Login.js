@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { signIn } from "../../store/actions";
+import { signIn, setUser } from "../../store/actions";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -38,25 +38,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login(props) {
+  const [loginForm, setLoginForm] = useState({ username: "", password: "" });
   const classes = useStyles();
-  const form = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (user.authenticated) history.push("/dashboard");
+    let token = localStorage.getItem("token");
+    if (token && user.id === "") {
+      let userDoc = JSON.parse(atob(token.split(".")[1])).user;
+      dispatch(setUser(userDoc));
+      history.push("/");
+    } else if (token && user.id) {
+      history.push("/");
+    }
   });
 
-  const login = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    dispatch(signIn(loginForm));
+  };
 
-    var data = JSON.stringify({
-      username: form.current.username.value,
-      password: form.current.password.value,
-    });
-
-    dispatch(signIn(data));
+  const handleChange = (event) => {
+    setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
   };
 
   return (
@@ -69,7 +74,7 @@ function Login(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate ref={form}>
+        <form className={classes.form} noValidate onSubmit={handleLogin}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -80,6 +85,8 @@ function Login(props) {
             name="username"
             autoComplete="username"
             autoFocus
+            onChange={handleChange}
+            value={loginForm.username}
           />
           <TextField
             variant="outlined"
@@ -91,6 +98,8 @@ function Login(props) {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange}
+            value={loginForm.password}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -102,7 +111,6 @@ function Login(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={login}
           >
             Sign In
           </Button>
