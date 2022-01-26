@@ -177,6 +177,14 @@ export const getEvents = () => {
           type: "getEvents",
           payload: response,
         });
+        let token = localStorage.getItem("token");
+        if (token) {
+          let userDoc = JSON.parse(atob(token.split(".")[1])).user;
+          dispatch({
+            type: "SIGN_IN",
+            payload: userDoc,
+          });
+        }
       }
     } catch (err) {
       console.log(err);
@@ -240,19 +248,40 @@ export const getEvent = (id) => {
 
 export const joinEvent = (data) => {
   return async (dispatch) => {
-    var config = {
-      method: "put",
-      url: process.env.REACT_APP_BASE_API + `/joinEvent`,
-      headers: {
+    let headers;
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      headers = {
         "Content-Type": "application/json",
-      },
+        Authorization: `Bearer ${token}`,
+      };
+    } else {
+      headers = {
+        "Content-Type": "application/json",
+      };
+    }
+
+    var config = {
+      method: "PUT",
+      url: process.env.REACT_APP_BASE_API + `/joinEvent`,
+      headers,
       data: data,
     };
 
     try {
       let response = await axios(config);
+      console.log(response.data);
 
       if (response && response.data.response === true) {
+        if (response.data.token) {
+          localStorage.setItem("token", token);
+          let userDoc = JSON.parse(atob(token.split(".")[1])).user;
+          dispatch({
+            type: "SIGN_IN",
+            payload: userDoc,
+          });
+        }
         dispatch({
           type: "selectEvent",
           payload: response.data._doc,
@@ -298,11 +327,13 @@ export const removeParticipant = (data) => {
 
 export const deleteEvent = (data) => {
   return async (dispatch) => {
+    const token = localStorage.getItem("token");
     var config = {
       method: "delete",
       url: process.env.REACT_APP_BASE_API + `/deleteEvent`,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       data: data,
     };

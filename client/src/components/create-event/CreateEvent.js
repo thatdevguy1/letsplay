@@ -85,19 +85,33 @@ function CreateEvent() {
         public: publicEvent,
       };
 
+      let headers;
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+      } else {
+        headers = {
+          "Content-Type": "application/json",
+        };
+      }
       var config = {
         method: "post",
         data,
         url: process.env.REACT_APP_BASE_API + "/createEvent",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
       };
 
       try {
         let response = await axios(config);
 
         if (response && response.data.response === true) {
+          if (response.data.token)
+            localStorage.setItem("token", response.data.token);
+
           dispatch(getEvents());
           toast.success("Event has been created");
           history.push("/");

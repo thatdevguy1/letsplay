@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   List,
   ListItem,
@@ -14,7 +15,7 @@ import socketInit from "../../../../../utils/socket";
 
 function Participants({ eventInfo }) {
   const socket = socketInit.getSocket();
-  const [id, setId] = useState("");
+  const user = useSelector((state) => state.user);
   const [participants, setParticipants] = useState(
     eventInfo.selectedEvent.participants
   );
@@ -24,11 +25,6 @@ function Participants({ eventInfo }) {
     socket.on("update participants", (data) => {
       setParticipants(data);
     });
-    let cookieValue = document.cookie.replace(
-      /(?:(?:^|.*;\s*)userId\s*\=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    setId(cookieValue);
   }, []);
 
   function removeUser(e) {
@@ -54,7 +50,7 @@ function Participants({ eventInfo }) {
                     <HowToReg />
                   </ListItemIcon>
                   <ListItemText primary={participant.name} />
-                  {id.includes(participant.userId) ? (
+                  {user.id.includes(participant.userId) ? (
                     <div
                       className="remove-icon-wrapper"
                       data-id={participant.userId}

@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "../EventInformation.scss";
 import Modal from "../../../../modal/modal";
 import Map from "../../../../map/Map";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
-
 moment().format();
 
 function EventBody(props) {
   const [joined, setJoined] = useState(false);
+  const user = useSelector((state) => state.user);
   useEffect(() => {
-    let cookieValue = document.cookie.replace(
-      /(?:(?:^|.*;\s*)userId\s*\=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
     let foundParticipant = props.eventInfo.selectedEvent.participants.some(
-      (p) => cookieValue.includes(p.userId)
+      (p) => user.id.includes(p.userId)
     );
 
     setJoined(foundParticipant);

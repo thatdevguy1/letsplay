@@ -19,6 +19,7 @@ import socketObj from "../../../../utils/socket";
 function EventInformation() {
   const socket = socketObj.getSocket();
   const eventInfo = useSelector((state) => state.eventsInfo);
+  const user = useSelector((state) => state.user);
   const [editable, setEditable] = useState(false);
   const [admin, setAdmin] = useState(false);
   const dispatch = useDispatch();
@@ -34,11 +35,8 @@ function EventInformation() {
   useEffect(() => {
     if (eventInfo.selectedEvent._id)
       socket.emit("join room", eventInfo.selectedEvent._id);
-    let cookieValue = document.cookie.replace(
-      /(?:(?:^|.*;\s*)userId\s*\=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    cookieValue && cookieValue.includes(eventInfo.selectedEvent.creator)
+
+    user.id.includes(eventInfo.selectedEvent.creator)
       ? setAdmin(true)
       : setAdmin(false);
   }, [eventInfo]);

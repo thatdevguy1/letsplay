@@ -182,7 +182,7 @@ function Nav() {
             </div>
             <div className={classes.grow} />
             <div className="user-icon-or-login">
-              {user.id ? (
+              {user.signedUp ? (
                 <>
                   <AccountCircleIcon />
                   <span> {user.username} </span>
