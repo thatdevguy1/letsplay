@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getMyEvents } from "../../store/actions";
-import axios from "axios";
 import Events from "./events/Events";
 import { withStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import "./Dashboard.scss";
 import Map from "../map/Map";
+import { toast } from "react-toastify";
 
 const AntSwitch = withStyles((theme) => ({
   root: {
@@ -55,7 +55,10 @@ function Dashboard() {
   }, []);
 
   const handleChange = (event) => {
-    dispatch(getMyEvents(!eventToggle));
+    const token = localStorage.getItem("token");
+    token
+      ? dispatch(getMyEvents(!eventToggle))
+      : toast.warning("You currently don't have any events");
   };
 
   return (

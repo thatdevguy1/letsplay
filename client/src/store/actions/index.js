@@ -208,16 +208,17 @@ export const getEvents = () => {
 export const getMyEvents = (toggle) => {
   return async (dispatch) => {
     const token = localStorage.getItem("token");
-    var config = {
-      method: "get",
-      url: process.env.REACT_APP_BASE_API + "/getMyEvents",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
 
     try {
+      var config = {
+        method: "get",
+        url: process.env.REACT_APP_BASE_API + "/getMyEvents",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
       let response = await axios(config);
       if (response && response.data.response === true) {
         dispatch({
