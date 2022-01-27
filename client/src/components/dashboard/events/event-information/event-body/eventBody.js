@@ -5,18 +5,20 @@ import Modal from "../../../../modal/modal";
 import Map from "../../../../map/Map";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
+import Chat from "./chat/Chat";
 moment().format();
 
 function EventBody(props) {
   const [joined, setJoined] = useState(false);
   const user = useSelector((state) => state.user);
   useEffect(() => {
-    let foundParticipant = props.eventInfo.selectedEvent.participants.some(
+    let foundParticipant = props.eventInfo.selectedEvent.participants.find(
       (p) => user.id.includes(p.userId)
     );
+    console.log(foundParticipant);
 
-    setJoined(foundParticipant);
-  }, []);
+    if (foundParticipant !== -1) setJoined(foundParticipant);
+  }, [props.eventInfo]);
 
   return (
     <>
@@ -81,6 +83,10 @@ function EventBody(props) {
               ""
             )}
           </div>
+          <Chat
+            selectedEvent={props.eventInfo.selectedEvent}
+            userInfo={joined}
+          />
         </div>
       ) : (
         ""
