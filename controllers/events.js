@@ -30,7 +30,7 @@ async function findEvent(req, res) {
 async function updateEvent(req, res) {
   try {
     const event = await Event.findOne({ _id: req.body.id });
-    if (event.creator == req.cookies.userId) {
+    if (event.creator == req.user._id) {
       const updatedEvent = await Event.findOneAndUpdate(
         { _id: req.body.id },
         { ...req.body }

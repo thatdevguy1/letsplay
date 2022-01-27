@@ -22,13 +22,14 @@ function EditEvent(props) {
   const eventInfo = useSelector((state) => state.eventsInfo);
   const dispatch = useDispatch();
   const history = useHistory();
-  const form = useRef(null);
   const [publicEvent, setPublicEvent] = useState(
     props.eventInfo.selectedEvent.public
   );
   const { createEventLocation } = useSelector((state) => state.eventsInfo);
   const [selectedDate, setSelectedDate] = useState(moment());
-  const [selectedTime, setSelectedTime] = useState(moment());
+  const [selectedTime, setSelectedTime] = useState(
+    moment(props.eventInfo.selectedEvent.startTime, "HH:mm A")
+  );
   const [eventName, setEventName] = useState(
     props.eventInfo.selectedEvent.name
   );
@@ -63,7 +64,6 @@ function EditEvent(props) {
   };
 
   const handleUpdate = async () => {
-    //Handle UPDATE
     //Fix startTime default
     const data = {
       id: props.eventInfo.selectedEvent._id,
@@ -78,12 +78,15 @@ function EditEvent(props) {
       public: publicEvent,
     };
 
+    const token = localStorage.getItem("token");
+
     var config = {
       method: "put",
       data,
       url: process.env.REACT_APP_BASE_API + "/updateEvent",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -107,7 +110,7 @@ function EditEvent(props) {
       width: 28,
       height: 16,
       padding: 0,
-      display: "flex",
+      margin: 10,
     },
     switchBase: {
       padding: 2,
@@ -198,11 +201,10 @@ function EditEvent(props) {
               <Map type="editLocation" />
             </div>
             <div className="button-wrapper">
-              <div>
-                <Button onClick={handleUpdate}>Update</Button>
-                <Button onClick={handleCancel}>Cancel</Button>
-              </div>
-              <Modal eventId={props.eventInfo.selectedEvent._id}>JOIN</Modal>
+              <Button onClick={handleUpdate}>Update</Button>
+              <Button className="warning-btn" onClick={handleCancel}>
+                Cancel
+              </Button>
             </div>
           </MuiPickersUtilsProvider>
         </div>
