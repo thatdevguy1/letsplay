@@ -15,6 +15,7 @@ import SendIcon from "@material-ui/icons/Send";
 import socketInit from "../../../../../../utils/socket";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles({
   chatSection: {
@@ -47,6 +48,9 @@ const Chat = ({ selectedEvent, userInfo }) => {
     socket.on("message", (msg) => {
       setChatLog((chatLog) => [...chatLog, msg]);
     });
+    socket.on("denied", (msg) => {
+      toast.warning(msg);
+    });
 
     setChatLog(selectedEvent.messages);
   }, []);
@@ -72,7 +76,7 @@ const Chat = ({ selectedEvent, userInfo }) => {
         <Grid item xs={12}>
           <List className={classes.messageArea}>
             {chatLog.map((msg) => {
-              return msg.user === userInfo.userId ? (
+              return msg.user === userInfo?.userId ? (
                 <ListItem className={classes.bubble} key={uuidv4()}>
                   <Grid container>
                     <Grid item xs={10}>
