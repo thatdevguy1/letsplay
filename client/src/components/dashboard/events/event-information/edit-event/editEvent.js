@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getEvent } from "../../../../../store/actions";
 import { useHistory } from "react-router-dom";
 import "../EventInformation.scss";
-import Modal from "../../../../modal/modal";
 import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
