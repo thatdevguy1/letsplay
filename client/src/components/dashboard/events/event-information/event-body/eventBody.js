@@ -15,7 +15,6 @@ function EventBody(props) {
     let foundParticipant = props.eventInfo.selectedEvent.participants.find(
       (p) => user.id.includes(p.userId)
     );
-    console.log(foundParticipant);
 
     if (foundParticipant !== -1) setJoined(foundParticipant);
   }, [props.eventInfo]);

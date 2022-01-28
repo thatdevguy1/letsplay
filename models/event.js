@@ -13,7 +13,6 @@ const chatSchema = new Schema(
     },
     message: {
       type: String,
-      required: true,
     },
     time: {
       type: String,

@@ -57,8 +57,6 @@ const Chat = ({ selectedEvent, userInfo }) => {
   }, []);
 
   useEffect(() => {
-    console.log(chatBoxRef.current.scrollHeight);
-
     chatBoxRef.current.scrollTo(0, chatBoxRef.current.scrollHeight);
   }, [chatBoxRef.current, chatLog]);
 

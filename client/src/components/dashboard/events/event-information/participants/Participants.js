@@ -32,7 +32,6 @@ function Participants({ eventInfo }) {
   }, []);
 
   function removeUser(e) {
-    console.dir(e.currentTarget.getAttribute("data-id"));
     dispatch(
       removeParticipant({
         participantId: e.currentTarget.getAttribute("data-id"),
@@ -54,7 +53,8 @@ function Participants({ eventInfo }) {
                     <HowToReg />
                   </ListItemIcon>
                   <ListItemText primary={participant.name} />
-                  {user.id.includes(participant.userId) ? (
+                  {user.id.includes(participant.userId) ||
+                  user.id === eventInfo.selectedEvent.creator ? (
                     <div
                       className="remove-icon-wrapper"
                       data-id={participant.userId}
