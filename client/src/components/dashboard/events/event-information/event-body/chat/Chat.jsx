@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -16,7 +16,6 @@ import socketInit from "../../../../../../utils/socket";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
-
 const useStyles = makeStyles({
   chatSection: {
     width: "100%",
@@ -39,6 +38,7 @@ const useStyles = makeStyles({
 });
 
 const Chat = ({ selectedEvent, userInfo }) => {
+  const chatBoxRef = useRef();
   const socket = socketInit.getSocket();
   const classes = useStyles();
   const [chatLog, setChatLog] = useState([]);
@@ -54,6 +54,12 @@ const Chat = ({ selectedEvent, userInfo }) => {
 
     setChatLog(selectedEvent.messages);
   }, []);
+
+  useEffect(() => {
+    console.log(chatBoxRef.current.scrollHeight);
+
+    chatBoxRef.current.scrollTo(0, chatBoxRef.current.scrollHeight);
+  }, [chatBoxRef.current, chatLog]);
 
   const handleSendMessage = (event) => {
     event.preventDefault();
@@ -74,7 +80,10 @@ const Chat = ({ selectedEvent, userInfo }) => {
     <div className="chat">
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={12}>
-          <List className={classes.messageArea}>
+          <List
+            className={`${classes.messageArea} message-list`}
+            ref={chatBoxRef}
+          >
             {chatLog.map((msg) => {
               return msg.user === userInfo?.userId ? (
                 <ListItem className={classes.bubble} key={uuidv4()}>
