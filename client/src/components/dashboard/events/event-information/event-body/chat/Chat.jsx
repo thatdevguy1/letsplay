@@ -153,7 +153,7 @@ const Chat = ({ selectedEvent, userInfo }) => {
                 />
               </form>
             </Grid>
-            <Grid xs={1} align="right">
+            <Grid xs={1} align="right" onClick={handleSendMessage}>
               <Fab color="primary" aria-label="add">
                 <SendIcon />
               </Fab>
