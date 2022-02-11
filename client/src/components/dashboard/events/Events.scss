@@ -19,6 +19,14 @@ li {
   border: solid 2px rgb(240, 240, 240);
 }
 
+.no-events-message {
+  font-size: 1.5rem;
+  font-weight: 100;
+  color: rgb(202, 202, 202);
+  margin: 20px 0 0 0;
+  text-align: center;
+}
+
 @media only screen and (max-width: 1000px) {
   .events {
     margin-bottom: 5px;

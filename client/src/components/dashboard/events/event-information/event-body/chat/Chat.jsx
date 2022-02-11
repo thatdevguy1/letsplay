@@ -116,37 +116,6 @@ const Chat = ({ selectedEvent, userInfo }) => {
                 </ListItem>
               );
             })}
-            {/* <ListItem className={classes.bubble} key="1">
-              <Grid container>
-                <Grid item xs={10}>
-                  <ListItemText align="right" primary="Hey man, What's up ?" />
-                </Grid>
-                <Grid item xs={2}>
-                  <ListItemText
-                    align="right"
-                    primary="Blando"
-                    secondary="09:30"
-                  />
-                </Grid>
-              </Grid>
-            </ListItem>
-            <ListItem className={classes.bubble} key="2">
-              <Grid container>
-                <Grid item xs={2}>
-                  <ListItemText
-                    align="left"
-                    primary="Bobby"
-                    secondary="09:31"
-                  />
-                </Grid>
-                <Grid item xs={10}>
-                  <ListItemText
-                    align="left"
-                    primary="Hey, Iam Good! What about you ?"
-                  />
-                </Grid>
-              </Grid>
-            </ListItem> */}
           </List>
           <Divider />
           <Grid container style={{ padding: "20px" }}>

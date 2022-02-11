@@ -56,6 +56,7 @@ function Dashboard() {
 
   const handleChange = (event) => {
     const token = localStorage.getItem("token");
+    //this should be changed to check the dispatch for events and if there are none then display the toast
     token
       ? dispatch(getMyEvents(!eventToggle))
       : toast.warning("You currently don't have any events");
@@ -66,7 +67,6 @@ function Dashboard() {
       <div className="switchWrapper">
         <span style={{ fontSize: "12px", padding: "0 10px" }}>My Events</span>
         <AntSwitch
-          //The AntSwitch is set up backwords
           checked={!eventToggle}
           onChange={handleChange}
           name="publicEvent"
