@@ -127,6 +127,7 @@ const Chat = ({ selectedEvent, userInfo }) => {
                   fullWidth
                   value={message}
                   onChange={handleChange}
+                  autoComplete="off"
                 />
               </form>
             </Grid>
