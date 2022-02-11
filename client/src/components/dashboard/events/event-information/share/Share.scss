@@ -3,7 +3,7 @@
   flex-direction: row;
   border-radius: 5px;
   flex-grow: 2;
-  justify-content: space-between;
+  justify-content: flex-end;
   position: relative;
 
   h1 {
@@ -43,5 +43,6 @@
 @media only screen and (max-width: 750px) {
   .share {
     width: 100%;
+    justify-content: center;
   }
 }
