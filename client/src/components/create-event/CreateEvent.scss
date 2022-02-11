@@ -18,6 +18,7 @@ $primary: #3f51b4;
 .create-event > form {
   position: relative;
   width: 35vw;
+  min-width: 358px;
   max-width: 500px;
   margin: 0 0 0 8%;
   padding: 3%;
@@ -45,17 +46,25 @@ button {
 }
 
 @media only screen and (max-width: 1000px) {
+}
+@media only screen and (max-width: 750px) {
   .create-event {
-    flex-direction: column-reverse;
-    margin-top: 20px;
+    flex-direction: column;
     align-items: center;
+    height: auto;
   }
 
   .create-event > form {
-    width: 100vw;
+    position: relative;
+    width: 99vw;
+    min-width: 99vw;
     box-sizing: border-box;
-    height: 509px;
-    margin-top: 20px;
+    height: auto;
+    margin: 20px 0 15px 0;
+
+    h4 {
+      text-align: center;
+    }
   }
   .create-event > form > button {
     margin-top: 15px !important;
@@ -65,7 +74,8 @@ button {
   }
 
   .mapHolder {
-    width: 90vw;
+    width: 100vw;
     height: 275px;
+    position: relative;
   }
 }
