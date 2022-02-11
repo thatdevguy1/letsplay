@@ -31,8 +31,8 @@ function Share({ eventId }) {
   return (
     <div className="share">
       <div className="minified-url-wrapper" onClick={copyUrl}>
-        <span>#{eventId}</span>
-        <input ref={URLele} value={URL} style={{ display: "none" }} readOnly />
+        {/* <span>#{eventId}</span> */}
+        {/* <input ref={URLele} value={URL} style={{ display: "none" }} readOnly /> */}
       </div>
       <div className="share-button-wrapper">
         <FacebookShareButton url={URL}>

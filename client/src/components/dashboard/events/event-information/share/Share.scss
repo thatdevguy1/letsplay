@@ -39,3 +39,9 @@
     margin-right: 6px;
   }
 }
+
+@media only screen and (max-width: 750px) {
+  .share {
+    width: 100%;
+  }
+}
