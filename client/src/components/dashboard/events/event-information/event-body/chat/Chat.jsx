@@ -36,6 +36,21 @@ const useStyles = makeStyles({
     margin: "10px auto",
     width: "98%",
   },
+  inputAndSubmit: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "0 20px",
+    ["@media (max-width:500px)"]: {
+      // eslint-disable-line no-useless-computed-key
+      padding: "0 30px 0 10px",
+    },
+  },
+  chatBox: {
+    display: "flex",
+    justifyContent: "space-evenly",
+    flexDirection: "column",
+  },
 });
 
 const Chat = ({ selectedEvent, userInfo }) => {
@@ -78,7 +93,7 @@ const Chat = ({ selectedEvent, userInfo }) => {
   return (
     <div className="chat">
       <Grid container component={Paper} className={classes.chatSection}>
-        <Grid item xs={12}>
+        <Grid className={classes.chatBox} item xs={12}>
           <List
             className={`${classes.messageArea} message-list`}
             ref={chatBoxRef}
@@ -87,11 +102,22 @@ const Chat = ({ selectedEvent, userInfo }) => {
               return msg.user === userInfo?.userId ? (
                 <ListItem className={classes.bubble} key={uuidv4()}>
                   <Grid container>
-                    <Grid item xs={10}>
-                      <ListItemText align="right" primary={msg.message} />
-                    </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={8} sm={10}>
                       <ListItemText
+                        primaryTypographyProps={{
+                          style: { fontSize: ".8rem" },
+                        }}
+                        align="right"
+                        inset="true"
+                        primary={msg.message}
+                      />
+                    </Grid>
+                    <Grid item xs={3} sm={2} md={2}>
+                      <ListItemText
+                        primaryTypographyProps={{
+                          style: { fontSize: ".8rem" },
+                        }}
+                        inset="true"
                         align="right"
                         primary={msg.name}
                         secondary={msg.time}
@@ -102,15 +128,26 @@ const Chat = ({ selectedEvent, userInfo }) => {
               ) : (
                 <ListItem className={classes.bubble} key={uuidv4()}>
                   <Grid container>
-                    <Grid item xs={2}>
+                    <Grid item xs={4} sm={2}>
                       <ListItemText
+                        primaryTypographyProps={{
+                          style: { fontSize: ".8rem" },
+                        }}
+                        inset="true"
                         align="left"
                         primary={msg.name}
                         secondary={msg.time}
                       />
                     </Grid>
-                    <Grid item xs={10}>
-                      <ListItemText align="left" primary={msg.message} />
+                    <Grid item xs={8} sm={10}>
+                      <ListItemText
+                        primaryTypographyProps={{
+                          style: { fontSize: ".8rem" },
+                        }}
+                        align="left"
+                        inset="true"
+                        primary={msg.message}
+                      />
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -118,7 +155,7 @@ const Chat = ({ selectedEvent, userInfo }) => {
             })}
           </List>
           <Divider />
-          <Grid container style={{ padding: "20px" }}>
+          <Grid container className={classes.inputAndSubmit}>
             <Grid item xs={11}>
               <form onSubmit={handleSendMessage}>
                 <TextField
@@ -132,7 +169,7 @@ const Chat = ({ selectedEvent, userInfo }) => {
               </form>
             </Grid>
             <Grid xs={1} align="right" onClick={handleSendMessage}>
-              <Fab color="primary" aria-label="add">
+              <Fab color="primary" aria-label="add" size="medium">
                 <SendIcon />
               </Fab>
             </Grid>
