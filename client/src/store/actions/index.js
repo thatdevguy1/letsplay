@@ -331,7 +331,7 @@ export const removeParticipant = (data) => {
           type: "selectEvent",
           payload: response.data.updatedEvent,
         });
-        toast.success(`You have left this event`);
+        toast.success(`${data.name + " has" || "You have"} left this event`);
       } else {
         toast.warn(response.data.message);
       }

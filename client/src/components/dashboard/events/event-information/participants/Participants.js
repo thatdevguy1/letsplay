@@ -31,11 +31,12 @@ function Participants({ eventInfo }) {
     };
   }, []);
 
-  function removeUser(e) {
+  function removeUser(e, name) {
     dispatch(
       removeParticipant({
         participantId: e.currentTarget.getAttribute("data-id"),
         selectedEventId: eventInfo.selectedEvent._id,
+        name,
       })
     );
   }
@@ -58,7 +59,9 @@ function Participants({ eventInfo }) {
                     <div
                       className="remove-icon-wrapper"
                       data-id={participant.userId}
-                      onClick={removeUser}
+                      onClick={(e) => {
+                        removeUser(e, participant.name);
+                      }}
                     >
                       <RemoveCircleOutlineIcon />
                     </div>

@@ -56,6 +56,7 @@ function Dashboard() {
 
   const handleChange = (event) => {
     const token = localStorage.getItem("token");
+    console.log("antswitch pressed with token value --> ", token);
     //this should be changed to check the dispatch for events and if there are none then display the toast
     token
       ? dispatch(getMyEvents(!eventToggle))
