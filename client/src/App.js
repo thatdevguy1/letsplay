@@ -24,11 +24,12 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      const userDoc = JSON.parse(atob(token.split(".")[1])).user;
-      if (Date.now() * 1000 >= userDoc.exp) {
+      const userDoc = JSON.parse(atob(token.split(".")[1]));
+      console.log(userDoc);
+      if (Date.now() >= userDoc.exp * 1000) {
         localStorage.removeItem("token");
       } else {
-        dispatch(setUser(userDoc));
+        dispatch(setUser(userDoc.user));
       }
     }
   }, []);

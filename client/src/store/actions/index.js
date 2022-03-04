@@ -64,7 +64,6 @@ export const signup = (payload) => {
       let response = await axios(config);
       localStorage.setItem("token", response.data.token);
       const user = JSON.parse(atob(response.data.token.split(".")[1])).user;
-      console.log("The user after signin is: ", user);
       dispatch({
         type: "SIGN_IN",
         payload: user,
@@ -89,12 +88,9 @@ export const setLatLng = (coords) => {
       method: "get",
       url: API_STRING,
     };
-    //make api call string
-    console.log("string from setLATLNG ", API_STRING);
     try {
       //axios call
       let { data } = await axios(config);
-      console.log(data);
 
       if (data.display_name) {
         let label = data.display_name.split(",");
@@ -140,7 +136,6 @@ export const findAndSetLatLng = (address) => {
       //axios call
 
       let { data } = await axios(config);
-      console.log(data);
       if (data[0].display_name) {
         let label = data[0].display_name.split(",");
         label.splice(4, 2);
@@ -284,7 +279,6 @@ export const joinEvent = (data) => {
 
     try {
       let response = await axios(config);
-      console.log(response.data);
 
       if (response && response.data.response === true) {
         if (response.data.token) {
