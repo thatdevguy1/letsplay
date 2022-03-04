@@ -7,6 +7,7 @@ module.exports = function (req, res, next) {
     token = token.replace("Bearer ", "");
     jwt.verify(token, SECRET, function (err, decoded) {
       if (err) {
+        console.log("error in auth --> ", err);
         next();
       } else {
         req.user = decoded.user;
