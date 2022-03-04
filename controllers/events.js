@@ -101,6 +101,7 @@ async function getMyEvents(req, res) {
       ? res.send({ myEvents: user.events, response: true })
       : res.send({ myEvents: [], response: true });
   } catch (err) {
+    console.log("Error at controller");
     res.send({ message: err.message, response: false });
   }
 }
