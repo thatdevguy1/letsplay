@@ -33,8 +33,10 @@ const useStyles = makeStyles({
     overflowY: "auto",
   },
   bubble: {
+    position: "relative",
     margin: "10px auto",
     width: "98%",
+    height: "auto",
   },
   inputAndSubmit: {
     display: "flex",
@@ -107,18 +109,16 @@ const Chat = ({ selectedEvent, userInfo }) => {
                         primaryTypographyProps={{
                           style: { fontSize: ".8rem" },
                         }}
-                        align="right"
-                        inset="true"
+                        align="left"
                         primary={msg.message}
                       />
                     </Grid>
-                    <Grid item xs={3} sm={2} md={2}>
+                    <Grid item xs={4} sm={4} md={2}>
                       <ListItemText
                         primaryTypographyProps={{
                           style: { fontSize: ".8rem" },
                         }}
                         inset="true"
-                        align="right"
                         primary={msg.name}
                         secondary={msg.time}
                       />
@@ -133,7 +133,6 @@ const Chat = ({ selectedEvent, userInfo }) => {
                         primaryTypographyProps={{
                           style: { fontSize: ".8rem" },
                         }}
-                        inset="true"
                         align="left"
                         primary={msg.name}
                         secondary={msg.time}
@@ -145,7 +144,6 @@ const Chat = ({ selectedEvent, userInfo }) => {
                           style: { fontSize: ".8rem" },
                         }}
                         align="left"
-                        inset="true"
                         primary={msg.message}
                       />
                     </Grid>

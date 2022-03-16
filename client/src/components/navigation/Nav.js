@@ -16,6 +16,7 @@ import Menu from "@material-ui/core/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import HomeIcon from "@material-ui/icons/Home";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
-      display: "block",
+      display: "flex",
     },
   },
   search: {
@@ -38,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
-    },
+    marginLeft: theme.spacing(3),
+    width: "auto",
+    // [theme.breakpoints.up("sm")]: {
+    //   marginLeft: theme.spacing(3),
+    //   width: "auto",
+    // },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -76,6 +77,12 @@ const useStyles = makeStyles((theme) => ({
   sectionMobile: {
     display: "flex",
     [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
+  },
+  houseIcon: {
+    display: "flex",
+    [theme.breakpoints.up("sm")]: {
       display: "none",
     },
   },
@@ -153,6 +160,22 @@ function Nav() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem onClick={createEvent}>Create Event</MenuItem>
+      {user.signedUp ? (
+        <>
+          <AccountCircleIcon />
+          <span> {user.username} </span>
+          <Button onClick={logout}>Logout</Button>
+        </>
+      ) : (
+        <>
+          <Link to="/login">
+            <MenuItem>Login</MenuItem>
+          </Link>
+          <Link to="/signup">
+            <MenuItem>Sign Up</MenuItem>
+          </Link>
+        </>
+      )}
     </Menu>
   );
 
@@ -161,9 +184,10 @@ function Nav() {
       <div className={classes.grow}>
         <AppBar position="static">
           <Toolbar>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography variant="h6" noWrap>
               <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-                LetsPlay!
+                <span className={classes.title}>LetsPlay!</span>
+                <HomeIcon className={classes.houseIcon} />
               </Link>
             </Typography>
             <div className={classes.search}>
@@ -181,7 +205,7 @@ function Nav() {
               />
             </div>
             <div className={classes.grow} />
-            <div className="user-icon-or-login">
+            <div className={"user-icon-or-login " + classes.sectionDesktop}>
               {user.signedUp ? (
                 <>
                   <AccountCircleIcon />
@@ -222,7 +246,7 @@ function Nav() {
           </Toolbar>
         </AppBar>
         {renderMobileMenu}
-        {renderMenu}
+        {/* {renderMenu} */}
       </div>
     </div>
   );

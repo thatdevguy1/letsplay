@@ -42,7 +42,7 @@ function Participants({ eventInfo }) {
   }
 
   return (
-    <div>
+    <div className="participants">
       <h3>Participants</h3>
       <List component="nav" aria-label="contacts">
         {participants &&
