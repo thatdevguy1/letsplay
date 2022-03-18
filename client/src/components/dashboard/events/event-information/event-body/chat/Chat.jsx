@@ -101,34 +101,18 @@ const Chat = ({ selectedEvent, userInfo }) => {
             ref={chatBoxRef}
           >
             {chatLog.map((msg) => {
-              return msg.user === userInfo?.userId ? (
-                <ListItem className={classes.bubble} key={uuidv4()}>
+              return (
+                <ListItem
+                  style={
+                    msg.user === userInfo?.userId
+                      ? { backgroundColor: "#ECF2FB" }
+                      : {}
+                  }
+                  className={classes.bubble}
+                  key={uuidv4()}
+                >
                   <Grid container>
-                    <Grid item xs={8} sm={10}>
-                      <ListItemText
-                        primaryTypographyProps={{
-                          style: { fontSize: ".8rem" },
-                        }}
-                        align="left"
-                        primary={msg.message}
-                      />
-                    </Grid>
-                    <Grid item xs={4} sm={4} md={2}>
-                      <ListItemText
-                        primaryTypographyProps={{
-                          style: { fontSize: ".8rem" },
-                        }}
-                        inset="true"
-                        primary={msg.name}
-                        secondary={msg.time}
-                      />
-                    </Grid>
-                  </Grid>
-                </ListItem>
-              ) : (
-                <ListItem className={classes.bubble} key={uuidv4()}>
-                  <Grid container>
-                    <Grid item xs={4} sm={2}>
+                    <Grid item xs={5} sm={2}>
                       <ListItemText
                         primaryTypographyProps={{
                           style: { fontSize: ".8rem" },
@@ -138,7 +122,7 @@ const Chat = ({ selectedEvent, userInfo }) => {
                         secondary={msg.time}
                       />
                     </Grid>
-                    <Grid item xs={8} sm={10}>
+                    <Grid item xs={7} sm={10}>
                       <ListItemText
                         primaryTypographyProps={{
                           style: { fontSize: ".8rem" },
@@ -150,6 +134,55 @@ const Chat = ({ selectedEvent, userInfo }) => {
                   </Grid>
                 </ListItem>
               );
+              // msg.user === userInfo?.userId ? (
+              // <ListItem className={classes.bubble} key={uuidv4()}>
+              //   <Grid container>
+              //     <Grid item xs={8} sm={10}>
+              //       <ListItemText
+              //         primaryTypographyProps={{
+              //           style: { fontSize: ".8rem" },
+              //         }}
+              //         align="left"
+              //         primary={msg.message}
+              //       />
+              //     </Grid>
+              //     <Grid item xs={4} sm={4} md={2}>
+              //       <ListItemText
+              //         primaryTypographyProps={{
+              //           style: { fontSize: ".8rem" },
+              //         }}
+              //         inset="true"
+              //         primary={msg.name}
+              //         secondary={msg.time}
+              //       />
+              //     </Grid>
+              //   </Grid>
+              // </ListItem>
+              // ) : (
+              // <ListItem className={classes.bubble} key={uuidv4()}>
+              //   <Grid container>
+              //     <Grid item xs={4} sm={2}>
+              //       <ListItemText
+              //         primaryTypographyProps={{
+              //           style: { fontSize: ".8rem" },
+              //         }}
+              //         align="left"
+              //         primary={msg.name}
+              //         secondary={msg.time}
+              //       />
+              //     </Grid>
+              //     <Grid item xs={8} sm={10}>
+              //       <ListItemText
+              //         primaryTypographyProps={{
+              //           style: { fontSize: ".8rem" },
+              //         }}
+              //         align="left"
+              //         primary={msg.message}
+              //       />
+              //     </Grid>
+              //   </Grid>
+              // </ListItem>
+              // );
             })}
           </List>
           <Divider />

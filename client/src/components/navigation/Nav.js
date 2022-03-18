@@ -160,22 +160,20 @@ function Nav() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem onClick={createEvent}>Create Event</MenuItem>
-      {user.signedUp ? (
-        <>
-          <AccountCircleIcon />
-          <span> {user.username} </span>
-          <Button onClick={logout}>Logout</Button>
-        </>
-      ) : (
-        <>
-          <Link to="/login">
-            <MenuItem>Login</MenuItem>
-          </Link>
-          <Link to="/signup">
-            <MenuItem>Sign Up</MenuItem>
-          </Link>
-        </>
-      )}
+      {user.signedUp
+        ? [
+            <AccountCircleIcon />,
+            <span> {user.username} </span>,
+            <Button onClick={logout}>Logout</Button>,
+          ]
+        : [
+            <Link to="/login">
+              <MenuItem>Login</MenuItem>
+            </Link>,
+            <Link to="/signup">
+              <MenuItem>Sign Up</MenuItem>
+            </Link>,
+          ]}
     </Menu>
   );
 

@@ -25,7 +25,6 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       const userDoc = JSON.parse(atob(token.split(".")[1]));
-      console.log(userDoc);
       if (Date.now() >= userDoc.exp * 1000) {
         localStorage.removeItem("token");
       } else {
