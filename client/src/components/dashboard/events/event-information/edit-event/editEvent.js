@@ -165,6 +165,7 @@ function EditEvent(props) {
               value={eventDescription}
               onChange={handleDescription}
               fullWidth
+              multiline
             />
             {
               //props.eventInfo.selectedEvent.description
